@@ -1,2 +1,3 @@
 class User < ApplicationRecord
-end 
+  enum role: ['default', 'merchant', 'admin']
+end
