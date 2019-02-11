@@ -11,8 +11,7 @@ context 'as any kind of user ' do
 
         visit items_path
 
-        save_and_open_page
-        within "#item-#{@item_1.id}" do
+          within "#item-#{@item_1.id}" do
         expect(page).to have_content(@item_1.name)
         expect(page).to have_content("Price: #{@item_1.price}")
         expect(page).to have_xpath('//img[@src="http://theepicentre.com/wp-content/uploads/2012/07/cinnamon.jpg"]')

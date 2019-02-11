@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190210234851) do
+ActiveRecord::Schema.define(version: 20190211153618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "items", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "price"
+    t.float "price"
     t.string "name"
     t.string "image"
     t.integer "stock"
@@ -30,11 +30,15 @@ ActiveRecord::Schema.define(version: 20190210234851) do
   create_table "order_items", force: :cascade do |t|
     t.integer "item_id"
     t.integer "order_id"
-    t.integer "order_price"
+    t.float "order_price"
     t.integer "order_quantity"
     t.integer "fulfilled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "items_id"
+    t.bigint "orders_id"
+    t.index ["items_id"], name: "index_order_items_on_items_id"
+    t.index ["orders_id"], name: "index_order_items_on_orders_id"
   end
 
   create_table "orders", force: :cascade do |t|
