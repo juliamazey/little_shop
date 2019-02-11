@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   resources :items
 
   root 'welcome#index'
+
+  namespace :admin do
+    resources :users, only: [:index]
+  end
 end
