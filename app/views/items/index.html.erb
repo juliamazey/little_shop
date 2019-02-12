@@ -1,0 +1,11 @@
+<section class="items-wrapper">
+<% @items.each do |item| %>
+<section class="items-index" id="item-<%= item.id %>">
+<h3><%= item.name %></h3>
+<p>Price: <%= item.price %></p>
+<img src="<%= item.image %>" alt="<%= item.name %> Image">
+<p>Stock: <%= item.stock %></p>
+<p><%= item.description %></p>
+</section>
+<% end %>
+</section>
