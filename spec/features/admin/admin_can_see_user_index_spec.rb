@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'user index page' do
   before :each do
     @user = create(:user)
-    @user2 = create(:user)
+    @user2 = create(:user, active: false)
     @merchant = create(:user, role: 1)
     @admin = create(:user, role: 2)
   end
