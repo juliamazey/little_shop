@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :index, :create, :show, :edit]
 
   namespace :admin do
-    resources :users, only: [:index]
+    resources :users, only: [:index, :show, :edit]
   end
 
   namespace :merchant do

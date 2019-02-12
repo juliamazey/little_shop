@@ -1,13 +1,3 @@
 <h1>Welcome, <%= @user.username %>!</h1>
-<p>
-  <ul>
-    <li>Address: <%= @user.address %></li>
-    <li>City: <%= @user.city %></li>
-    <li>State: <%= @user.state %></li>
-    <li>Zip: <%= @user.zip_code %></li>
-    <li>Email: <%= @user.email %></li>
-
-  </ul>
-
-</p>
+<%= render './show' %>
 <%= link_to "Edit My Profile", edit_user_path(@user) %>
