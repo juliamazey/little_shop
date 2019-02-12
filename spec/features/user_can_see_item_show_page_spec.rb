@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "item show page", type: :feature do
   describe "when a visitor visits the item show page" do
     it "shows all the information for the item" do
-      merchant_1 = Merchant.create(username: "Scary Spice", email: "scary@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip: 12345, role: "merchant", active: 1)
-      spice_1 = merchant_1.spice.create(price: 20, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
+      merchant_1 = User.create(username: "Scary Spice", email: "scary@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip_code: 12345, role: "merchant", active: 1)
+      spice_1 = merchant_1.items.create(price: 20.00, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
       visit "items/#{spice_1.id}"
 
       within ".item_information"
@@ -18,8 +18,8 @@ RSpec.describe "item show page", type: :feature do
     end
 
     context "the viewer is a visitor or registered user" do
-      it "shows a link to add item to the cart" do
-        merchant_1 = Merchant.create(username: "Scary Spice", email: "scary@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip: 12345, role: "merchant", active: 1)
+      xit "shows a link to add item to the cart" do
+        merchant_1 = User.create(username: "Scary Spice", email: "scary@spicegirls.com", password_digest: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip: 12345, role: "merchant", active: 1)
         spice_1 = merchant_1.spice.create(price: 20, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
         visit "items/#{spice_1.id}"
 
