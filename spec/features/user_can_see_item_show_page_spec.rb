@@ -5,7 +5,8 @@ RSpec.describe "item show page", type: :feature do
     it "shows all the information for the item" do
       merchant_1 = User.create(username: "Scary Spice", email: "scary@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip_code: 12345, role: "merchant", active: 1)
       spice_1 = merchant_1.items.create(price: 20.00, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
-      visit "items/#{spice_1.id}"
+# binding.pry
+      visit item_path(spice_1)
 
       within ".item_information"
       expect(page).to have_content("Name: cinnamon")
