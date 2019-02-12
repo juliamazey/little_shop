@@ -9,12 +9,6 @@
   </head>
 
   <body>
-    <% if current_admin? %>
-      <%=  link_to "All Users", admin_users_path %>
-      <%=  link_to "Dashboard", admin_path()%>
-    <% end %>
-
-
     <%= yield %>
   </body>
 </html>
