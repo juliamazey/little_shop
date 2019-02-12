@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :items
   resources :orders
 
-  resources :users, only: [:new, :index, :create, :show]
+  resources :users, only: [:new, :index, :create, :show, :edit]
 
   namespace :admin do
     resources :users, only: [:index]
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   namespace :merchant do
     resources :users, only: [:index]
   end
-  
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
