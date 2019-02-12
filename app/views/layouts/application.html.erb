@@ -7,8 +7,18 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-
   <body>
+      <% if current_user %>
+        <%= link_to 'Log Out', logout_path %>
+      <% else %>
+        <%= link_to 'Register as a User', new_user_path %>
+        <%= link_to 'Log In', login_path %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Spices', items_path %>
+        <%= link_to 'Merchants', merchant_users_path %>
+        <!--  link_to "Cart", order_path(current_order) -->
+      <% end %>
+
     <%= yield %>
   </body>
 </html>
