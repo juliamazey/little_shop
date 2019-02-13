@@ -31,4 +31,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "instance methods" do
+    it "can test for matching passwords" do
+      
+    end
+  end
+
 end
