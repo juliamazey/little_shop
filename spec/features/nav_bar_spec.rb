@@ -2,30 +2,32 @@ require 'rails_helper'
 
 RSpec.describe 'User sees nav bar' do
   context 'as admin' do
-    xit 'allows admin to see all admin links' do
-      admin = User.create(username: "Whatever", password: 'yes', role: 2, email: "whatever@gmail.com", address: "larimer", city: "denver", state: "co", zip_code: 80124, active: 1)
+    it 'allows admin to see all admin links' do
+      admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit root_path
 
       expect(page).to have_link("All Users")
       expect(page).to have_link("Dashboard")
-
+      expect(page).to have_link("Logout")
       expect(page).to_not have_link("Log In")
+      expect(page).to_not have_link("Orders")
       # expect(page).to_not have_link("Cart")
     end
   end
 
   context 'as default user' do
-    xit "does not allow user to see admin links" do
-      # user = User.create(username: "Whatever", password: 'yes', role: 0, email: "whatever@gmail.com", address: "larimer", city: "denver", state: "co", zip_code: 80124, active: 1)
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return('admin')
+    it "i see links associated with registered user" do
+      user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit root_path
       # expect(page).to have_link("Cart")#("/cart")
 
       expect(page).to_not have_link("All Users")
-      expect(page).to_not have_link("Dashboard")
+      expect(page).to have_link("Profile")
+      expect(page).to have_link("Orders")
 
       # expect(page).to_not have_link("Cart (3)") #count of the items in my cart
     end

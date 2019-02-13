@@ -1,11 +1,11 @@
 <section class="items-wrapper">
 <% @items.each do |item| %>
 <section class="items-index" id="item-<%= item.id %>">
-<h3><%= item.name %></h3>
+<h3><%= link_to(item.name, item_path(item)) %></h3>
+<p><%= item.user.username %></p>
 <p>Price: <%= item.price %></p>
-<img src="<%= item.image %>" alt="<%= item.name %> Image">
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
 <p>Stock: <%= item.stock %></p>
-<p><%= item.description %></p>
 </section>
 <% end %>
 </section>

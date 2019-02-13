@@ -13,7 +13,7 @@ RSpec.describe 'user index page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_users_path
-      
+
       expect(page).to have_content("#{@user.username}")
       expect(page).to have_content("#{@user2.username}")
     end

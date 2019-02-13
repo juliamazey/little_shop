@@ -9,16 +9,27 @@
   </head>
   <body>
       <% if current_user %>
-        <%= link_to 'Log Out', logout_path %>
+        <%= link_to 'Logout', logout_path %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Spices', items_path %>
+        <%= link_to 'Merchants', merchant_users_path %>
+          <% unless current_admin? %>
+            <%= link_to 'Profile', user_path(current_user) %>
+            <%= link_to 'Orders', user_orders_path(current_user) %>
+          <% end %>
       <% else %>
         <%= link_to 'Register as a User', new_user_path %>
         <%= link_to 'Log In', login_path %>
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchant_users_path %>
+
         <!--  link_to "Cart", order_path(current_order) -->
       <% end %>
-
+      <% if current_admin? %>
+      <%= link_to 'All Users', admin_users_path %>
+      <%= link_to 'Dashboard', admin_user_path(current_user.id) %>
+      <% end %>
     <%= yield %>
   </body>
 </html>
