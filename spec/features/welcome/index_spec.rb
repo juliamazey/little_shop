@@ -5,7 +5,7 @@ RSpec.describe 'when i visit the root path' do
     it 'has a link for logging in' do
       visit root_path
 
-      click_on "Log in"
+      click_on "Log In"
 
       expect(current_path).to eq(login_path)
     end
