@@ -40,6 +40,12 @@ RSpec.describe 'when I visit /spices'  do
 
         expect(current_path).to eq(item_path(@item_1))
       end
-
+      it 'should have a link to add to cart' do
+        visit items_path
+        within "#item-#{@item_1.id}" do
+          expect(page).to have_button("Add to Cart")
+          
+        end
+      end
   end
 end
