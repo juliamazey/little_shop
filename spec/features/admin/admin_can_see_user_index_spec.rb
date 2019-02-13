@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'user index page' do
   before :each do
     @user = create(:user)
-    @user2 = create(:user)
+    @user2 = create(:user, active: false)
     @merchant = create(:user, role: 1)
     @admin = create(:user, role: 2)
   end
@@ -13,9 +13,11 @@ RSpec.describe 'user index page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_users_path
-      
-      expect(page).to have_content("#{@user.username}")
-      expect(page).to have_content("#{@user2.username}")
+
+      expect(page).to have_link("#{@user.username}")
+      expect(page).to have_link("#{@user2.username}")
+      expect(page).to have_button("Disable")
+      expect(page).to have_button("Enable")
     end
   end
 

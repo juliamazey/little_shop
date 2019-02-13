@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resources :items
-  resources :orders
 
-  resources :users, only: [:new, :index, :create, :show, :edit]
+
+  resources :users, only: [:new, :index, :create, :show, :edit] do
+      resources :orders, only: [:index, :show]
+  end
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit]

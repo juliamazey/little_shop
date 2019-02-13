@@ -1,4 +1,9 @@
 <h1>List of Users</h1>
 <% @users.each do |user| %>
-  <%= user.username %>
+  <%= link_to "#{user.username}" %>
+  <% if user.active == true %>
+    <%= button_to 'Disable' %>
+  <% else %>
+    <%= button_to 'Enable' %>
+  <% end %>
 <% end %>
