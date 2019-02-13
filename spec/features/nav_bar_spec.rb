@@ -50,10 +50,13 @@ RSpec.describe 'User sees nav bar' do
       expect(current_path).to eq(new_user_path)
     end
     it "just see a message confirming the item was added to the cart" do
-      item = create(:item)
+      item = create(:item, active: true)
       visit items_path
-
-      click_on 'Add to Cart'
-
+      
+      within "#item-#{item.id}" do
+        click_on "Add to Cart"
+      end
+      expect(page).to have_content("Item added to cart!")
+    end
   end
 end
