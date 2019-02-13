@@ -12,9 +12,15 @@ RSpec.describe 'when I visit /spices'  do
         visit items_path
 
           within "#item-#{@item_1.id}" do
-        expect(page).to have_content(@item_1.name)
+
+        click_on @item_1.name
+        expect(current_path).to eq(item_path(@item_1))
+
         expect(page).to have_content("Price: #{@item_1.price}")
-        expect(page).to have_xpath('//img[@src="http://theepicentre.com/wp-content/uploads/2012/07/cinnamon.jpg"]')
+
+        click_on @item_1.image
+        expect(current_path).to eq(item_path(@item_1))
+
         expect(page).to have_content("Stock: #{@item_1.stock}")
         expect(page).to have_content(@item_1.user.username)
 

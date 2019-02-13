@@ -4,4 +4,8 @@ class ItemsController < ApplicationController
     @items = Item.where(active: true)
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
 end
