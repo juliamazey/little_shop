@@ -49,5 +49,24 @@ RSpec.describe 'User sees nav bar' do
       click_on 'Register'
       expect(current_path).to eq(new_user_path)
     end
+    it "just see a message confirming the item was added to the cart" do
+      item = create(:item, active: true)
+      visit items_path
+
+      within "#item-#{item.id}" do
+        click_on "Add to Cart"
+      end
+      expect(page).to have_content("Item added to cart!")
+    end
+  end
+  it 'shows total number of items in cart' do
+    item = create(:item, active: true)
+
+    visit items_path
+    expect(page).to have_content("Cart: 0")
+    within "#item-#{item.id}" do
+      click_on "Add to Cart"
+    end
+    expect(page).to have_content("Cart: 1")
   end
 end

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :set_cart
+
   protect_from_forgery with: :exception
 
   helper_method :current_user, :current_order, :current_admin?, :current_merchant?
@@ -25,5 +27,9 @@ class ApplicationController < ActionController::Base
 
   def require_merchant
     render file: "/public/404" unless current_merchant?
+  end
+
+  def set_cart
+    @cart ||= Cart.new(session[:cart])
   end
 end

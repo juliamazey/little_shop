@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  def new
 
+  def new
   end
 
   def create
@@ -14,4 +14,5 @@ class SessionsController < ApplicationController
       render :new
     end
   end
+  
 end
