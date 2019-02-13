@@ -6,6 +6,7 @@
 <p>Price: <%= item.price %></p>
 <%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
 <p>Stock: <%= item.stock %></p>
+<%= button_to 'Add to Cart', carts_path(item_id: item.id) %>
 </section>
 <% end %>
 </section>
