@@ -10,4 +10,14 @@ RSpec.describe 'when i visit the root path' do
       expect(current_path).to eq(login_path)
     end
   end
+
+  context "as a visitor" do
+    it "has a link for registering" do
+      visit root_path
+
+      click_on "Register as a User"
+
+      expect(current_path).to eq(new_user_path)
+    end
+  end
 end

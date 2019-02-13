@@ -34,11 +34,11 @@ RSpec.describe 'when I visit /spices'  do
         click_on @item_1.name
         expect(current_path).to eq(item_path(@item_1))
 
-        # visit items_path
+        visit items_path
 
-        # find(@item_1.image).click
-        # click_on @item_1.image
-        # expect(current_path).to eq(item_path(@item_1))
+        find("#image-#{@item_1.id}").click
+
+        expect(current_path).to eq(item_path(@item_1))
       end
 
   end
