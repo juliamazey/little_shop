@@ -5,5 +5,8 @@
 <h1>Price: <%= @item.price %></h1>
 <h1>Amount available: <%= @item.stock %></h1>
 <h1>Merchant: <%= @item.user.username %></h1>
-<h1>Average time to fufill the order: ####</h1>
+<h1>Average time to fulfill the order: ####</h1>
 </section>
+<% unless current_admin? || current_merchant? %>
+  <%= link_to "Add Item to Cart", item_path(@item) %>
+<% end %>
