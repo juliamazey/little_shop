@@ -4,14 +4,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    # binding.pry
     @user = User.create(user_params)
     session[:user_id] = @user.id
     if @user.save
       redirect_to user_path(@user)
     else
+      flash[:failure] = "All fields are required"
     # session[:user_id] = @user.id
-      render :new
+      redirect_to new_user_path
     end
   end
 
