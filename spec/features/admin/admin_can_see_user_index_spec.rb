@@ -18,6 +18,8 @@ RSpec.describe 'user index page' do
       expect(page).to have_link("#{@user2.username}")
       expect(page).to have_button("Disable")
       expect(page).to have_button("Enable")
+      #expect page to have registration date for the user
+
     end
   end
 
