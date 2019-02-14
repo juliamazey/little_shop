@@ -8,7 +8,7 @@ RSpec.describe 'As and admin' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit admin_user_path(user_1)
-      
+      save_and_open_page
       expect(page).to have_content("#{user_1.username}")
       expect(page).to have_content("#{user_1.email}")
       expect(page).to_not have_content("#{user_1.password}")
