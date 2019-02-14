@@ -15,8 +15,9 @@ RSpec.describe "user registration form" do
     fill_in "Email", with: "test"
 
     click_on "Create User"
-
+# save_and_open_page
     new_user = User.last
+    binding.pry
 
     expect(page).to have_content("Welcome, #{new_user.username}")
   end

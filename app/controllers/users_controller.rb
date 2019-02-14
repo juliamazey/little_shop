@@ -8,9 +8,9 @@ class UsersController < ApplicationController
     session[:user_id] = @user.id
         # binding.pry
     if User.find_by(email: user_params[:email])
+      binding.pry
       flash[:failure] = "That email is already in use"
       redirect_to new_user_path
-
     else
       if user_params[:password] == user_params[:password_confirmation]
         if @user.save
