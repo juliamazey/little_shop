@@ -1,7 +1,7 @@
 require 'csv'
 
-User.destroy_all
 Item.destroy_all
+User.destroy_all
 
 merchants = [
 merchant_1 = User.create(role: 1, username: "Scary Spice", password: "dontbescared", email: "melanie@scary.com", address: "123 Main Street", city: "Malibu", state: "CA", zip_code: 12345, active: true),
