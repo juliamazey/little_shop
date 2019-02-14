@@ -1,0 +1,13 @@
+
+<% @items.each do |item| %>
+<section class="items-index" id="item-<%= item.id %>">
+  <%= item.name %>
+  <%= item.image %>
+  <%= item.user.username %>
+  <%= number_to_currency(item.price) %>
+  <p>Stock: <%= item.stock %></p>
+  <p>Subtotal: <%= number_to_currency(@cart.subtotal(item)) %> </p>
+  <% end %>
+<h3>Grand Total: <%= number_to_currency(@cart.grand_total) %> </h3>
+  </section>
+<%= link_to "Empty Cart", empty_cart_path %>

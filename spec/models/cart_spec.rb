@@ -20,4 +20,12 @@ RSpec.describe Cart do
       expect(cart.contents).to eq({"1" => "6", "2" => "4"})
     end
   end
+
+  it 'can get items' do
+    item1, item2 = create_list(:item, 2)
+    cart = Cart.new({})
+    cart.add_item(item1.id)
+    cart.add_item(item2.id)
+    expect(cart.get_items).to eq([item1,item2])
+  end
 end
