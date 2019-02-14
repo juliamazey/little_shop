@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/dashboard', to: "users#show", as: :dashboard
+    resources :users, only: [:index]
   end
 
   resources :users, only: [:new, :index, :create, :show, :edit] do
@@ -19,9 +20,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit]
   end
 
-  namespace :merchant do
-    resources :users, only: [:index]
-  end
+  # namespace :merchant do
+  # end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
