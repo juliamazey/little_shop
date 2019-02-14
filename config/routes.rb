@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resources :items
-  resources :carts, only: [:create, :show]
+  resources :carts, only: [:create]
+
+  get '/cart', to: "carts#show", as: :cart
+  get '/empty', to: "cart#destroy", as: :empty_cart
 
   resources :users, only: [:new, :index, :create, :show, :edit] do
       resources :orders, only: [:index, :show]
