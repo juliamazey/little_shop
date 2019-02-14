@@ -1,0 +1,7 @@
+<h1>All Orders</h1>
+  <% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+  <p>"Total Items: <%= order.total_items(order) %>"</p>
+  <p>"Grand Total: <%= order.grand_total %>"</p>
+  </section>
+  <% end %>

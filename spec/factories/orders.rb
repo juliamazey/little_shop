@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :order do
-    status
+    quantity { 5 }
+    status { 0 }
   end
 end
