@@ -7,7 +7,7 @@ FactoryBot.define do
     city {"testville"}
     state {"colorado"}
     zip_code {"11111"}
-    active {1}
+    active {true}
     role {0}
   end
 end
