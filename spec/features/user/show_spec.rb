@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "As a registered user" do
+RSpec.describe "As a registered user" do
   context "When I visit my own profile page" do
     it "should see all of my profile data, except my password" do
       user_1 = create(:user)
