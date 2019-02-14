@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "cart#destroy", as: :empty_cart
 
+  namespace :merchant do
+    get '/dashboard', to: "users#show", as: :dashboard
+  end
+
   resources :users, only: [:new, :index, :create, :show, :edit] do
       resources :orders, only: [:index, :show]
   end
