@@ -5,6 +5,7 @@ RSpec.describe 'As a registered user' do
     it 'displays all my orders' do
 
       user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       item_1 = create(:item, active: true)
       item_2 = create(:item, active: true, stock: 20)
 
