@@ -4,12 +4,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to user_path(@user)
+    @user = User.create(user_params)
+    session[:user_id] = @user.id
+    if user_params[:password] == user_params[:password_confirmation]
+      if @user.save
+        redirect_to user_path(@user)
+      else
+        flash[:failure] = "All fields are required"
+        redirect_to new_user_path
+      end
     else
-    # session[:user_id] = @user.id
-      render :new
+      flash[:failure] = "Password confirmation failed"
+      redirect_to new_user_path
     end
   end
 
@@ -20,6 +26,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :password_confirmation, :address, :city, :state, :zip_code, :email)
   end
 end

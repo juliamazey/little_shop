@@ -7,4 +7,8 @@ class User < ApplicationRecord
 
   enum role: ['default', 'merchant', 'admin']
 
+  def matching_passwords?
+    
+  end
+
 end

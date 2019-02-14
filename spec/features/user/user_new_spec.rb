@@ -7,6 +7,12 @@ RSpec.describe "user registration form" do
 
     fill_in "Username", with: "Posh"
     fill_in "Password", with: "test"
+    fill_in "Password confirmation", with: "test"
+    fill_in "Address", with: "test"
+    fill_in "City", with: "test"
+    fill_in "State", with: "test"
+    fill_in "Zip code", with: 12345
+    fill_in "Email", with: "test"
 
     click_on "Create User"
 
@@ -14,5 +20,44 @@ RSpec.describe "user registration form" do
 
     expect(page).to have_content("Welcome, #{new_user.username}")
   end
+
+  it "shows a flash message if info is missing" do
+
+    visit new_user_path
+
+    fill_in "Username", with: "Posh"
+    fill_in "Password", with: "test"
+    fill_in "Password confirmation", with: "test"
+    fill_in "Address", with: "test"
+    fill_in "City", with: "test"
+    fill_in "State", with: "test"
+    fill_in "Zip code", with: 12345
+
+    click_on "Create User"
+
+    expect(page).to have_content("All fields are required")
+    expect(current_path).to eq(new_user_path)
+  end
+
+
+    it "shows a flash message if passwords are the same" do
+
+      visit new_user_path
+
+      fill_in "Username", with: "Posh"
+      fill_in "Password", with: "test"
+      fill_in "Password confirmation", with: "test2"
+      fill_in "Address", with: "test"
+      fill_in "City", with: "test"
+      fill_in "State", with: "test"
+      fill_in "Zip code", with: 12345
+      fill_in "Email", with: "test"
+
+      click_on "Create User"
+
+      expect(page).to have_content("Password confirmation failed")
+      expect(current_path).to eq(new_user_path)
+    end
+
 
 end

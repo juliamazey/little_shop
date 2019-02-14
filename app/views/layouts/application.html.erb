@@ -25,8 +25,12 @@
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchant_users_path %>
+<<<<<<< Updated upstream
         <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
 
+=======
+        <%= link_to "Cart", cart_path(@cart) %>
+>>>>>>> Stashed changes
       <% end %>
       <% if current_admin? %>
       <%= link_to 'All Users', admin_users_path %>
