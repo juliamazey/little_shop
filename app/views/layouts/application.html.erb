@@ -13,8 +13,10 @@
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchant_users_path %>
+        <%= link_to 'Log Out', root_path %>
+
           <% unless current_admin? %>
-            <%= link_to 'Profile', user_path(current_user) %>
+            <%= link_to 'My Profile', user_path(current_user) %>
             <%= link_to 'Orders', user_orders_path(current_user) %>
             <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
 

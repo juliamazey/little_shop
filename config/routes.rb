@@ -4,8 +4,15 @@ Rails.application.routes.draw do
   resources :items
   resources :carts, only: [:create]
 
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
+
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "cart#destroy", as: :empty_cart
+
+  get '/profile', to: 'users#show'
+  get '/profile/orders', to: 'orders#index'
 
   resources :users, only: [:new, :index, :create, :show, :edit] do
       resources :orders, only: [:index, :show]
@@ -15,12 +22,12 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit]
   end
 
+  resources :orders, only: [:index]
+
   namespace :merchant do
     resources :users, only: [:index]
   end
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  get '/logout', to: 'sessions#destroy'
+
 
 end
