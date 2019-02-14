@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190214181505) do
+ActiveRecord::Schema.define(version: 20190214205919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20190214181505) do
     t.integer "order_id"
     t.float "order_price"
     t.integer "order_quantity"
-    t.integer "fulfilled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "items_id"
     t.bigint "orders_id"
+    t.boolean "fulfilled", default: false
     t.index ["items_id"], name: "index_order_items_on_items_id"
     t.index ["orders_id"], name: "index_order_items_on_orders_id"
   end
