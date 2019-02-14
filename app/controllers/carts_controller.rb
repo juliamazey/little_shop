@@ -9,4 +9,9 @@ class CartsController < ApplicationController
     flash[:success] = "Item added to cart!"
     redirect_to items_path
   end
+
+  def show
+    
+  end
+
 end

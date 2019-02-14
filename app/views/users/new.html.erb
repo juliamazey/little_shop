@@ -6,6 +6,24 @@
 <%= f.label :password %>
 <%= f.password_field :password %>
 
+<%= f.label :password_confirmation %>
+<%= f.password_field :password_confirmation %>
+
+<%= f.label :address %>
+<%= f.text_field :address %>
+
+<%= f.label :city %>
+<%= f.text_field :city %>
+
+<%= f.label :state %>
+<%= f.text_field :state %>
+
+<%= f.label :zip_code %>
+<%= f.number_field :zip_code %>
+
+<%= f.label :email %>
+<%= f.text_field :email %>
+
 <%= f.submit %>
 
 <% end %>

@@ -27,7 +27,7 @@ RSpec.describe 'user index page' do
 
       visit admin_users_path
 
-      expect(page).to have_content("The page you were looking for doesn't exist.")
+      expect(page).to have_content("That page was too spicy")
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe 'user index page' do
 
       visit admin_users_path
 
-      expect(page).to have_content("The page you were looking for doesn't exist.")
+      expect(page).to have_content("That page was too spicy")
     end
   end
 end
