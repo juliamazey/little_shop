@@ -44,17 +44,14 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to have_link("Empty Cart")
     end
 
-    it 'click the link to empty my cart' do
+#story 27
+    it 'sees a message that the cart is empty' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit cart_path
 
-      expect(page).to have_content(@item.name)
-      expect(page).to have_link "Empty Cart"
-
-      visit cart_path
-
       expect(page).to_not have_content(@item.name)
-      expect(page).to have_content("Cart: 0")
+      expect(page).to_not have_link "Empty Cart"
+      expect(page).to have_content("Your cart is empty.")
     end
   end
 end

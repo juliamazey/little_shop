@@ -10,4 +10,8 @@
   <% end %>
 <h3>Grand Total: <%= number_to_currency(@cart.grand_total) %> </h3>
   </section>
-<%= link_to "Empty Cart", empty_cart_path %>
+<% if @cart.get_items == [] %>
+  <h2><%= "Your cart is empty." %></h2>
+<% else %>
+  <%= link_to "Empty Cart", empty_cart_path %>
+<% end %>
