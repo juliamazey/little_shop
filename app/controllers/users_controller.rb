@@ -26,7 +26,11 @@ class UsersController < ApplicationController
 
   def show
     if current_user
-      @user = User.find(params[:format])
+      unless current_merchant? || current_admin?
+        @user = User.find(params[:format])
+      else
+        render file: "/public/404"
+      end
     else
       render file: "/public/404"
     end

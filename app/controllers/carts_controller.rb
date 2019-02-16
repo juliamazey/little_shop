@@ -11,7 +11,11 @@ class CartsController < ApplicationController
   end
 
   def show
-    @items = @cart.get_items
+    unless current_merchant? || current_admin
+      @items = @cart.get_items
+    else
+      render file: "/public/404"
+    end
   end
 
   def destroy
