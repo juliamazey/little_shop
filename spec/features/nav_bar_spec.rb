@@ -80,4 +80,26 @@ RSpec.describe 'User sees nav bar' do
     end
 
   end
+
+  context 'as a merchant' do
+    it 'shows some links on the nav bar' do
+      user = create(:user, role: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit root_path
+
+      expect(page).to have_link("Home")
+      expect(page).to have_link("Spices")
+      expect(page).to have_link("Merchants")
+      expect(page).to have_link("Log Out")
+      click_on 'Dashboard'
+      expect(current_path).to eq(merchant_dashboard_path(user))
+
+      expect(page).to_not have_link("Log In")
+      expect(page).to_not have_link("Cart: 0")
+      expect(page).to_not have_link("Register")
+
+    end
+  end
 end
