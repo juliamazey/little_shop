@@ -1,12 +1,17 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = Item.where(active: true)
+    @items = Item.select_active
   end
 
   def show
     @item = Item.find(params[:id])
-    @cart
+  end
+
+private
+
+  def item_params
+    params.require(:item).permit(:price, :stock, :active, :description, :name)
   end
 
 end
