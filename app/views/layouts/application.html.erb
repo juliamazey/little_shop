@@ -8,6 +8,8 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
+    <section class="body">
+      <section class="navbar">
       <% if current_user %>
         <%= link_to 'Logout', logout_path %>
         <%= link_to 'Home', root_path %>
@@ -33,6 +35,8 @@
       <%= link_to 'All Users', admin_users_path %>
       <%= link_to 'Dashboard', admin_user_path(current_user.id) %>
       <% end %>
+      </section>
     <%= yield %>
+    </section>
   </body>
 </html>
