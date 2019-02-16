@@ -25,11 +25,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-      @user = User.find(params[:id])
+      @user = current_user
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def update
@@ -43,7 +43,8 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
-      redirect_to user_path(@user)
+      flash[:success] = "User profile updated."
+      redirect_to profile_path
     else
       render :edit
     end
