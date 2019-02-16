@@ -12,6 +12,7 @@ RSpec.describe 'user login spec' do
       click_on "Log in"
 
       expect(current_path).to eq(profile_path(user))
+      expect(page).to have_content("You are logged in")
     end
   end
 
@@ -26,6 +27,7 @@ RSpec.describe 'user login spec' do
       click_on "Log in"
 
       expect(current_path).to eq(merchant_dashboard_path(user))
+      expect(page).to have_content("You are logged in")
     end
   end
 
@@ -40,6 +42,7 @@ RSpec.describe 'user login spec' do
       click_on "Log in"
 
       expect(current_path).to eq(root_path)
+      expect(page).to have_content("You are logged in")
     end
   end
 
