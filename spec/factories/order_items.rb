@@ -3,7 +3,7 @@ FactoryBot.define do
     fulfilled { false }
     item
     order
-    order_price { item.price }
-    order_quantity { order.quantity }
+    order_quantity { 4 }
+    order_price { (item.price) * self.order_quantity }
   end
 end
