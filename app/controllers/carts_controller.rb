@@ -11,7 +11,7 @@ class CartsController < ApplicationController
   end
 
   def show
-    unless current_merchant? || current_admin
+    unless current_merchant? || current_admin?
       @items = @cart.get_items
     else
       render file: "/public/404"

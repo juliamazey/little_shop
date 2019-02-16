@@ -56,4 +56,26 @@ RSpec.describe 'Users cannot navigate to certain paths' do
     end
   end
 
+  context 'as a admin' do
+    it 'cannot visit certain paths' do
+      user = create(:user)
+      merchant = create(:user, role: 1)
+      admin = create(:user, role: 2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit profile_path(user)
+
+      expect(page).to have_content("That page was too spicy")
+
+      visit merchant_dashboard_path(merchant)
+
+      expect(page).to have_content("That page was too spicy")
+
+      visit cart_path
+
+      expect(page).to have_content("That page was too spicy")
+    end
+  end
+
 end
