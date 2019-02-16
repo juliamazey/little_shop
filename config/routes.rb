@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :users, only: [:new, :index, :create, :show, :edit] do
+  resources :users, only: [:new, :index, :create, :edit] do
       resources :orders, only: [:index, :show]
   end
 

@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     session[:user_id] = @user.id
-        # binding.pry
     if User.find_by(email: user_params[:email])
       flash[:failure] = "That email is already in use"
       redirect_to new_user_path
@@ -26,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:format])
   end
 
   private

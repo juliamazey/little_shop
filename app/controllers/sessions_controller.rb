@@ -8,8 +8,14 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-
-      redirect_to user_path(user)
+      flash[:success] = "You are logged in"
+      if user.merchant?
+        redirect_to merchant_dashboard_path(user)
+      elsif user.admin?
+        redirect_to root_path
+      else
+        redirect_to profile_path(user)
+      end
     else
       render :new
     end
