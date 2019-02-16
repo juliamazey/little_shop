@@ -1,6 +1,7 @@
 <h1>List of Users</h1>
 <% @users.each do |user| %>
   <%= link_to "#{user.username}" %>
+  <p>Registration Date: <%= user.created_at %></p>             
   <% if user.active == true %>
     <%= button_to 'Disable' %>
   <% else %>
