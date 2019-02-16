@@ -8,13 +8,12 @@ class Order < ApplicationRecord
     where(users_id: user_id)
   end
 
-  def total_items(order)
-    # binding.pry
-
+  def total_items
+    order_items.sum {|order_item| order_item.order_quantity}
   end
 
   def grand_total
-
+    order_items.sum {|order_item| order_item.order_price}
   end
 
 

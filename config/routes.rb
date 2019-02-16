@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
 
-
   get '/profile', to: 'users#show'
   get '/profile/orders', to: 'orders#index'
 
@@ -28,9 +27,5 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
   end
-
-
-  #resources :orders, only: [:index]
-
 
 end
