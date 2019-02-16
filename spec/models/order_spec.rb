@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+
   before :each do
     @merchant_1 = User.create!(username: "Scary Spice", email: "scarier@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip_code: 12345, role: "merchant", active: 1)
     @spice_1 = @merchant_1.items.create!(price: 20.00, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
@@ -21,6 +22,39 @@ end
 
       expect(@spice_1.average_fulfillment).to eq(4)
     end
+
   end
+
+    it '.total_items' do
+      user = create(:user)
+      item_1 = create(:item, active: true)
+      item_2 = create(:item, active: true, stock: 20)
+
+      order_1 = create(:order, users_id: user.id)
+      order_2 = create(:order, users_id: user.id)
+
+      order_items_1 = create(:order_item, item: item_1, order: order_1)
+      order_items_2 = create(:order_item, item: item_2, order: order_1)
+      order_items_3 = create(:order_item, item: item_2, order: order_2)
+
+      expect(order_1.total_items).to eq(8)
+      expect(order_2.total_items).to eq(4)
+    end
+
+    it '.grand_total' do
+      user = create(:user)
+      item_1 = create(:item, active: true)
+      item_2 = create(:item, active: true, stock: 20)
+
+      order_1 = create(:order, users_id: user.id)
+
+      order_items_1 = create(:order_item, item: item_1, order: order_1)
+      order_items_2 = create(:order_item, item: item_2, order: order_1)
+
+      expect(order_1.grand_total).to eq(32)
+    end
   end
+
+
+
 end

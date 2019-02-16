@@ -15,10 +15,10 @@
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchant_users_path %>
-        <%= link_to 'Log Out', root_path %>
-        
-          <% unless current_admin? %>
-            <%= link_to 'My Profile', user_path(current_user) %>
+        <%= link_to 'Log Out', logout_path %>
+
+          <% unless current_admin? || current_merchant? %>
+            <%= link_to 'My Profile', profile_path(current_user) %>
             <%= link_to 'My Orders', user_orders_path(current_user) %>
             <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
 
@@ -30,6 +30,9 @@
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchant_users_path %>
         <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
+      <% end %>
+      <% if current_merchant? %>
+      <%= link_to 'Dashboard', merchant_dashboard_path(current_user) %>
       <% end %>
       <% if current_admin? %>
       <%= link_to 'All Users', admin_users_path %>

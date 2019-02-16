@@ -1,3 +1,7 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
 <h1 class="welcome_page">Welcome to The Little Shop of Spices!</h1>
 <img class="splash_image" src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2018/04/26/Pictures/_e80527ae-493b-11e8-b98f-44ca1ff8ed36.jpg" alt="picture of various spices">
 <h2 class="welcome_page"><p>This is a group project for the Turing School of Software and Design's</p>

@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+    @user = User.find(params[:format])
   end
 
   private
