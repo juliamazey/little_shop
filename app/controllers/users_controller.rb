@@ -24,7 +24,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+      @user = current_user
+  end
+
   def show
+    @user = current_user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.username = params[:user][:username]
+    @user.address = params[:user][:address]
+    @user.city = params[:user][:city]
+    @user.state = params[:user][:state]
+    @user.zip_code = params[:user][:zip_code]
+    @user.email = params[:user][:email]
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    if @user.save
+      flash[:success] = "User profile updated."
+      redirect_to profile_path
+    else
+      render :edit
+    end
     @user = User.find(params[:format])
   end
 

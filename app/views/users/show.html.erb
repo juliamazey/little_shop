@@ -4,4 +4,5 @@
 
 <h1>Welcome, <%= @user.username %>!</h1>
 <%= render './show' %>
-<%= link_to "Edit My Profile", edit_user_path(@user) %>
+<%= link_to "Edit My Profile", '/profile/edit' %>
+ <!-- edit_user_path(@user) -->
