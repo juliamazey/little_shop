@@ -1,7 +1,10 @@
 require 'rails_helper'
 describe 'As a visitor' do
   before :each do
-    user_1 = User.create(username: "jlo5")
+    @user_1 = User.create(username: "jlo5")
+    @item_1 = create(:item, active: true)
+    @item_2 = create(:item, active: true)
+    @item_3 = create(:item, active: false)
   end
 
   describe 'I see a navigation bar' do

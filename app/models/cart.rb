@@ -32,4 +32,5 @@ class Cart
     item.price * quantity.to_i
   end
 
+
 end

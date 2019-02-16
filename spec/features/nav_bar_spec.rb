@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'User sees nav bar' do
+  before :each do
+    @user = create(:user, role: 1)
+    @item_1 = create(:item, active: true)
+    @item_2 = create(:item, active: true)
+    @item_3 = create(:item, active: false)
+  end
+
   context 'as admin' do
     it 'allows admin to see all admin links' do
       admin = create(:user, role: 2)
@@ -34,21 +41,20 @@ RSpec.describe 'User sees nav bar' do
       expect(current_path).to eq(new_user_path)
     end
     it "just see a message confirming the item was added to the cart" do
-      item = create(:item, active: true)
       visit items_path
 
-      within "#item-#{item.id}" do
+      within "#item-#{@item_1.id}" do
         click_on "Add to Cart"
       end
       expect(page).to have_content("Item added to cart!")
     end
   end
+
   it 'shows total number of items in cart' do
-    item = create(:item, active: true)
 
     visit items_path
     expect(page).to have_content("Cart: 0")
-    within "#item-#{item.id}" do
+    within "#item-#{@item_1.id}" do
       click_on "Add to Cart"
     end
     expect(page).to have_content("Cart: 1")

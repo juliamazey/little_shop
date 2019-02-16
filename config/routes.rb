@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resources :items
-  resources :carts, only: [:create]
+  resources :carts, only: [:create, :edit]
+  get '/cart', to: "carts#show", as: :cart
+  get '/empty', to: "carts#destroy", as: :empty_cart
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  get '/cart', to: "carts#show", as: :cart
-  get '/empty', to: "cart#destroy", as: :empty_cart
 
 
   get '/profile', to: 'users#show'
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :orders, only: [:index]
+  #resources :orders, only: [:index]
 
 
 end
