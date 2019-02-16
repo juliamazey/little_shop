@@ -53,5 +53,26 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to_not have_link "Empty Cart"
       expect(page).to have_content("Your cart is empty.")
     end
+
+    #story 28
+    it 'can empty cart' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit items_path
+      within "#item-#{@item.id}" do
+        click_on "Add to Cart"
+        click_on "Add to Cart"
+      end
+      within "#item-#{@item2.id}" do
+        click_on "Add to Cart"
+      end
+      visit cart_path
+
+      click_on "Empty Cart"
+      expect(page).to_not have_content(@item.name)
+      expect(page).to_not have_content(@item2.name)
+      expect(page).to have_content("Cart: 0")
+
+      expect(current_path).to eq(cart_path)
+    end
   end
 end

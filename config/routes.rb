@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :items
   resources :carts, only: [:create, :edit]
   get '/cart', to: "carts#show", as: :cart
-  get '/empty', to: "cart#destroy", as: :empty_cart
+  get '/empty', to: "carts#destroy", as: :empty_cart
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

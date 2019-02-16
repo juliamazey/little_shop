@@ -14,6 +14,10 @@ class CartsController < ApplicationController
     @items = @cart.get_items
   end
 
+  def destroy
+    session[:cart].clear
+    redirect_to cart_path
+  end
 
 private
   def cart_params

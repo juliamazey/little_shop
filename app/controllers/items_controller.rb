@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = Item.select_all
+    @items = Item.select_active
   end
 
   def show
