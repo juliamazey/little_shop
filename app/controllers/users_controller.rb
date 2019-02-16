@@ -25,7 +25,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:format])
+    if current_user
+      @user = User.find(params[:format])
+    else
+      render file: "/public/404"
+    end
   end
 
   private

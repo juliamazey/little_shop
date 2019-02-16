@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       elsif current_user.admin?
         redirect_to root_path
       else
-        redirect_to profile_path(current_user)
+        redirect_to profile_path
       end
     end
   end
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       elsif user.admin?
         redirect_to root_path
       else
-        redirect_to profile_path(user)
+        redirect_to profile_path
       end
     else
       render :new
