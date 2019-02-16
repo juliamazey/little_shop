@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     session[:user_id] = @user.id
-        # binding.pry
     if User.find_by(email: user_params[:email])
       flash[:failure] = "That email is already in use"
       redirect_to new_user_path
@@ -25,8 +24,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+      @user = User.find(params[:id])
+  end
+
   def show
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.username = params[:user][:username]
+    @user.address = params[:user][:address]
+    @user.city = params[:user][:city]
+    @user.state = params[:user][:state]
+    @user.zip_code = params[:user][:zip_code]
+    @user.email = params[:user][:email]
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :edit
+    end
   end
 
   private
