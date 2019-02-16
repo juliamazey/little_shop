@@ -13,9 +13,6 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
-  def require_admin
-    render file: "/public/404" unless current_admin?
-  end
 
   def current_order
     Order.last #find(session[:id])

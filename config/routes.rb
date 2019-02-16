@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resources :items
-  resources :carts, only: [:create]
+  resources :carts, only: [:create, :edit]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

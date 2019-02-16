@@ -11,9 +11,13 @@ class CartsController < ApplicationController
   end
 
   def show
-
     @items = @cart.get_items
+  end
 
+
+private
+  def cart_params
+    params.require(:cart).permit(:order_quantity)
   end
 
 end
