@@ -11,7 +11,6 @@ RSpec.describe 'As a visitor or registered user' do
     it 'sees all items and their attributes' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit items_path
-      save_and_open_page
       within "#item-#{@item.id}" do
         click_button "Add to Cart"
       end
@@ -54,7 +53,6 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to have_content("Your cart is empty.")
     end
 
-    #story 28
     it 'can empty cart' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit items_path
@@ -73,6 +71,25 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to have_content("Cart: 0")
 
       expect(current_path).to eq(cart_path)
+    end
+
+    it "cannot checkout if it isn't a user" do
+      visit items_path
+      within "#item-#{@item.id}" do
+        click_on "Add to Cart"
+        click_on "Add to Cart"
+      end
+      within "#item-#{@item2.id}" do
+        click_on "Add to Cart"
+      end
+      visit cart_path
+
+      expect(page).to have_content("You need to have an account to checkout")
+      expect(page).to have_link("Click here to register")
+      expect(page).to have_link("Click here to log in")
+
+      click_on "Click here to register"
+      expect(current_path).to eq(new_user_path)
     end
   end
 end
