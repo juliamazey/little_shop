@@ -1,11 +1,12 @@
 class Order < ApplicationRecord
   has_many :order_items
   has_many :items, through: :order_items
+  belongs_to :user
 
   enum status: ['pending', 'cancelled', 'shipped']
 
   def self.find_by_user(user_id)
-    where(users_id: user_id)
+    where(user_id: user_id)
   end
 
   def total_items
@@ -25,7 +26,7 @@ class Order < ApplicationRecord
 
   def self.top_five(merchant)
     # hi = merchant_orders(merchant)
-    binding.pry
+    # binding.pry
   end
 
 
