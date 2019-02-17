@@ -6,6 +6,10 @@
 <%= render './show' %>
 <%= link_to "Edit My Profile", '/profile/edit' %>
 
+<% if @orders.empty? %>
+  <%= link_to "My Orders", '/profile/orders' %>
+<% end %>
+
 <h3>Pending Orders</h3>
 <% @orders.each do |order| %>
   <% order.items.each do |item|%>

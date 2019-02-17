@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   get '/profile', to: 'users#show'
-  get '/profile/orders', to: 'orders#index'
   get '/profile/edit', to: 'users#edit'
+  # get '/profile/orders', to: 'orders#index'
 
   namespace :merchant do
     get '/dashboard', to: "users#show", as: :dashboard
@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new, :index, :create, :update] do
-      resources :orders, only: [:index, :show, :create]
+    resources :orders, only: [:show, :create]
+    get '/profile/orders', to: 'orders#index'
+
   end
 
   namespace :admin do
