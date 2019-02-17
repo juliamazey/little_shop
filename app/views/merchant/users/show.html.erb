@@ -8,3 +8,11 @@
 <%= "City: #{@merchant.city}" %>
 <%= "State: #{@merchant.state}" %>
 <%= "Zip: #{@merchant.zip_code}" %>
+
+<h2>Pending Orders</h2>
+<% @orders.each do |order| %>
+<%= link_to "Order # #{order.id}", merchant_dashboard_order_path(order) %>
+<%= "Order placed at: #{order.created_at}" %>
+<%= "Total Quantity: #{order.total_items}" %>
+<%= "Total Value: #{order.grand_total}" %>
+<% end %>

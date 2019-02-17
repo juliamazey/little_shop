@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/dashboard', to: "users#show", as: :dashboard
+    get '/dashboard/orders/:id', to: "orders#show", as: :dashboard_order
     resources :users, only: [:index]
   end
 
