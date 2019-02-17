@@ -42,6 +42,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    # binding.pry
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
     @user.address = params[:user][:address]
@@ -54,7 +55,11 @@ class UsersController < ApplicationController
     # binding.pry
     if @user.save
       flash[:success] = "User profile updated."
-      redirect_to profile_path
+      if @user.admin?
+        redirect_to admin_user_path(@user)
+      else
+        redirect_to profile_path
+      end
     else
       flash[:failure] = "That email address is already in use."
       redirect_to profile_edit_path
