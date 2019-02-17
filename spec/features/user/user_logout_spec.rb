@@ -22,7 +22,6 @@ RSpec.describe 'user logout spec' do
       click_on "Log Out"
 
       expect(current_path).to eq(root_path)
-      save_and_open_page
 
       expect(page).to have_content("You have been logged out")
       expect(page).to have_content("Cart: 0")

@@ -1,27 +1,60 @@
-require 'csv'
+require 'factory_bot_rails'
 
+include FactoryBot::Syntax::Methods
+
+OrderItem.destroy_all
+Order.destroy_all
 Item.destroy_all
 User.destroy_all
 
-merchants = [
-merchant_1 = User.create(role: 1, username: "Scary Spice", password: "dontbescared", email: "melanie@scary.com", address: "123 Main Street", city: "Malibu", state: "CA", zip_code: 12345, active: true),
-merchant_2 = User.create(role: 1, username: "Posh Spice", password: "imextravagant", email: "victoria@beckham.com", address: "345 John Doe Avenue", city: "Hollywood", state: "CA", zip_code: 23456, active: true),
-merchant_3 = User.create(role: 1, username: "Sporty Spice", password: "letsplay", email: "melanie@soccerstar.com", address: "456 Uptown Drive", city: "New York City", state: "NY", zip_code: 34567, active: true),
-merchant_4 = User.create(role: 1, username: "Ginger Spice", password: "redheadsarethebest", email: "geri@halliwell.com", address: "567 Bel Air Drive", city: "Chicago", state: "IL", zip_code: 45678, active: true),
-merchant_5 = User.create(role: 1, username: "Baby Spice", password: "wheresmybottle", email: "emma@popstar.com", address: "678 Hollywoood Boulevard", city: "Vail", state: "CO", zip_code: 56789, active: true),
-merchant_6 = User.create(role: 1, username: "Pumpkin Spice", password: "givemealatte", email: "coffeedrinker@starbucks.com", address: "789 Aurora Drive", city: "Seattle", state: "WA", zip_code: 67890, active: true),
-merchant_7 = User.create(role: 1, username: "Sara", password: "bananas", email: "leadsinger@banarama.com", address: "890 Hill Drive", city: "Miami", state: "FL", zip_code: 98765, active: true),
-merchant_8 = User.create(role: 1, username: "Siobhan", password: "80spopstar", email: "backupsinger@banarama.com", address: "987 Elm Street", city: "Detroit", state: "MI", zip_code: 87654, active: true),
-merchant_9 = User.create(role: 1, username: "Keren", password: "girlbandpower", email: "banaramarules@charttoppers.com", address: "876 Laurel Circle", city: "St Louis", state: "MO", zip_code: 76543, active: true),
-merchant_10 = User.create(role: 1, username: "Susanna", password: "banglesrule", email: "vocalsuperstar@thebangles.com", address: "765 Sesame Street", city: "Dallas", state: "TX", zip_code: 65432, active: true),
-merchant_11 = User.create(role: 1, username: "Debbi", password: "banglesforever", email: "guitars@thebangles.com", address: "654 Capitol Drive", city: "Las Vegas", state: "NV", zip_code: 54321, active: true),
-merchant_12 = User.create(role: 1, username: "Vicki", password: "manicmonday", email: "drummer@popsuperstar.com", address: "543 East 22nd Street", city: "Charleston", state: "SC", zip_code: 22334, active: true)
-]
+admin = create(:user, role: 2)
+user = create(:user)
+merchant_1 = create(:user, role: 1)
 
-lines = CSV.new(File.open('./db/LS.csv'), headers: true, header_converters: :symbol).read
-lines.each do |line|
+merchant_2 = create(:user, role: 1)
+merchant_3 = create(:user, role: 1)
+merchant_4 = create(:user, role: 1)
 
-line = line.to_h
+inactive_merchant_1 = create(:user, role: 1, active: false)
+inactive_user_1 = create(:user, active: false)
 
-merchants.sample.items.create!(line)
-end
+item_1 = create(:item, user: merchant_1, active: true)
+item_2 = create(:item, user: merchant_2, active: true)
+item_3 = create(:item, user: merchant_3, active: true)
+item_4 = create(:item, user: merchant_4, active: true)
+create_list(:item, 10, user: merchant_1, active: true)
+
+inactive_item_1 = create(:item, user: merchant_1)
+inactive_item_2 = create(:item, user: inactive_merchant_1)
+
+Random.new_seed
+rng = Random.new
+
+order = create(:order, users_id: user.id, status: 2)
+create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1, created_at: (rng.rand(3)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+create(:order_item, order: order, item: item_3, order_price: 3, order_quantity: 1, created_at: (rng.rand(5)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+create(:order_item, order: order, item: item_4, order_price: 4, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+
+# pending order
+order = create(:order, users_id: user.id)
+create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1)
+create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).days.ago, updated_at: rng.rand(23).hours.ago, fulfilled: true)
+
+order = create(:order, users_id: user.id, status: 1)
+create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago)
+create(:order_item, order: order, item: item_3, order_price: 3, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago)
+
+order = create(:order, users_id: user.id, status: 2)
+create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1, created_at: (rng.rand(4)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
+
+
+
+
+
+puts 'seed data finished'
+puts "Users created: #{User.count.to_i}"
+puts "Orders created: #{Order.count.to_i}"
+puts "Items created: #{Item.count.to_i}"
+puts "OrderItems created: #{OrderItem.count.to_i}"

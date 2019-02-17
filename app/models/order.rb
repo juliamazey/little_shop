@@ -8,7 +8,7 @@ class Order < ApplicationRecord
     where(users_id: user_id)
   end
 
-  def total_items'
+  def total_items
     #might move this to Order Item model
     # joins(:order_items).select("order_items.quantity").where("order.id =?, 142")
     order_items.sum {|order_item| order_item.order_quantity}

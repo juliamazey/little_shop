@@ -42,4 +42,26 @@ RSpec.describe 'user index page' do
       expect(page).to have_content("That page was too spicy")
     end
   end
+
+  context 'as an admin' do
+    it 'allows admin to enable a user account' do
+      user = create(:user, role: 2)
+
+      visit login_path
+
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_on "Log in"
+      save_and_open_page
+      
+
+      visit admin_users_path
+
+
+      click_on "Enable"
+
+      expect(current_path).to eq(admin_users_path)
+    end
+  end
+
 end
