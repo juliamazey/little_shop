@@ -30,8 +30,9 @@ class UsersController < ApplicationController
 
   def show
     if current_user
+      # binding.pry
       unless current_merchant? || current_admin?
-        @user = User.find(params[:format])
+        @user = User.find(current_user[:id])
       else
         render file: "/public/404"
       end
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
       render file: "/public/404"
     end
   end
-  
+
   def update
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
@@ -50,13 +51,15 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
+    # binding.pry
     if @user.save
       flash[:success] = "User profile updated."
       redirect_to profile_path
     else
-      render :edit
+      flash[:failure] = "That email address is already in use."
+      redirect_to profile_edit_path
     end
-    @user = User.find(params[:format])
+    @user = User.find(current_user[:id])
   end
 
   def enable
