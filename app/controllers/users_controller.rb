@@ -29,9 +29,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    if current_user
+      unless current_merchant? || current_admin?
+        @user = User.find(params[:format])
+      else
+        render file: "/public/404"
+      end
+    else
+      render file: "/public/404"
+    end
   end
-
+  
   def update
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
