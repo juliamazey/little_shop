@@ -51,6 +51,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:format])
   end
 
+  def enable
+    binding.pry
+  end
+
+  def disable
+  end
+
   private
 
   def user_params

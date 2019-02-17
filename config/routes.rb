@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :items
 
   resources :carts, only: [:create, :edit]
-  
+
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
 
@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
+    get 'admin/user/enable', to: 'user#enable', as: :user_enable
+    get 'admin/user/disable', to: 'user#disable', as: :user_disable
   end
 
 end
