@@ -31,8 +31,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
-    get 'admin/user/enable', to: 'user#enable', as: :user_enable
-    get 'admin/user/disable', to: 'user#disable', as: :user_disable
+    get 'admin/user/enable', to: 'users#enable', as: :user_enable
+    get 'admin/user/disable', to: 'users#disable', as: :user_disable
   end
 
 end

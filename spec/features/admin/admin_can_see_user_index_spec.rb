@@ -19,7 +19,6 @@ RSpec.describe 'user index page' do
       expect(page).to have_button("Disable")
       expect(page).to have_button("Enable")
       expect(page).to have_content("Registration Date: #{@user2.created_at}")
-
     end
   end
 
@@ -52,14 +51,10 @@ RSpec.describe 'user index page' do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password
       click_on "Log in"
-      save_and_open_page
-      
 
       visit admin_users_path
-
-
       click_on "Enable"
-
+      expect(page).to have_content("This user is now active.")
       expect(current_path).to eq(admin_users_path)
     end
   end
