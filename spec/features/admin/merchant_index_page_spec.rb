@@ -13,7 +13,7 @@ RSpec.describe "admin can see merchant's dashboard" do
       click_on "#{merchant.username}"
 
       expect(current_path).to eq(merchant_dashboard_path(merchant))
-      save_and_open_page
+
       expect(page).to have_content
 
     end
