@@ -7,6 +7,7 @@ class Item < ApplicationRecord
     where(active:true)
   end
 
+
   def average_fulfillment
   end
 
@@ -24,4 +25,24 @@ class Item < ApplicationRecord
       order_item.order_quantity
     end
   end
+
+  def self.merchant_items(merchant)
+    Item.where(user_id: merchant.id)
+  end
+
+  def change_active_status
+    if active
+      active == false
+    else
+      active == false
+      active == true
+    end
+  end
+
+  def orders_count
+    self.order_items.all.count
+  end
+
+
+
 end
