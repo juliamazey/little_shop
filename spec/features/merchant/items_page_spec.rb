@@ -21,7 +21,7 @@ RSpec.describe 'As a merchant' do
       within "#item-#{@item_2.id}" do
         click_on "Disable"
       end
-save_and_open_page 
+
       expect(page).to have_content("This item is no longer for sale.")
       expect(page).to have_content("Enable")
     end
