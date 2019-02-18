@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: "users#show", as: :dashboard
     get '/dashboard/orders/:id', to: "orders#show", as: :dashboard_order
     get '/dashboard/users', to: "users#index", as: :dashboard_users
-    get '/dashboard/items', to: "items#index", as: :dashboard_items
+    get '/dashboard/items', to: "items#index", as: :items
     get '/dashboard/item', to: "items#new", as: :dashboard_item_new
     resources :users, only: [:index]
 

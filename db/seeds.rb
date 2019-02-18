@@ -30,27 +30,24 @@ inactive_item_2 = create(:item, user: inactive_merchant_1)
 Random.new_seed
 rng = Random.new
 
-order = create(:order, users_id: user.id, status: 2)
+order = create(:order, user_id: user.id, status: 2)
 create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1, created_at: (rng.rand(3)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 create(:order_item, order: order, item: item_3, order_price: 3, order_quantity: 1, created_at: (rng.rand(5)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 create(:order_item, order: order, item: item_4, order_price: 4, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 
 # pending order
-order = create(:order, users_id: user.id)
+order = create(:order, user_id: user.id)
 create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1)
 create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).days.ago, updated_at: rng.rand(23).hours.ago, fulfilled: true)
 
-order = create(:order, users_id: user.id, status: 1)
+order = create(:order, user_id: user.id, status: 1)
 create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago)
 create(:order_item, order: order, item: item_3, order_price: 3, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago)
 
-order = create(:order, users_id: user.id, status: 2)
+order = create(:order, user_id: user.id, status: 2)
 create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 1, created_at: (rng.rand(4)+1).days.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
-
-
-
 
 
 puts 'seed data finished'

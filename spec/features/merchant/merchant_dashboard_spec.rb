@@ -88,6 +88,12 @@ RSpec.describe "As a merchant" do
       visit merchant_dashboard_path(@merchant_1)
 
       expect(page).to have_content("Top 5 Items:\n#{@item_1.name}, total quantity sold: #{@item_1.quantity_sold}")
+
+      within "#total-sold" do
+
+      expect(page).to have_content(237)
+      expect(page).to have_content("Sold 237 items, which is 44% of your total inventory")
+      end
     end
 
     it 'has a link to view my items' do
@@ -112,10 +118,10 @@ RSpec.describe "As a merchant" do
       merchant_2 = create(:user, role: 1)
       item_1 = create(:item, active: true, user: merchant_1)
       item_2 = create(:item, active: true, user: merchant_2)
-      order = create(:order)
+      order = create(:order, user: buyer)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
 
-      visit merchant_dashboard_user_path(merchant_1)
+      visit merchant_dashboard_path(merchant_1)
     end
   end
 end

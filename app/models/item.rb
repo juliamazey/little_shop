@@ -11,7 +11,6 @@ class Item < ApplicationRecord
   def average_fulfillment
   end
 
-
   def self.top_five
      Item.select("items.*, sum(order_items.order_quantity) as items_qty")
      .joins(:order_items)
@@ -42,6 +41,17 @@ class Item < ApplicationRecord
     self.order_items.all.count
   end
 
+  def self.total_sold
+    joins(:order_items).pluck('sum(order_items.order_quantity)').first
 
+  end
+
+  def self.percentage_sold
+    (total_sold.to_f / (total_sold + total_stock) * 100).round(0)  
+  end
+
+  def self.total_stock
+    self.sum(:stock)
+  end
 
 end

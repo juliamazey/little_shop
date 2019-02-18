@@ -21,7 +21,7 @@ RSpec.describe 'As an admin user' do
       expect(current_path).to eq(admin_user_path(@merchant)) #because the merchant is now a regular user
       expect(page).to have_content("This user has been downgraded.")
 
-      visit merchant_dashboard_items_path(@merchant)
+      visit merchant_items_path(@merchant)
       expect(page).to_not have_content(@item.name)
     end
   end
