@@ -1,0 +1,11 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
+<%= "Username: #{@merchant.username}" %>
+<%= "Email: #{@merchant.email}" %>
+<%= "Address: #{@merchant.address}" %>
+<%= "City: #{@merchant.city}" %>
+<%= "State: #{@merchant.state}" %>
+<%= "Zip: #{@merchant.zip_code}" %>
+<%= link_to "Downgrade", admin_merchant_downgrade_path(@merchant) %>
