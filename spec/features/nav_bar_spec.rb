@@ -20,7 +20,8 @@ RSpec.describe 'User sees nav bar' do
       expect(page).to have_link("Log Out")
       expect(page).to_not have_link("Log In")
       expect(page).to_not have_link("Orders")
-      # expect(page).to_not have_link("Cart")
+      expect(page).to_not have_link("Cart")
+      expect(page).to_not have_link("My Orders")
     end
   end
 
@@ -73,6 +74,7 @@ RSpec.describe 'User sees nav bar' do
       expect(page).to have_link("My Profile")
       expect(page).to have_link("My Orders")
       expect(page).to have_link("Log Out")
+      expect(page).to have_link("My Orders")
       expect(page).to have_content("Logged in as #{user.username}")
 
       expect(page).to_not have_link("Log In")
