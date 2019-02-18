@@ -3,6 +3,7 @@ require 'rails_helper'
 describe "when a registered user visits their profile page" do
   before :each do
     @user = create(:user)
+    @user2 = create(:user)
   end
 
   describe "after submitting my updated information" do
@@ -37,4 +38,30 @@ describe "when a registered user visits their profile page" do
       expect(page).to have_content("User profile updated.")
     end
   end
+
+  describe "user tries to update their email info" do
+    describe "and tries to use an email address already in use" do
+      it "shows me an error message" do
+        visit login_path
+
+        fill_in 'Email', with: @user.email
+        fill_in 'Password', with: @user.password
+        click_on "Log in"
+
+        visit  profile_edit_path
+
+        fill_in "user[username]", with: "Mickey Mouse"
+        fill_in "user[email]", with: @user2.email
+        fill_in "user[password]", with: "test"
+        fill_in "user[password_confirmation]", with: "test"
+
+        click_button "Update User"
+
+        expect(current_path).to eq(profile_edit_path)
+
+        expect(page).to have_content("That email address is already in use.")
+      end
+    end
+  end
+
 end

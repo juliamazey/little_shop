@@ -8,6 +8,9 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
+    <%= flash.each do |type, message| %>
+    <%= content_tag :div, message, class: type %>
+    <%  end %>
     <section class="body">
       <section class="navbar">
       <% if current_user %>

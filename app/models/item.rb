@@ -6,4 +6,7 @@ class Item < ApplicationRecord
   def self.select_active
     where(active:true)
   end
+
+  def average_fulfillment
+  end
 end
