@@ -36,7 +36,7 @@ RSpec.describe 'User sees nav bar' do
       click_on 'Spices'
       expect(current_path).to eq(items_path)
       click_on 'Merchants'
-      expect(current_path).to eq(merchant_users_path)
+      expect(current_path).to eq(merchants_path)
       click_on 'Register'
       expect(current_path).to eq(new_user_path)
     end

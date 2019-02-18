@@ -13,6 +13,8 @@ class User < ApplicationRecord
 
   end
 
-
+  def self.merchants
+    where(role: 1)
+  end
 
 end

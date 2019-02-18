@@ -112,7 +112,6 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to have_content("Your order has been placed")
       expect(page).to have_content("Cart: 0")
       expect(page).to have_content(@item_1.name)
-
     end
   end
 end
