@@ -8,8 +8,19 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def new
-    @item = Item.new
+  # def new
+  #   @item = Item.new
+  # end
+
+  def create
+    @user = current_user
+    @item = Item.create(item_params)
+    @item.user_id = @user.id
+
+    if @item.save
+      flash[:success] = "Item saved!"
+      redirect_to merchant_dashboard_items_path
+    end
   end
 
   def edit
@@ -20,7 +31,9 @@ class ItemsController < ApplicationController
 private
 
   def item_params
-    params.require(:item).permit(:price, :stock, :active, :description, :name)
+    if current_merchant? || current_admin?
+      params.require(:item).permit(:price, :stock, :active, :description, :name, :user_id)
+    end
   end
 
 end
