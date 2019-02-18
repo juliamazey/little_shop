@@ -11,7 +11,9 @@
 <%= "Zip: #{@merchant.zip_code}" %>
 
 <h2>Statistics</h2>
-  <%= "Top 5 Items: #{Order.top_five(@merchant)}" %>
+  <p>Top 5 Items: </p><% Item.top_five.each do |item| %>
+    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+  <% end %>
 
 <h2>Pending Orders</h2>
 <% @orders.each do |order| %>
