@@ -2,6 +2,7 @@ require 'rails_helper'
 RSpec.describe 'As an admin user' do
   before :each do
     @merchant = create(:user, role: 1)
+    @user = create(:user, role: 0)
     @admin = create(:user, role: 2)
     @item = create(:item, user: @merchant)
   end
@@ -24,8 +25,17 @@ RSpec.describe 'As an admin user' do
       expect(page).to_not have_content(@item.name)
     end
   end
+  describe 'I visit a merchant dashboard, but that merchant is a regular user' do
+    it 'is redirectred to the user profile' do
+      visit login_path
+
+      fill_in 'Email', with: @admin.email
+      fill_in 'Password', with: @admin.password
+      click_on "Log in"
+
+      visit admin_merchant_dashboard_path(@user)
+      expect(current_path).to eq(admin_user_path(@user))
+      # expect(page).to have_current_path(admin_user_path(@merchant))      # Then I am redirected to the appropriate user profile page.
+    end
+  end
 end
-# The next time this user logs in they are no longer a merchant
-# All items for sale by this user are disabled
-# Only admins can see the "downgrade" button
-# Only admins can reach any route necessary to downgrade the merchant to user status

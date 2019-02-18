@@ -1,6 +1,13 @@
-class Admin::MerchantsController < ApplicationController
+class Admin::MerchantsController < Admin::BaseController
+
   def show
-    @merchant = User.find(params[:format])
+    current_user = User.find(params[:format])
+    # binding.pry
+    if current_user.role == "default"
+      redirect_to admin_user_path(current_user)
+    else
+      @merchant = current_user
+    end
   end
 
   def downgrade
