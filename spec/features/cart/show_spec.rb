@@ -43,6 +43,132 @@ RSpec.describe 'As a visitor or registered user' do
       expect(page).to have_link("Empty Cart")
     end
 
+    describe "when I revisit my cart" do
+      it "has functionality to increase an item amount in my cart" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        visit items_path
+
+        within "#item-#{@item2.id}" do
+          click_button "Add to Cart"
+        end
+
+        visit cart_path
+
+        within "#item-#{@item2.id}" do
+          click_on "Increase Amount"
+        end
+
+        within "#item-#{@item2.id}" do
+          expect(page).to have_content("Quantity: 2")
+        end
+      end
+    end
+
+    describe "when I revisit my cart and add an item" do
+      it "I can't exceed the stock amount" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        visit items_path
+
+        within "#item-#{@item2.id}" do
+          click_button "Add to Cart"
+        end
+
+        visit cart_path
+
+        within "#item-#{@item2.id}" do
+          6.times do click_on "Increase Amount"
+          end
+        end
+        #7 items in cart at this point
+        within "#item-#{@item2.id}" do
+          expect(page).to have_content("Quantity: 7")
+        end
+
+        within "#item-#{@item2.id}" do
+          click_on "Increase Amount"
+        end
+        #7 items in stock, should not increment quantity to 8
+        within "#item-#{@item2.id}" do
+          expect(page).to have_content("Quantity: 7")
+        end
+      end
+    end
+
+    describe "when I revisit my cart " do
+      it "I can decrease the amount" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        visit items_path
+
+        within "#item-#{@item2.id}" do
+          click_button "Add to Cart"
+        end
+
+        visit cart_path
+
+        within "#item-#{@item2.id}" do
+          3.times do click_on "Increase Amount"
+          end
+        end
+        #4 items in cart at this point
+        within "#item-#{@item2.id}" do
+          expect(page).to have_content("Quantity: 4")
+        end
+
+        within "#item-#{@item2.id}" do
+          click_on "Decrease Amount"
+        end
+        #should now be a quantity of 3 items
+        within "#item-#{@item2.id}" do
+          expect(page).to have_content("Quantity: 3")
+        end
+      end
+    end
+
+    describe "when I decrease the amount of an item " do
+      it "it is removed from the cart if the new amount is 0" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        visit items_path
+
+        within "#item-#{@item2.id}" do
+          click_button "Add to Cart"
+        end
+
+        visit cart_path
+
+        within "#item-#{@item2.id}" do
+          click_on "Decrease Amount"
+        end
+        expect(page).to_not have_selector("#item-#{@item2.id}")
+      end
+    end
+
+
+    describe "when I revisit my cart" do
+      it "has functionality to remove an item from my cart" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        visit items_path
+
+        within "#item-#{@item.id}" do
+          click_button "Add to Cart"
+        end
+
+        within "#item-#{@item2.id}" do
+          click_button "Add to Cart"
+        end
+
+        visit cart_path
+
+        within "#item-#{@item.id}" do
+          click_on "Remove Item #{@item.name}"
+        end
+
+          expect(page).to_not have_selector("#item-#{@item.id}")
+
+        within "#item-#{@item2.id}" do
+          expect(page).to_not have_content("Quantity: 0")
+        end
+      end
+    end
 #story 27
     it 'sees a message that the cart is empty' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
