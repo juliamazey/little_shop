@@ -8,6 +8,10 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def enable
     @user = User.find(params[:format])
     @user.active = true
