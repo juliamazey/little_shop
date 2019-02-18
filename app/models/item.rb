@@ -12,9 +12,9 @@ class Item < ApplicationRecord
 
 
   def self.top_five
-     Item.all.select("items.*, sum(order_items.order_quantity) as items_qty")
+     Item.select("items.*, sum(order_items.order_quantity) as items_qty")
      .joins(:order_items)
-     .group(:id, :item_id)
+     .group(:id)
      .order('items_qty desc')
      .limit(5)
   end
