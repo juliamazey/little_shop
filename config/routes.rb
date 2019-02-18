@@ -21,13 +21,14 @@ Rails.application.routes.draw do
 
 
   namespace :merchant do
-    resources :items, only: [:new, :edit, :create]
+    resources :items, only: [:edit, :create]
     # get '/edit/item/status', to: "item#edit"
     get '/dashboard', to: "users#show", as: :dashboard
     get '/dashboard/orders/:id', to: "orders#show", as: :dashboard_order
     get '/dashboard/users', to: "users#index", as: :dashboard_users
     get '/dashboard/items', to: "items#index", as: :dashboard_items
-    get '/dashboard/item', to: "items#new", as: :dashboard_item_new
+    get '/dashboard/items/new', to: "items#new", as: :dashboard_item_new
+    # get '/dashboard/item', to: "items#new", as: :dashboard_item_new
     resources :users, only: [:index]
 
   end

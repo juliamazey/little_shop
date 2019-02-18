@@ -10,7 +10,10 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
+    @item = Item.new
+    # binding.pry
   end
+
 
   def edit
     @item = Item.find(params[:id])

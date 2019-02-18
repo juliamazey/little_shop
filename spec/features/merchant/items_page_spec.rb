@@ -37,7 +37,26 @@ RSpec.describe 'As a merchant' do
 
       click_on "Add Item"
 
-      expect(current_path).to eq(new_merchant_item_path) 
+      expect(current_path).to eq(merchant_dashboard_item_new_path)
+    end
+
+    it "can fill out a form to add a new item" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit merchant_dashboard_items_path
+
+      click_on "Add Item"
+
+      fill_in "Name", with: "Thyme"
+      fill_in "Description", with: "We don't have enough of it"
+      fill_in "Price", with: 4.00
+      fill_in "Stock", with: 20
+
+      click_on "Create Item"
+      save_and_open_page
+      expect(current_path).to eq(merchant_dashboard_items_path)
+      expect(page).to have_content("Item saved!")
+      expect(page).to have_content("Thyme")
     end
   end
 end

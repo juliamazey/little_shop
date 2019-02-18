@@ -1,5 +1,6 @@
+
 <h1>Merchant Items</h1>
-<%= link_to 'Add Item', new_merchant_item_path %>
+<%= link_to 'Add Item', merchant_dashboard_item_new_path %>
 
 <%= flash.each do |type, message|  %>
 <%= content_tag :div, message, class: type %>
