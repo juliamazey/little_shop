@@ -5,4 +5,10 @@
 <h1>Welcome, <%= @user.username %>!</h1>
 <%= render './show' %>
 <%= link_to "Edit My Profile", '/profile/edit' %>
- <!-- edit_user_path(@user) -->
+
+<h3>Pending Orders</h3>
+<% @orders.each do |order| %>
+  <% order.items.each do |item|%>
+    <%= item.name %>
+  <% end %>
+<% end %>

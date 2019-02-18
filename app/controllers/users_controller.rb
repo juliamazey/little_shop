@@ -29,10 +29,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    @orders = Order.find_by_user(current_user.id)
     if current_user
       # binding.pry
       unless current_merchant? || current_admin?
-        @user = User.find(current_user[:id])
+        @user = User.find(current_user.id)
       else
         render file: "/public/404"
       end

@@ -26,8 +26,8 @@ class SessionsController < ApplicationController
       else
         redirect_to profile_path
       end
-
     else
+      flash[:failure] = "Bad log in credentials"
       render :new
     end
   end
