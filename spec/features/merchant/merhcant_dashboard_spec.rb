@@ -6,7 +6,7 @@ RSpec.describe "As a merhcant" do
       merchant = create(:user, role: 1)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
-      visit merchant_dashboard_path(merchant)
+      visit merchant_dashboard_user_path
 
       expect(page).to have_content(merchant.username)
       expect(page).to have_content(merchant.email)
@@ -24,10 +24,10 @@ RSpec.describe "As a merhcant" do
       merchant_2 = create(:user, role: 1)
       item_1 = create(:item, active: true, user: merchant_1)
       item_2 = create(:item, active: true, user: merchant_2)
-      order 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+      order = create(:order)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
 
-      visit merchant_dashboard_path(merchant)
+      visit merchant_dashboard_user_path(merchant_1)
     end
   end
 end

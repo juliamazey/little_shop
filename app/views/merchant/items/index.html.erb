@@ -1,0 +1,30 @@
+<h1>Merchant Items</h1>
+<%= link_to 'Add Item', new_item_path %>
+
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
+<section class="items-wrapper">
+<% @items.each do |item| %>
+<section id="item-<%= item.id %>">
+<h3><%= link_to(item.name, item_path(item)) %></h3>
+<p> <%= item.id %> </p>
+<p><%= item.user.username %></p>
+<p>Price: <%= number_to_currency(item.price) %></p>
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
+<p>Stock: <%= item.stock %></p>
+<%= link_to 'Edit Item', edit_item_path(item.id) %>
+<% if item.active %>
+    <%= link_to "Disable", item.change_active_status %>
+  <% else %>
+    <%= link_to "Enable", item.change_active_status %>
+    <%= "This item is no longer for sale." %>
+  <% end %>
+  <h5>Orders: <%= item.orders_count %></h5>
+  <% if item.orders_count < 1 %>
+    <%= link_to "Delete" %>
+  <% end %>
+</section>
+<% end %>
+</section>
