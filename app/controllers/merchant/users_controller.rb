@@ -4,4 +4,6 @@ class Merchant::UsersController < Merchant::BaseController
     @merchant = User.find(params[:format])
     @orders = Order.merchant_orders(@merchant)
   end
+
+
 end
