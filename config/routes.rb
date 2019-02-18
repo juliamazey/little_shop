@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
+  get '/increase', to: "carts#increase", as: :increase_cart_item
+  get '/decrease', to: "carts#decrease", as: :decrease_cart_item
   get '/checkout', to: "orders#create", as: :checkout
 
   get '/login', to: 'sessions#new'
