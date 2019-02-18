@@ -1,10 +1,15 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
 <h1>List of Users</h1>
 <% @users.each do |user| %>
+<section id="user-<%= user.id %>">
   <%= link_to "#{user.username}" %>
   <p>Registration Date: <%= user.created_at %></p>
   <% if user.active == true %>
-    <%= button_to 'Disable', user_disable %>
+    <%= link_to 'Disable', admin_user_disable_path(user) %>
   <% else %>
-    <%= button_to 'Enable', user_enable %>
+    <%= link_to 'Enable', admin_user_enable_path(user) %>
   <% end %>
+</section>
 <% end %>
