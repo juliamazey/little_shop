@@ -1,4 +1,4 @@
-require 'rails_helper'
+ require 'rails_helper'
 
 RSpec.describe "As a merchant" do
   describe "when i visit my dashboard" do
@@ -52,7 +52,7 @@ RSpec.describe "As a merchant" do
       expect(page).to have_content("Total Value: #{order.grand_total}")
     end
 
-    xit 'sees an area with statistics' do
+    it 'sees an area with statistics' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
 
@@ -65,12 +65,12 @@ RSpec.describe "As a merchant" do
       order_7 = create(:order, user_id: @user_3.id)
       order_8 = create(:order, user_id: @user_4.id)
 
-      order_item_1 = create(:order_item, order: order_1, item: @item_1)
-      order_item_2 = create(:order_item, order: order_1, item: @item_2)
-      order_item_3 = create(:order_item, order: order_2, item: @item_3)
-      order_item_4 = create(:order_item, order: order_2, item: @item_4)
-      order_item_5 = create(:order_item, order: order_3, item: @item_5)
-      order_item_6 = create(:order_item, order: order_3, item: @item_6)
+      order_item_1 = create(:order_item, order: order_1, item: @item_1, order_quantity: 40)
+      order_item_2 = create(:order_item, order: order_1, item: @item_2, order_quantity: 35)
+      order_item_3 = create(:order_item, order: order_2, item: @item_3, order_quantity: 32)
+      order_item_4 = create(:order_item, order: order_2, item: @item_4, order_quantity: 30)
+      order_item_5 = create(:order_item, order: order_3, item: @item_5, order_quantity: 28)
+      order_item_6 = create(:order_item, order: order_3, item: @item_6, order_quantity: 20)
       order_item_7 = create(:order_item, order: order_4, item: @item_1)
       order_item_8 = create(:order_item, order: order_4, item: @item_2)
       order_item_9 = create(:order_item, order: order_5, item: @item_3)
@@ -87,7 +87,7 @@ RSpec.describe "As a merchant" do
 
       visit merchant_dashboard_path(@merchant_1)
 
-      expect(page).to have_content("Top 5 Items: #{@item_1.name}, #{@item_2.name}, #{@item_3.name}, #{@item_4.name}, #{@item_5.name}")
+      expect(page).to have_content("Top 5 Items:\n#{@item_1.name}, total quantity sold: #{@item_1.quantity_sold}")
     end
 
     it 'has a link to view my items' do
