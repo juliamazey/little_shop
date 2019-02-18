@@ -39,7 +39,17 @@ RSpec.describe Item, type: :model do
 
   describe 'instance methods' do
     it '.quantity_sold' do
+      merchant_1 = create(:user, role: 1)
 
+      item_1 = create(:item, user: merchant_1)
+
+      order_1 = create(:order, user_id: merchant_1.id)
+      order_2 = create(:order, user_id: merchant_1.id)
+
+      create(:order_item, order: order_1, item: item_1, order_quantity: 10)
+      create(:order_item, order: order_2, item: item_1, order_quantity: 10)
+
+      expect(item_1.quantity_sold).to eq(20)
     end
   end
 end
