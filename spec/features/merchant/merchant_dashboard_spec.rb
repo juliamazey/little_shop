@@ -105,5 +105,17 @@ RSpec.describe "As a merchant" do
 
       expect(page).to_not have_content(@item_7.name)
     end
+
+    it "i see pending orders with items" do
+      buyer = create(:user)
+      merchant_1 = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      item_1 = create(:item, active: true, user: merchant_1)
+      item_2 = create(:item, active: true, user: merchant_2)
+      order = create(:order)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+      visit merchant_dashboard_user_path(merchant_1)
+    end
   end
 end
