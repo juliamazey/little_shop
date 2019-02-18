@@ -29,7 +29,6 @@ end
           order_items_2 = create(:order_item, item: item_1, order: order_2)
           # order_items_3 = create(:order_item, item: item_1, order: order_2)
 
-
       expect(@spice_1.average_fulfillment).to eq(4)
     end
 
@@ -64,7 +63,6 @@ end
       expect(order_1.grand_total).to eq(32)
     end
   end
-
 
 
 end

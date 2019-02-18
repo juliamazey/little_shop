@@ -17,4 +17,13 @@ class User < ApplicationRecord
     where(role: 1)
   end
 
+  def self.top_consumers(current_user)
+    joins(orders: [{order_items: :item}])
+    .select('users.state, sum(order_items.order_quantity) as total_sold')
+    .where("items.user_id = #{current_user.id}")
+    .group('users.state')
+    .order('sum(order_items.order_quantity) DESC')
+    .limit(3)
+  end
+
 end
