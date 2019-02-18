@@ -9,8 +9,9 @@ RSpec.describe 'As a merchant' do
     @item_2 = create(:item, active: true, user: @merchant)
     @item_3 = create(:item, active: true)
     @item_4 = create(:item, active: false, user: @merchant)
-    @order_item_2 = create(:order_item, item: @item_2)
-    @order_item_3 = create(:order_item, item: @item_2)
+    @order = create(:order, user: @buyer)
+    @order_item_2 = create(:order_item, item: @item_3, order: @order)
+    @order_item_3 = create(:order_item, item: @item_3, order: @order)
 
   end
 
@@ -36,7 +37,7 @@ RSpec.describe 'As a merchant' do
 
       click_on "Add Item"
 
-      expect(current_path).to eq(merchant_new_item_path)
+      expect(current_path).to eq(new_merchant_item_path) 
     end
   end
 end

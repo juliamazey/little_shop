@@ -1,5 +1,5 @@
 <h1>Merchant Items</h1>
-<%= link_to 'Add Item', new_item_path %>
+<%= link_to 'Add Item', new_merchant_item_path %>
 
 <%= flash.each do |type, message|  %>
 <%= content_tag :div, message, class: type %>
@@ -16,9 +16,10 @@
 <p>Stock: <%= item.stock %></p>
 <%= link_to 'Edit Item', edit_item_path(item.id) %>
 <% if item.active %>
-    <%= link_to "Disable", item.change_active_status %>
+    <%= link_to "Disable", edit_merchant_item_path(item) %>
   <% else %>
-    <%= link_to "Enable", item.change_active_status %>
+
+    <%= link_to "Enable", edit_merchant_item_path(item) %>
     <%= "This item is no longer for sale." %>
   <% end %>
   <h5>Orders: <%= item.orders_count %></h5>
