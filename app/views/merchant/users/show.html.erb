@@ -1,6 +1,7 @@
 <%= flash.each do |type, message|  %>
 <%= content_tag :div, message, class: type %>
 <% end %>
+<%= link_to "My Items", merchant_items_path %>
 
 <%= "Username: #{@merchant.username}" %>
 <%= "Email: #{@merchant.email}" %>
@@ -8,3 +9,16 @@
 <%= "City: #{@merchant.city}" %>
 <%= "State: #{@merchant.state}" %>
 <%= "Zip: #{@merchant.zip_code}" %>
+
+<h2>Statistics</h2>
+  <p>Top 5 Items: </p><% Item.top_five.each do |item| %>
+    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+  <% end %>
+
+<h2>Pending Orders</h2>
+<% @orders.each do |order| %>
+<%= link_to "Order # #{order.id}", merchant_dashboard_order_path(order) %>
+<%= "Order placed at: #{order.created_at}" %>
+<%= "Total Quantity: #{order.total_items}" %>
+<%= "Total Value: #{order.grand_total}" %>
+<% end %>

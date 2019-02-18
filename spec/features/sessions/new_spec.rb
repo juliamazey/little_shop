@@ -1,19 +1,39 @@
 require 'rails_helper'
 
-RSpec.describe 'As a registered user' do
-  context 'when I the login path' do
-    it 'should have a form to log in' do
-      user = User.create(username: "Whatever", password: 'yes', role: 0, email: "whatever@gmail.com", address: "larimer", city: "denver", state: "co", zip_code: 80124, active: 1)
+RSpec.describe 'when I visit the login path ' do
+  context 'as a visitor' do
+    before :each do
+      @user = create(:user)
+    end
+    it 'should have a form to log in, and it authenticates' do
 
       visit login_path
 
-      fill_in "email", with: user.email
-      fill_in "password", with: user.password
+      fill_in "Email", with: @user.email
+      fill_in "Password", with: @user.password
 
       click_on "Log in"
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Welcome, #{@user.username}")
+    end
 
-      expect(current_path).to eq(user_path(user))
-      expect(page).to have_content("Welcome, #{user.username}")
+    it 'cannot log in with bad credentials' do
+
+      visit login_path
+
+      fill_in "Email", with: @user.email
+      fill_in "Password", with: "hello"
+
+      click_on "Log in"
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Bad log in credentials")
+
+      fill_in "Email", with: "alo@alo.com"
+      fill_in "Password", with: @user.password
+
+      click_on "Log in"
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Bad log in credentials")
     end
   end
 end
