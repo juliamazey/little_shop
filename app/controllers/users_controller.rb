@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  def index
+    @merchants = User.merchants
+  end
+
   def new
     @user = User.new
   end
@@ -29,9 +34,7 @@ class UsersController < ApplicationController
   end
 
   def show
-
-    @orders = Order.find_by_user(current_user.id)
-    # binding.pry
+  @orders = Order.find_by_user(current_user.id)
     if current_user
       unless current_merchant? || current_admin?
         @user = User.find(current_user.id)

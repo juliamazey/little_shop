@@ -1,0 +1,8 @@
+<% @merchants.each do |merchant| %>
+  <% if merchant.active? %>
+    <%= merchant.username %>
+    <%= merchant.created_at %>
+    <%= merchant.city %>
+    <%= merchant.state %>
+  <% end %>
+<% end %>
