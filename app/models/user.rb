@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :items
+  has_many :orders
+
   has_secure_password
 
   validates :email, uniqueness: true, presence: true
@@ -11,6 +13,8 @@ class User < ApplicationRecord
 
   end
 
-
+  def self.merchants
+    where(role: 1)
+  end
 
 end

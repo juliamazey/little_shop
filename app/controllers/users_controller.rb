@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  def index
+    @merchants = User.merchants
+  end
+
   def new
     @user = User.new
   end
@@ -29,9 +34,11 @@ class UsersController < ApplicationController
   end
 
   def show
+  @orders = Order.find_by_user(current_user.id)
     if current_user
+      # binding.pry
       unless current_merchant? || current_admin?
-        @user = User.find(params[:format])
+        @user = User.find(current_user.id)
       else
         render file: "/public/404"
       end
@@ -39,8 +46,9 @@ class UsersController < ApplicationController
       render file: "/public/404"
     end
   end
-  
+
   def update
+    # binding.pry
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
     @user.address = params[:user][:address]
@@ -50,13 +58,19 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
+    # binding.pry
     if @user.save
       flash[:success] = "User profile updated."
-      redirect_to profile_path
+      if @user.admin?
+        redirect_to admin_user_path(@user)
+      else
+        redirect_to profile_path
+      end
     else
-      render :edit
+      flash[:failure] = "That email address is already in use."
+      redirect_to profile_edit_path
     end
-    @user = User.find(params[:format])
+    @user = User.find(current_user[:id])
   end
 
   def enable
