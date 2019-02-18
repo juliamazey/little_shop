@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190217213005) do
+ActiveRecord::Schema.define(version: 20190218215759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,13 +18,13 @@ ActiveRecord::Schema.define(version: 20190217213005) do
   create_table "items", force: :cascade do |t|
     t.float "price"
     t.string "name"
-    t.string "image"
     t.integer "stock"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: false
     t.bigint "user_id"
+    t.string "image", default: "https://secure.img1-fg.wfcdn.com/im/43152120/resize-h600-w600%5Ecompr-r85/4486/44869893/12+Jar+Spice+Jars+%26+Rack+Set.jpg"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
