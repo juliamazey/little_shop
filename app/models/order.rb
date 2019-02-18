@@ -24,11 +24,4 @@ class Order < ApplicationRecord
     joins(:items).where(status: 0, items: {user: merchant}).group(:id)
   end
 
-  def self.top_five(merchant)
-    # hi = merchant_orders(merchant)
-    # binding.pry
-  end
-
-
-
 end
