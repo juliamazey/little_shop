@@ -34,6 +34,12 @@ RSpec.describe Item, type: :model do
       create(:order_item, order: order, item: item_7, order_quantity: 5)
 
       expect(Item.top_five).to eq([item_5, item_3, item_2, item_4, item_1])
-      end
+    end
+  end
+
+  describe 'instance methods' do
+    it '.quantity_sold' do
+
+    end
   end
 end
