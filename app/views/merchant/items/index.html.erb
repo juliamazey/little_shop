@@ -1,0 +1,11 @@
+<h1>My Items</h1>
+
+<% current_user.items.each do |item| %>
+<ul>
+  <li><%= item.name %></li>
+  <li>Price: <%= number_to_currency(item.price) %></li>
+  <li><%= item.image %></li>
+  <li><%= item.description %></li>
+  <li>Stock: <%= item.stock %></li>
+</ul>
+<% end %>
