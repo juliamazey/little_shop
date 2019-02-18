@@ -5,6 +5,6 @@ class Merchant::UsersController < Merchant::BaseController
 
   def show
     @merchant = User.find(params[:format])
-    @orders = Order.joins(:items).where(status: 0, items: {user: @merchant}).group(:id)
+    @orders = Order.merchant_orders(@merchant)
   end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
+  get '/checkout', to: "orders#create", as: :checkout
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -22,9 +23,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
-
   resources :users, only: [:new, :index, :create, :update] do
-      resources :orders, only: [:index, :show]
+      resources :orders, only: [:index, :show, :create]
   end
 
   namespace :admin do
