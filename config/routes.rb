@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   get '/merchants', to: 'users#index', as: :merchants
 
 
+
   namespace :merchant do
     get '/dashboard', to: "users#show", as: :dashboard
+    get '/dashboard/items', to: "items#index", as: :items
     get '/dashboard/orders/:id', to: "orders#show", as: :dashboard_order
   end
 
