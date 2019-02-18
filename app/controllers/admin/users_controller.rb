@@ -15,7 +15,7 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
-  def Disable
+  def disable
     @user = User.find(params[:format])
     @user.active = false
     flash[:success] = "This user is now inactive."

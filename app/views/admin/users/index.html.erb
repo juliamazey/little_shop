@@ -3,6 +3,7 @@
 <% end %>
 <h1>List of Users</h1>
 <% @users.each do |user| %>
+<section id="user-<%= user.id %>">
   <%= link_to "#{user.username}" %>
   <p>Registration Date: <%= user.created_at %></p>
   <% if user.active == true %>
@@ -10,4 +11,5 @@
   <% else %>
     <%= link_to 'Enable', admin_user_enable_path(user) %>
   <% end %>
+</section>
 <% end %>
