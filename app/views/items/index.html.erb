@@ -2,6 +2,15 @@
 <%= content_tag :div, message, class: type %>
 <% end %>
 
+<section class="statistics_block">
+<h2>Statistics</h2>
+<h3>Five Most Popular Items: </h3>
+<% @items.top_five.each do |item| %>
+    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+<% end %>
+<h3>Five Least Popular Items</h3>
+</section>
+
 <section class="items-wrapper">
 <% @items.each do |item| %>
 <section class="items-index" id="item-<%= item.id %>">
