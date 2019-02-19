@@ -1,0 +1,16 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
+<section class="items-wrapper">
+<% @items.each do |item| %>
+<section class="items-index" id="item-<%= item.id %>">
+<h3><%= link_to(item.name, item_path(item)) %></h3>
+<p><%= item.user.username %></p>
+<p>Price: <%= item.price %></p>
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
+<p>Stock: <%= item.stock %></p>
+<%= button_to 'Add to Cart', carts_path(item_id: item.id) %>
+</section>
+<% end %>
+</section>

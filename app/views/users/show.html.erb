@@ -1,0 +1,18 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
+<h1>Welcome, <%= @user.username %>!</h1>
+<%= render './show' %>
+<%= link_to "Edit My Profile", '/profile/edit' %>
+
+<% if @orders.empty? %>
+  <%= link_to "My Orders", '/profile/orders' %>
+<% end %>
+
+<h3>Pending Orders</h3>
+<% @orders.each do |order| %>
+  <% order.items.each do |item|%>
+    <%= item.name %>
+  <% end %>
+<% end %>
