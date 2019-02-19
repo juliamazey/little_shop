@@ -41,7 +41,7 @@ RSpec.describe 'user index page' do
       expect(page).to have_content("That page was too spicy")
     end
   end
-
+ 
   context 'as an admin' do
     it 'allows admin to enable a user account' do
       user = create(:user, role: 2)
