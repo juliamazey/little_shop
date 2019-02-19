@@ -8,16 +8,18 @@ RSpec.describe "admin can see merchant's dashboard" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-      visit merchants_path
+      visit admin_merchants_path
 
       click_on "#{merchant.username}"
 
-      expect(current_path).to eq(merchant_dashboard_path(merchant))
+      expect(current_path).to eq(admin_merchant_path(merchant))
 
-      expect(page).to have_content
-
+      expect(page).to have_content(merchant.username)
+      expect(page).to have_content(merchant.email)
+      expect(page).to have_content(merchant.address)
+      expect(page).to have_content(merchant.city)
+      expect(page).to have_content(merchant.state)
+      expect(page).to have_content(merchant.zip_code)
     end
-
   end
-
 end
