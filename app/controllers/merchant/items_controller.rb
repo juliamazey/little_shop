@@ -20,6 +20,7 @@ class Merchant::ItemsController < Merchant::BaseController
     redirect_to merchant_dashboard_items_path
   end
 
+
   def destroy
     @item = Item.find(params[:format])
     @item.delete
