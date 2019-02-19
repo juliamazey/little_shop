@@ -38,18 +38,26 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'instance methods' do
+    before :each do
+      @merchant_1 = create(:user, role: 1)
+
+      @item_1 = create(:item, user: @merchant_1, stock: 50)
+
+      @order_1 = create(:order, user_id: @merchant_1.id)
+      @order_2 = create(:order, user_id: @merchant_1.id)
+
+      @order_item_1 = create(:order_item, order: @order_1, item: @item_1, order_quantity: 10)
+      @order_item_2 = create(:order_item, order: @order_2, item: @item_1, order_quantity: 10)
+    end
     it '.quantity_sold' do
-      merchant_1 = create(:user, role: 1)
 
-      item_1 = create(:item, user: merchant_1)
+      expect(@item_1.quantity_sold).to eq(20)
+    end
 
-      order_1 = create(:order, user_id: merchant_1.id)
-      order_2 = create(:order, user_id: merchant_1.id)
-
-      create(:order_item, order: order_1, item: item_1, order_quantity: 10)
-      create(:order_item, order: order_2, item: item_1, order_quantity: 10)
-
-      expect(item_1.quantity_sold).to eq(20)
+    it '.deducts_stock' do
+      quantity = @order_item_1.order_quantity
+    
+      expect(@item_1.deducts_stock(quantity)).to eq(40)
     end
   end
 end
