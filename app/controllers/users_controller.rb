@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 
   def index
     @merchants = User.merchants
+    @top_revenue = User.top_revenue
+    @top_states = User.top_states
   end
 
   def new

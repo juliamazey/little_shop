@@ -1,8 +1,16 @@
+<section class="top-rev" ><h3>Highest Revenue: <% @top_revenue.each do |merchant| %></h3>
+<h4> <%= merchant.username %> </h4>
+<% end %><br/>
+</section>
+<section class="top-states"><h3>Top States by Order: <% @top_states.each do |user| %> </h3>
+<h4> <%= user.state %> </h4>
+<% end %><br/>
+</section>
 <% @merchants.each do |merchant| %>
   <% if merchant.active? %>
     <%= merchant.username %>
     <%= merchant.created_at %>
     <%= merchant.city %>
     <%= merchant.state %>
-  <% end %>
+  <% end %><br/>
 <% end %>

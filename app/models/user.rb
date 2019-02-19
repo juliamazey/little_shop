@@ -26,4 +26,23 @@ class User < ApplicationRecord
     .limit(3)
   end
 
+  def self.top_revenue
+    joins(items: [{order_items: :order}])
+    .select('users.username, sum(order_items.order_price) as total_revenue')
+    .group('users.username')
+    .order('sum(order_items.order_price) DESC')
+    .limit(3)
+  end
+
+  def self.top_states
+    joins(:orders)
+    .select('users.state, count(orders.id)as count_of_orders')
+    .group('users.state')
+    .order('count(orders.id) DESC')
+    .limit(3)
+  end
+#select users.state, count(order_items.order_quantity)as count
+#from users
+#inner join Orders on users.id = Orders.user_id
+#inner join Order_Items on orders.id = Order_items.order_id
 end
