@@ -15,6 +15,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("#{user_1.city}")
       expect(page).to have_content("#{user_1.state}")
       expect(page).to have_content("#{user_1.zip_code}")
+      expect(page).to have_content("#{user_1.username}'s Orders")
 
       expect(page).to_not have_content("#{user_1.password}")
       expect(page).to_not have_content("#{user_1.password_digest}")
