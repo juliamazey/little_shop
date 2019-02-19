@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:create, :edit]
 
+  resources :order_items, only: [:update]
+
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
   get '/increase', to: "carts#increase", as: :increase_cart_item
@@ -46,4 +48,6 @@ Rails.application.routes.draw do
     get '/merchant/downgrade', to: 'merchants#downgrade', as: :merchant_downgrade
     resources :merchants, only: [:show, :index]
   end
+
+
 end
