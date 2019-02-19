@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @top_revenue = User.top_revenue
     @top_states = User.top_states
     @top_cities = User.top_cities
+    @big_orders = OrderItem.biggest_orders
   end
 
   def new

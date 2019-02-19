@@ -74,7 +74,6 @@ RSpec.describe "As a visitor" do
       end
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
       # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
-save_and_open_page
       # - top 3 states where any orders were shipped (by number of orders), and count of orders
       within ".top-states" do
         expect(page).to have_content("Top States by Orders:\n#{@user_1.state}")
@@ -88,6 +87,11 @@ save_and_open_page
         expect(page).to have_content("#{@user_3.city}")
       end
       # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
+      within ".biggest-orders" do
+        expect(page).to have_content("Biggest Orders by Quantity:\n#{@order_item_1.order_id}")
+        expect(page).to have_content("#{@order_item_2.order_id}")
+        expect(page).to have_content("#{@order_item_3.order_id}")
+      end
     end
   end
 end
