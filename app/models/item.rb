@@ -26,6 +26,14 @@ class Item < ApplicationRecord
     end
   end
 
+  def enough?(item)
+    item.stock > item.quantity_sold
+  end
+
+  def deducts_stock(quantity)
+    stock - quantity
+  end
+
   def self.merchant_items(merchant)
     Item.where(user_id: merchant.id)
   end
