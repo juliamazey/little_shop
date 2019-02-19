@@ -61,8 +61,17 @@ RSpec.describe 'As a merchant' do
 
     within "#item-#{@item_5.id}" do
       expect(page).to_not have_content("Fulfill")
+    end
+  end
+
+  it 'cannot fulfil order if not enough stock' do
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
+
+    visit merchant_dashboard_order_path(@order_1)
+
+    within "#notice" do
       expect(page).to have_content("You don't have enough items in inventory")
     end
-
   end
 end
