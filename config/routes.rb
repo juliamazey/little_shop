@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/merchants', to: 'users#index', as: :merchants
 
   namespace :merchant do
-    resources :items, only: [:edit, :create]
+    resources :items, only: [:edit, :create, :show]
     get '/dashboard', to: "users#show", as: :dashboard
     get '/dashboard/orders/:id', to: "orders#show", as: :dashboard_order
     get '/dashboard/users', to: "users#index", as: :dashboard_users
