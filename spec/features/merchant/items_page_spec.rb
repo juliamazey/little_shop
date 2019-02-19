@@ -126,5 +126,27 @@ RSpec.describe 'As a merchant' do
       expect(page).to have_content("Thyme")
       expect(page).to have_content("Item updated!")
     end
+
+    it "cannot edit an item without non-image fields" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit merchant_dashboard_items_path
+
+      within "#item-#{@item_2.id}" do
+        expect(page).to have_link("Delete this item")
+        click_on "Edit Item"
+      end
+
+      fill_in "Name", with: "Thyme"
+      fill_in "Description", with: "We don't have enough of it"
+      fill_in "Price", with: 4.00
+      fill_in "Stock", with: ""
+
+
+      click_on "Update Item"
+
+      expect(current_path).to eq(merchant_edit_item_path(@item_2))
+      expect(page).to have_content("All non-image fields are required")
+    end
   end
 end
