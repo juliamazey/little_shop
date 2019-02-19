@@ -17,6 +17,9 @@ class ItemsController < ApplicationController
     if @item.save
       flash[:success] = "Item updated!"
       redirect_to merchant_dashboard_items_path
+    else
+      flash[:failure] = "All non-image fields are required"
+      redirect_to merchant_edit_item_path(@item)
     end
   end
 
