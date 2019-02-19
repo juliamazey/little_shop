@@ -20,6 +20,7 @@ class Order < ApplicationRecord
     order_items.sum {|order_item| order_item.order_price}
   end
 
+
   def self.merchant_orders(merchant)
     joins(:items).where(status: 0, items: {user: merchant}).group(:id)
   end
