@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
     @user = current_user
     @item = Item.create(item_params)
     @item.user_id = @user.id
-
+    # binding.pry
     if @item.save
       flash[:success] = "Item saved!"
       redirect_to merchant_dashboard_items_path
