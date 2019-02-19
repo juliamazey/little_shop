@@ -67,9 +67,40 @@ RSpec.describe 'As a merchant' do
 
       click_on "Create Item"
 
-      expect(current_path).to eq(merchant_index_items_path)
+      expect(current_path).to eq(merchant_dashboard_items_path)
       expect(page).to have_content("Item saved!")
       expect(page).to have_content("Thyme")
+    end
+
+    it "has a link to delete an item" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit merchant_dashboard_items_path
+
+      within "#item-#{@item_2.id}" do
+        expect(page).to have_link("Delete this item")
+        click_on "Delete this item"
+      end
+
+      expect(page).to_not have_content("#{@item_2.name}")
+
+    end
+
+    it "cannot create an item without certain fields" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit merchant_dashboard_items_path
+
+      click_on "Add Item"
+
+      fill_in "Name", with: "Thyme"
+      fill_in "Description", with: "We don't have enough of it"
+      fill_in "Price", with: 4.00
+
+      click_on "Create Item"
+
+      expect(current_path).to eq(merchant_dashboard_item_new_path)
+      expect(page).to have_content("All non-image fields are required")
     end
   end
 end
