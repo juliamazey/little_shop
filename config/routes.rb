@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get '/dashboard/users', to: "users#index", as: :dashboard_users
     get '/dashboard/items', to: "items#index", as: :dashboard_items
     get '/dashboard/items/delete', to: "items#destroy", as: :destroy_item
-
+    get '/dashboard/items/edit', to: "items#edit", as: :edit_item
     get '/dashboard/items/new', to: "items#new", as: :dashboard_item_new
     resources :users, only: [:index]
   end
