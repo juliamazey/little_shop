@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def show
   @orders = Order.find_by_user(current_user.id)
     if current_user
-      # binding.pry
+
       unless current_merchant? || current_admin?
         @user = User.find(current_user.id)
       else
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # binding.pry
+
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
     @user.address = params[:user][:address]
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
-    # binding.pry
+
     if @user.save
       flash[:success] = "User profile updated."
       if @user.admin?
@@ -74,7 +74,6 @@ class UsersController < ApplicationController
   end
 
   def enable
-    binding.pry
   end
 
   def disable
