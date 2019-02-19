@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 
     if @item.save
       flash[:success] = "Item saved!"
-      redirect_to merchant_dashboard_items_path
+      redirect_to merchant_index_items_path
     end
   end
 

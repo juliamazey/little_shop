@@ -18,6 +18,7 @@
 <%= link_to 'Edit Item', edit_item_path(item.id) %>
 <% if item.active %>
     <%= link_to "Disable", edit_merchant_item_path(item) %>
+    <%= "This item is now available for sale." %>
   <% else %>
 
     <%= link_to "Enable", edit_merchant_item_path(item) %>
