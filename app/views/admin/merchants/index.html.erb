@@ -1,0 +1,9 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+<h1>List of Merchants</h1>
+<% @merchants.each do |merchant| %>
+<section id="merchant-<%= merchant.id %>">
+  <%= link_to "#{merchant.username}", admin_merchant_path(merchant) %>
+</section>
+<% end %>
