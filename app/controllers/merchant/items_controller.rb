@@ -17,7 +17,7 @@ class Merchant::ItemsController < Merchant::BaseController
   def edit
     @item = Item.find(params[:id])
     @item.change_active_status
-    redirect_to merchant_dashboard_items_path
+    redirect_to merchant_index_items_path
   end
 
 
