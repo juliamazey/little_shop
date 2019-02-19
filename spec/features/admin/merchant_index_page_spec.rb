@@ -19,13 +19,18 @@ RSpec.describe "admin can see merchant's dashboard" do
       expect(page).to have_content(@merchant_2.state)
 
       within "#merchant-#{@merchant_1.id}" do
-      expect(page).to have_content("Disable")
+      click_on ("Disable")
       end
+      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_content("This user is now inactive.")
+
+      visit admin_merchants_path
 
       within "#merchant-#{@merchant_2.id}" do
-      expect(page).to have_content("Enable")
+      click_on "Enable"
       end
-
+      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_content("This user is now active.")
     end
 
     it "can access a merchant's dashboard through merchants index page" do
@@ -44,7 +49,5 @@ RSpec.describe "admin can see merchant's dashboard" do
       expect(page).to have_content(@merchant_1.state)
       expect(page).to have_content(@merchant_1.zip_code)
     end
-
-
   end
 end
