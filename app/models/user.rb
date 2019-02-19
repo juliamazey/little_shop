@@ -45,4 +45,13 @@ class User < ApplicationRecord
 #from users
 #inner join Orders on users.id = Orders.user_id
 #inner join Order_Items on orders.id = Order_items.order_id
+
+  def self.top_cities
+    joins(:orders)
+    .select('users.city, users.state, count(orders.id)as count_of_orders')
+    .group('users.city, users.state')
+    .order('count(orders.id) DESC')
+    .limit(3)
+  end
+
 end

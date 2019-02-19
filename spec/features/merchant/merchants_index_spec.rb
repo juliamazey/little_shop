@@ -74,14 +74,19 @@ RSpec.describe "As a visitor" do
       end
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
       # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
-
+save_and_open_page
       # - top 3 states where any orders were shipped (by number of orders), and count of orders
       within ".top-states" do
-        expect(page).to have_content("Top States by Order:\n#{@user_1.state}")
+        expect(page).to have_content("Top States by Orders:\n#{@user_1.state}")
         expect(page).to have_content("#{@user_2.state}")
         expect(page).to have_content("#{@user_3.state}")
       end
       # - top 3 cities where any orders were shipped (by number of orders, also Springfield, MI should not be grouped with Springfield, CO), and the count of orders
+      within ".top-cities" do
+        expect(page).to have_content("Top Cities by Orders:\n#{@user_1.city}")
+        expect(page).to have_content("#{@user_2.city}")
+        expect(page).to have_content("#{@user_3.city}")
+      end
       # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
     end
   end

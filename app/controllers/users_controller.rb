@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @merchants = User.merchants
     @top_revenue = User.top_revenue
     @top_states = User.top_states
+    @top_cities = User.top_cities
   end
 
   def new
