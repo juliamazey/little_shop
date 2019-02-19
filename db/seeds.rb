@@ -50,9 +50,6 @@ create(:order_item, order: order, item: item_1, order_price: 1, order_quantity: 
 create(:order_item, order: order, item: item_2, order_price: 2, order_quantity: 1, created_at: (rng.rand(23)+1).hour.ago, updated_at: rng.rand(59).minutes.ago, fulfilled: true)
 
 
-
-
-
 puts 'seed data finished'
 puts "Users created: #{User.count.to_i}"
 puts "Orders created: #{Order.count.to_i}"

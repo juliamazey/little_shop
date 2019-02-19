@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def show
   @orders = Order.find_by_user(current_user.id)
     if current_user
-      # binding.pry
+
       unless current_merchant? || current_admin?
         @user = User.find(current_user.id)
       else
@@ -72,7 +72,6 @@ class UsersController < ApplicationController
   end
 
   def enable
-    binding.pry
   end
 
   def disable
