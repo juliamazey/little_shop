@@ -11,18 +11,30 @@
 <%= "Zip: #{@merchant.zip_code}" %>
 
 <h2>Statistics</h2>
+
   <p>Top 5 Items: <% @items.top_items.each do |item| %></p>
     <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
   <% end %>
 
-  <p class="total-sold">Sold <%= @items.total_sold %> items, which is <%=  %>% of your total inventory.</p>
+  <p class="total-sold">Sold <%= @items_sold %> items, which is <%= @percent_sold %>% of your total inventory.</p>
 
-  <section class="top-states"><p>Top 3 States: <% @users.each do |user| %></p>
+
+  <section class="top-states"><p>Top 3 States: <% @top_states.each do |user| %></p>
     <p><%= user.state %></p>
   <% end %>
   </section>
-
-<h2>Pending Orders</h2>
+  <section class="top-cities"><p>Top 3 Cities: <% @top_cities.each do |user| %></p>
+    <p><%= user.city %></p>
+  <% end %>
+  </section>
+  <section class="top-users"><p>Top Consumer: <% @top_consumer.each do |user| %></p>
+    <p><%= user.username %>: <%= user.num_orders %> </p>
+  <% end %>
+  </section>
+  <section class="top-spenders"><p>Top Spenders: <% @top_spenders.each do |user| %></p>
+    <p><%= user.username %>: <%= number_to_currency(user.spent) %> </p>
+  <% end %>
+  </section>  <h2>Pending Orders</h2>
 <% @orders.each do |order| %>
 <%= link_to "Order # #{order.id}", merchant_dashboard_order_path(order) %>
 <%= "Order placed at: #{order.created_at}" %>
