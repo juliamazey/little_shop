@@ -23,10 +23,13 @@ class OrdersController < ApplicationController
     order = Order.find(params[:id])
     order.update(status: "cancelled")
     order.items.restock
-    # binding.pry
     OrderItem.where(order: order).update_all(fulfilled: false)
     flash[:success] = "Order has been cancelled"
-    redirect_to profile_path
+    if current_admin?
+      redirect_to admin_order_path(order)
+    else
+      redirect_to profile_path
+    end
   end
 
   private

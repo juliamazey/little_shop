@@ -1,9 +1,16 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
 <h1>Order # <%= @order.id %> from User <%= @order.user.username %> </h1>
 
 <section class="order-info">
   <p>Order made on the <%= @order.created_at %></p>
   <p>Order last updated on the <%= @order.updated_at %></p>
   <p>Status: <%= @order.status %></p>
+  <% if @order.status == "pending" %>
+    <%= link_to "Cancel order", order_path(@order), method: :put %>
+  <% end %>
 </section>
 
 <section id="order-items-<%= @order.id %>">
