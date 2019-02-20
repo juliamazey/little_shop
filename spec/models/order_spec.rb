@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
 
+
   before :each do
     @merchant_1 = User.create!(username: "Scary Spice", email: "scarier@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip_code: 12345, role: "merchant", active: 1)
     @spice_1 = @merchant_1.items.create!(price: 20.00, name: "cinnamon", stock: 12, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
@@ -14,7 +15,9 @@ RSpec.describe Order, type: :model do
 end
 
 
+
   describe "instance methods" do
+
     describe "average amount of time it takes merchant to fulfill an item" do
       it "shows average time" do
         xit ".average_fulfillment" do
@@ -28,12 +31,15 @@ end
           order_items_1 = create(:order_item, item: item_1, order: order_1)
           order_items_2 = create(:order_item, item: item_1, order: order_2)
           # order_items_3 = create(:order_item, item: item_1, order: order_2)
+
           expect(@spice_1.average_fulfillment).to eq(4)
         end
       end
     end
 
 
+   end
+      
     it '.total_items' do
       user = create(:user)
       item_1 = create(:item, active: true)

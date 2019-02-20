@@ -30,10 +30,12 @@ class Order < ApplicationRecord
     joins(:items).where(status: 0, items: {user: merchant}).group(:id)
   end
 
+
   def self.cancelled?
     all.any? do |order|
       order.status == "cancelled"
     end
   end
+
 
 end

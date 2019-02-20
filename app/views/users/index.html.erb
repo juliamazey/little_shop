@@ -2,6 +2,14 @@
 <h4> <%= merchant.username %> </h4>
 <% end %><br/>
 </section>
+<section class="fast-merch"><h3>Fastest Merchant Fulfillment Times: <% @fast_merch.each do |merchant| %> </h3>
+<h4> <%= merchant.username %>: <%= merchant.fulfillment_time %> </h4>
+<% end %><br/>
+</section>
+<section class="slow-merch"><h3>Slowest Merchant Fulfillment Times: <% @slow_merch.each do |merchant| %> </h3>
+<h4> <%= merchant.username %>: <%= merchant.fulfillment_time %> </h4>
+<% end %><br/>
+</section>
 <section class="top-states"><h3>Top States by Orders: <% @top_states.each do |user| %> </h3>
 <h4> <%= user.state %>: <%= user.count_of_orders %> </h4>
 <% end %><br/>
