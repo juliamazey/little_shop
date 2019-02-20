@@ -31,4 +31,11 @@ class Order < ApplicationRecord
   end
 
 
+  def self.cancelled?
+    all.any? do |order|
+      order.status == "cancelled"
+    end
+  end
+
+
 end

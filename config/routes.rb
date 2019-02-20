@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:update]
 
+  resources :orders, only: [:update]
+
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
   get '/increase', to: "carts#increase", as: :increase_cart_item
