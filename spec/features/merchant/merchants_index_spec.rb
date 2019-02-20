@@ -30,7 +30,7 @@ RSpec.describe "As a visitor" do
     @order_item_7 = create(:order_item, order: @order_4, item: @item_1)# 16
     @order_item_15 = create(:order_item, order: @order_8, item: @item_1)# 16
     @order_item_2 = create(:order_item, order: @order_1, item: @item_2, order_quantity: 35)# 140
-    @order_item_8 = create(:order_item, order: @order_4, item: @item_2)# 16
+    @order_item_8 = create(:order_item, order: @order_4, item: @item_2, created_at: "Sun, 13 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
     @order_item_11 = create(:order_item, order: @order_6, item: @item_2)# 16
     @order_item_16 = create(:order_item, order: @order_8, item: @item_2)# 16
     #merchant 1 - total revenue = 380
@@ -44,11 +44,11 @@ RSpec.describe "As a visitor" do
     @order_item_13 = create(:order_item, order: @order_7, item: @item_4)# 16
     #merchant 2 - total revenue = 368
     @order_item_5 = create(:order_item, order: @order_3, item: @item_5, order_quantity: 28)# 112
-    @order_item_14 = create(:order_item, order: @order_7, item: @item_5)# 16
-    @order_item_19 = create(:order_item, order: @order_8, item: @item_5)# 16
+    @order_item_14 = create(:order_item, order: @order_7, item: @item_5, created_at: "Sun, 16 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
+    @order_item_19 = create(:order_item, order: @order_8, item: @item_5)# 162
     @order_item_6 = create(:order_item, order: @order_3, item: @item_6, order_quantity: 20)# 80
     # merchant 4 - total revenue = 224
-    @order_item_6 = create(:order_item, order: @order_3, item: @item_7, order_quantity: 20)# 80
+    @order_item_6 = create(:order_item, order: @order_3, item: @item_7, order_quantity: 20, created_at: "Sun, 10 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 80
     # merchant 3 - total revenue = 80
   end
   context "when I visit '/merchants'" do
@@ -64,16 +64,14 @@ RSpec.describe "As a visitor" do
       expect(page).to_not have_content(@merchant_5.username)
     end
     it 'I see an area with statistics' do
-      visit merchants_path
 
+      visit merchants_path
       # - top 3 merchants who have sold the most by price and quantity, and their revenue
       within ".top-rev" do
         expect(page).to have_content("Highest Revenue:\n#{@merchant_1.username}")#: 380
         expect(page).to have_content("#{@merchant_2.username}")#: 368
         expect(page).to have_content("#{@merchant_4.username}")#: 224
       end
-      # - top 3 merchants who were fastest at fulfilling items in an order, and their times
-      # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
       # - top 3 states where any orders were shipped (by number of orders), and count of orders
       within ".top-states" do
         expect(page).to have_content("Top States by Orders:\n#{@user_1.state}")
@@ -91,6 +89,44 @@ RSpec.describe "As a visitor" do
         expect(page).to have_content("Biggest Orders by Quantity:\n#{@order_item_1.order_id}")
         expect(page).to have_content("#{@order_item_2.order_id}")
         expect(page).to have_content("#{@order_item_3.order_id}")
+      end
+    end
+  end
+  context "when I visit merchants_path" do
+    before :each do
+      OrderItem.destroy_all
+      Order.destroy_all
+      Item.destroy_all
+      User.destroy_all
+    end
+    it 'I see an area with additional statistics' do
+
+      merchant_1 = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      merchant_3 = create(:user, role: 1)
+      item_1 = create(:item, active: true, user: merchant_1, stock: 50)
+      item_2 = create(:item, active: true, user: merchant_2, stock: 50)
+      item_3 = create(:item, active: true, user: merchant_3, stock: 50)
+      user_1 = create(:user, city: "Atlanta", state: "georgia")
+      order_1 = create(:order, user_id: user_1.id)
+      order_2 = create(:order, user_id: user_1.id)
+      order_3 = create(:order, user_id: user_1.id)
+      order_item_1 = create(:order_item, order: order_1, item: item_1, created_at: "Sun, 16 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
+      order_item_2 = create(:order_item, order: order_2, item: item_2, created_at: "Sun, 13 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
+      order_item_3 = create(:order_item, order: order_3, item: item_3, created_at: "Sun, 10 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 80
+
+      visit merchants_path
+      # - top 3 merchants who were slowest at fulfilling items in an order, and their times
+      within ".slow-merch" do
+        expect(page).to have_content("Slowest Merchant Fulfillment Times:\n#{merchant_3.username}")
+        expect(page).to have_content("#{merchant_2.username}")
+        expect(page).to have_content("#{merchant_1.username}")
+      end
+      # - top 3 merchants who were fastest at fulfilling items in an order, and their times
+      within ".fast-merch" do
+        expect(page).to have_content("Fastest Merchant Fulfillment Times:\n#{merchant_1.username}")
+        expect(page).to have_content("#{merchant_2.username}")
+        expect(page).to have_content("#{merchant_3.username}")
       end
     end
   end
