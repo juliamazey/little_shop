@@ -9,4 +9,20 @@ class OrderItem < ApplicationRecord
     .order('sum(order_quantity) DESC')
     .limit(3)
   end
+
+  def self.fast_merch
+    OrderItem.joins(item: :user)
+    .select('users.username, sum(order_items.updated_at - order_items.created_at)as fulfillment_time')
+    .group('users.username')
+    .order('sum(order_items.updated_at - order_items.created_at) ASC')
+    .limit(3)
+  end
+  
+  def self.slow_merch
+    OrderItem.joins(item: :user)
+    .select('users.username, sum(order_items.updated_at - order_items.created_at)as fulfillment_time')
+    .group('users.username')
+    .order('sum(order_items.updated_at - order_items.created_at) DESC')
+    .limit(3)
+  end
 end
