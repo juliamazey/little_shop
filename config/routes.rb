@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     get '/user/disable', to: 'users#disable', as: :user_disable
     get '/merchants/dashboard', to: 'merchants#show', as: :merchant_dashboard
     get '/merchant/downgrade', to: 'merchants#downgrade', as: :merchant_downgrade
+    get '/user/upgrade', to: 'users#upgrade', as: :user_upgrade
     resources :orders, only: [:show]
     resources :merchants, only: [:show, :index]
   end
