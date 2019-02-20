@@ -59,5 +59,21 @@ RSpec.describe Item, type: :model do
     
       expect(@item_1.deducts_stock(quantity)).to eq(40)
     end
+
+    it ".average_fulfillment" do
+      merchant = create(:user, role: 1)
+      user_1 = create(:user, role: 0)
+      item_1 = create(:item, active: true, user: merchant)
+      order_1 = create(:order, user: user_1, created_at: 5.days.ago, updated_at: 1.day.ago, status: 2)
+      order_2 = create(:order, user: user_1, created_at: 6.days.ago, updated_at: 1.day.ago, status: 2)
+      order_3 = create(:order, user: user_1, created_at: 4.days.ago, updated_at: 1.day.ago, status: 2)
+      order_4 = create(:order, user: user_1, created_at: 7.days.ago, updated_at: 1.day.ago, status: 1)
+      order_item_2 = create(:order_item, item: item_1, order: order_1)
+      order_item_3 = create(:order_item, item: item_1, order: order_2)
+      order_item_4 = create(:order_item, item: item_1, order: order_3)
+      orders = item_1.orders
+
+      expect(item_1.average_fulfillment(orders)).to eq(4)
+    end
   end
 end
