@@ -63,18 +63,42 @@ RSpec.describe Item, type: :model do
 end
 
   describe 'instance methods' do
+    before :each do
+      @merchant_1 = create(:user, role: 1)
+
+      @item_1 = create(:item, user: @merchant_1, stock: 50)
+
+      @order_1 = create(:order, user_id: @merchant_1.id)
+      @order_2 = create(:order, user_id: @merchant_1.id)
+
+      @order_item_1 = create(:order_item, order: @order_1, item: @item_1, order_quantity: 10)
+      @order_item_2 = create(:order_item, order: @order_2, item: @item_1, order_quantity: 10)
+    end
     it '.quantity_sold' do
-      merchant_1 = create(:user, role: 1)
 
-      item_1 = create(:item, user: merchant_1)
+      expect(@item_1.quantity_sold).to eq(20)
+    end
 
-      order_1 = create(:order, user_id: merchant_1.id)
-      order_2 = create(:order, user_id: merchant_1.id)
+    it '.deducts_stock' do
+      quantity = @order_item_1.order_quantity
+    
+      expect(@item_1.deducts_stock(quantity)).to eq(40)
+    end
 
-      create(:order_item, order: order_1, item: item_1, order_quantity: 10)
-      create(:order_item, order: order_2, item: item_1, order_quantity: 10)
+    it ".average_fulfillment" do
+      merchant = create(:user, role: 1)
+      user_1 = create(:user, role: 0)
+      item_1 = create(:item, active: true, user: merchant)
+      order_1 = create(:order, user: user_1, created_at: 5.days.ago, updated_at: 1.day.ago, status: 2)
+      order_2 = create(:order, user: user_1, created_at: 6.days.ago, updated_at: 1.day.ago, status: 2)
+      order_3 = create(:order, user: user_1, created_at: 4.days.ago, updated_at: 1.day.ago, status: 2)
+      order_4 = create(:order, user: user_1, created_at: 7.days.ago, updated_at: 1.day.ago, status: 1)
+      order_item_2 = create(:order_item, item: item_1, order: order_1)
+      order_item_3 = create(:order_item, item: item_1, order: order_2)
+      order_item_4 = create(:order_item, item: item_1, order: order_3)
+      orders = item_1.orders
 
-      expect(item_1.quantity_sold).to eq(20)
+      expect(item_1.average_fulfillment(orders)).to eq(4)
     end
   end
 end

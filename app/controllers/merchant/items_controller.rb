@@ -15,10 +15,16 @@ class Merchant::ItemsController < Merchant::BaseController
 
 
   def edit
-    @item = Item.find(params[:id])
-    @item.change_active_status
-    redirect_to merchant_index_items_path
+    if params[:id] != nil
+      @item = Item.find(params[:id])
+      @item.change_active_status
+      redirect_to merchant_dashboard_items_path
+    elsif params[:format] != nil
+      @item = Item.find(params[:format])
+    end
+
   end
+
 
 
   def destroy
