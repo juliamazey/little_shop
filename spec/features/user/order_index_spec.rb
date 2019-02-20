@@ -48,11 +48,9 @@ RSpec.describe 'As a registered user' do
       expect(page).to have_content("Order # #{@order_1.id}")
 
       within ".order-info" do
-
       expect(page).to have_content("Order made on the #{@order_1.created_at}")
       expect(page).to have_content("Order last updated on the #{@order_1.updated_at}")
       expect(page).to have_content("Status: #{@order_1.status}")
-
       end
 
       within "#order-items-#{@order_1.id}" do

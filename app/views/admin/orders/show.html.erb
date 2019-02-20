@@ -1,0 +1,11 @@
+<h1>All Orders</h1>
+  <% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+  <h1><%= link_to "Order # #{order.id}", user_order_path(current_user, order) %></h1>
+  <p>Total Items: <%= order.total_items %></p>
+  <p>Grand Total: <%= number_to_currency(order.grand_total) %></p>
+  <p>Date Order placed: <%= order.created_at %></p>
+  <p>Order Status: <%= order.status %></p>
+  <p>Last Updated: <%= order.updated_at %></p>
+  </section>
+  <% end %>
