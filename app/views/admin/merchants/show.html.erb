@@ -2,6 +2,8 @@
 <%= content_tag :div, message, class: type %>
 <% end %>
 
+<%= link_to "#{@merchant.username}'s Items", admin_dashboard_items_path(@merchant) %>
+
 <%= "Username: #{@merchant.username}" %>
 <%= "Email: #{@merchant.email}" %>
 <%= "Address: #{@merchant.address}" %>
