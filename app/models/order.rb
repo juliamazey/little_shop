@@ -30,4 +30,5 @@ class Order < ApplicationRecord
     joins(:items).where(status: 0, items: {user: merchant}).group(:id)
   end
 
+
 end
