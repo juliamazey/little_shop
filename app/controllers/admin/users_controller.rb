@@ -6,6 +6,9 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find(params[:id])
+    if @user.role == "merchant"
+      redirect_to admin_merchant_dashboard_path(@user)
+    end
   end
 
   def edit
@@ -30,7 +33,6 @@ class Admin::UsersController < Admin::BaseController
   def upgrade
     @user = User.find(params[:format])
     @user.update(role: 1)
-    binding.pry
     flash[:success] = "User Upgraded to Merchant"
     redirect_to admin_merchant_dashboard_path(@user)
   end
