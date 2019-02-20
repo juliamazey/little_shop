@@ -18,7 +18,13 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
+  def self.items_in_stock
+    Item.sum(:stock)
+  end
 
+  def self.percent_sold
+    ((OrderItem.items_sold.to_f / self.items_in_stock) * 100).round(0)
+  end
 
   def quantity_sold
     order_items.sum do |order_item|
