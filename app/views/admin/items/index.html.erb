@@ -3,7 +3,7 @@
 <% end %>
 
 <% if current_merchant? %>
-<%= link_to "Add Item", admin_item_new_path(params[:format]) %>
+<%= link_to 'Add Item', merchant_dashboard_item_new_path %>
 <% elsif current_admin? %>
 <%= link_to "Add Item", admin_item_new_path(params[:format]) %>
 <% end %>
@@ -24,17 +24,3 @@
   <%= link_to 'Edit Item', admin_edit_item_path(item) %>
   <%= link_to 'Delete this item', admin_destroy_item_path(item) %>
 <% end %>
-<% if item.active %>
-    <%= link_to "Disable", edit_merchant_item_path(item) %>
-  <% else %>
-
-    <%= link_to "Enable", edit_merchant_item_path(item) %>
-    <%= "This item is no longer for sale." %>
-  <% end %>
-  <h5>Orders: <%= item.orders_count %></h5>
-  <% if item.orders_count < 1 %>
-    <%= link_to "Delete" %>
-  <% end %>
-</section>
-<% end %>
-</section>

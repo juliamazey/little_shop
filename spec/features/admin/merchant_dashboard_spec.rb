@@ -17,7 +17,7 @@ RSpec.describe 'As an admin user' do
 
       visit admin_merchant_dashboard_path(@merchant)
       click_on "Downgrade" #The merchant themselves do NOT see this link
-      
+
       expect(current_path).to eq(admin_user_path(@merchant)) #because the merchant is now a regular user
       expect(page).to have_content("This user has been downgraded.")
 
@@ -29,7 +29,6 @@ RSpec.describe 'As an admin user' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_merchant_dashboard_path(@merchant)
-
       expect(page).to have_link("#{@merchant.username}'s Items")
 
       click_on "#{@merchant.username}'s Items"
