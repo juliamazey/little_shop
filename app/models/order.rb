@@ -17,6 +17,8 @@ class Order < ApplicationRecord
 
   def grand_total
     #might move this to Order Item model
+    # self.joins(order_items: :items)
+    # .select("items.price * order_items.order_quantity")
     order_items.sum {|order_item| order_item.order_price}
   end
 

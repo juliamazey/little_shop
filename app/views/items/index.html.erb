@@ -1,14 +1,17 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
 
 <h2>Statistics</h2>
+
 <section class="top_statistics_block">
 <h3>Five Most Popular Items: </h3>
+
 <% @top.each do |item| %>
     <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
 <% end %>
 </section>
+
 
 <section class="bottom_statistics_block">
 <h3>Five Least Popular Items: </h3>
@@ -17,14 +20,16 @@
 <% end %>
 </section>
 
+
 <section class="items-wrapper">
 <% @items.each do |item| %>
 <section class="items-index" id="item-<%= item.id %>">
 <h3><%= link_to(item.name, item_path(item)) %></h3>
 <p><%= item.user.username %></p>
 <p>Price: <%= item.price %></p>
-<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
 <p>Stock: <%= item.stock %></p>
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
+
 <%= button_to 'Add to Cart', carts_path(item_id: item.id) %>
 </section>
 <% end %>

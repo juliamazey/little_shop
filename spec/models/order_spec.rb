@@ -39,7 +39,7 @@ end
 
 
    end
-      
+
     it '.total_items' do
       user = create(:user)
       item_1 = create(:item, active: true)
@@ -69,4 +69,4 @@ end
       expect(order_1.grand_total).to eq(32)
     end
   end
-end
+# end

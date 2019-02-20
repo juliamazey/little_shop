@@ -1,7 +1,8 @@
 <section class="item_information">
 <h1>Name: <%= @item.name %></h1>
-<h1>Description: <%= @item.description %></h1>
 <img src="<%= @item.image %>" alt="spice image">
+<p>Description: <%= @item.description %></p>
+
 <h1>Price: <%= @item.price %></h1>
 <h1>Amount available: <%= @item.stock %></h1>
 <h1>Merchant: <%= @item.user.username %></h1>

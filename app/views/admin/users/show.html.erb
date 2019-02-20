@@ -1,4 +1,4 @@
 <h1>Viewing <%= @user.username %>'s profile </h1>
 <%= render './show' %>
-<%= link_to "Edit This Profile", edit_admin_user_path(@user) %>
+<p><%= link_to "Edit This Profile", edit_admin_user_path(@user) %></p>
 <%= link_to "#{@user.username}'s Orders", admin_user_orders_path(@user) %>

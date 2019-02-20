@@ -1,5 +1,9 @@
 class OrderItemsController < ApplicationController
 
+  def create
+  
+  end
+
   def update
     @order_item = OrderItem.find(params[:id])
     @item = Item.find(@order_item.item_id)
@@ -13,7 +17,7 @@ class OrderItemsController < ApplicationController
     if @order.fulfilled_items?
       @order.update(status: 2)
     end
-    
+
     redirect_to merchant_dashboard_order_path(order_items_params[:order_id])
   end
 

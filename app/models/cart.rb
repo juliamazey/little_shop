@@ -21,7 +21,7 @@ class Cart
     Item.where(id:@contents.keys)
   end
 
-  def grand_total
+  def grand_total_cart
     @contents.sum do |item, quantity|
       Item.find(item).price * quantity.to_i
     end

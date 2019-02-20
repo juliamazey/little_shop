@@ -12,7 +12,9 @@ class OrdersController < ApplicationController
     user = User.find(current_user.id)
      order = user.orders.create!
      @cart.contents.each do |item_id, order_quantity|
-       order.order_items.create(item_id: item_id , order_quantity: order_quantity)
+       item = Item.find(item_id)
+       item_price = item.price
+       order.order_items.create(item_id: item_id, order_quantity: order_quantity, order_price: item_price)
      end
      @cart.contents.clear
      flash[:success] = "Your order has been placed"

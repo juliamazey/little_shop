@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:create, :edit]
 
-  resources :order_items, only: [:update]
+  resources :order_items, only: [:update, :create]
 
   get '/cart', to: "carts#show", as: :cart
   get '/empty', to: "carts#destroy", as: :empty_cart
