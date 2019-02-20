@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'As and admin' do
   context "when I visit a user's profile page" do
-    xit "should see all the user info that a user would see" do
+    it "should see all the user info that a user would see" do
       user_1 = create(:user)
       admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -22,7 +22,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_link ("Edit This Profile")
     end
 
-    xit "should let the admin update the user info" do
+    it "should let the admin update the user info" do
       user_1 = create(:user)
       admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -52,7 +52,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("User profile updated.")
     end
 
-    xit "shows me an error message if the email address is in use" do
+    it "shows me an error message if the email address is in use" do
       user_1 = create(:user)
       user_2 = create(:user)
       admin = create(:user, role: 2)
@@ -94,6 +94,16 @@ RSpec.describe 'As and admin' do
 
       expect(page).to have_content("User Upgraded to Merchant")
       expect(current_path).to eq(admin_merchant_dashboard_path(user_1))
+    end
+
+    it "is redirected to a merchants page if visiting a user's page who is a merchant" do
+      merchant = create(:user, role: 1)
+      admin = create(:user, role: 2)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit admin_user_path(merchant)
+
+      expect(current_path).to eq(admin_merchant_dashboard_path(merchant))
     end
   end
 end
