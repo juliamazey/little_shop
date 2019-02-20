@@ -20,7 +20,7 @@ RSpec.describe 'As a merchant' do
     it 'can enable an item' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
-      visit merchant_index_items_path
+      visit merchant_dashboard_items_path
       within "#item-#{@item_4.id}" do
         click_on "Enable"
       end
@@ -32,7 +32,7 @@ RSpec.describe 'As a merchant' do
     it 'can disable an item' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
-      visit merchant_index_items_path
+      visit merchant_dashboard_items_path
       within "#item-#{@item_2.id}" do
         click_on "Disable"
       end
@@ -44,7 +44,7 @@ RSpec.describe 'As a merchant' do
     it 'can click on a link and be taken to a new item form' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
-      visit merchant_index_items_path
+      visit merchant_dashboard_items_path
 
       expect(page).to have_content("Add Item")
 
@@ -56,7 +56,7 @@ RSpec.describe 'As a merchant' do
     it "can fill out a form to add a new item" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
-      visit merchant_index_items_path
+      visit merchant_dashboard_items_path
 
       click_on "Add Item"
 

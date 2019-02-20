@@ -32,6 +32,7 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
+
   def self.bottom_five(limit = 5)
      Item.select("items.*, sum(order_items.order_quantity) as items_qty")
      .joins(:order_items)
@@ -39,6 +40,7 @@ class Item < ApplicationRecord
      .order('items_qty')
      .limit(limit)
   end
+
 
   def quantity_sold
     order_items.sum do |order_item|

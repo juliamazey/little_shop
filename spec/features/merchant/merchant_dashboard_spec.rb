@@ -4,14 +4,12 @@ RSpec.describe "As a merchant" do
   describe "when i visit my dashboard" do
     before :each do
       @merchant_1 = create(:user, role: 1)
-      @merchant_2 = create(:user, role: 1)
-      @item_1 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_2 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_3 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_4 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_5 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_6 = create(:item, active: true, user: @merchant_1, stock: 50)
-      @item_7 = create(:item, active: true, user: @merchant_2, stock: 50)
+      @item_1 = create(:item, active: true, user: @merchant_1, stock: 500)
+      @item_2 = create(:item, active: true, user: @merchant_1, stock: 500)
+      @item_3 = create(:item, active: true, user: @merchant_1, stock: 500)
+      @item_4 = create(:item, active: true, user: @merchant_1, stock: 500)
+      @item_5 = create(:item, active: true, user: @merchant_1, stock: 500)
+      @item_6 = create(:item, active: true, user: @merchant_1, stock: 500)
       @user_1 = create(:user)
       @user_2 = create(:user, city: "denver", state: "utah")
       @user_3 = create(:user, city: "saint paul", state: "minnesota")
@@ -67,42 +65,60 @@ RSpec.describe "As a merchant" do
 
       order_item_1 = create(:order_item, order: order_1, item: @item_1, order_quantity: 40)
       order_item_2 = create(:order_item, order: order_1, item: @item_2, order_quantity: 35)
-      order_item_3 = create(:order_item, order: order_2, item: @item_3, order_quantity: 32)
+      order_item_3 = create(:order_item, order: order_2, item: @item_3, order_quantity: 31)
       order_item_4 = create(:order_item, order: order_2, item: @item_4, order_quantity: 30)
       order_item_5 = create(:order_item, order: order_3, item: @item_5, order_quantity: 28)
       order_item_6 = create(:order_item, order: order_3, item: @item_6, order_quantity: 20)
-      order_item_7 = create(:order_item, order: order_4, item: @item_1)
-      order_item_8 = create(:order_item, order: order_4, item: @item_2)
-      order_item_9 = create(:order_item, order: order_5, item: @item_3)
-      order_item_10 = create(:order_item, order: order_5, item: @item_4, order_quantity: 10)
-      order_item_11 = create(:order_item, order: order_6, item: @item_2)
-      order_item_12 = create(:order_item, order: order_6, item: @item_3)
-      order_item_13 = create(:order_item, order: order_7, item: @item_4)
-      order_item_14 = create(:order_item, order: order_7, item: @item_5)
-      order_item_15 = create(:order_item, order: order_8, item: @item_1)
-      order_item_16 = create(:order_item, order: order_8, item: @item_2)
-      order_item_17 = create(:order_item, order: order_8, item: @item_3)
-      order_item_18 = create(:order_item, order: order_8, item: @item_4)
-      order_item_19 = create(:order_item, order: order_8, item: @item_5)
+      order_item_7 = create(:order_item, order: order_4, item: @item_1, order_quantity: 15)
+      order_item_8 = create(:order_item, order: order_4, item: @item_2, order_quantity: 15)
+      order_item_9 = create(:order_item, order: order_5, item: @item_3, order_quantity: 15)
+      order_item_10 = create(:order_item, order: order_5, item: @item_4, order_quantity: 15)
+      order_item_11 = create(:order_item, order: order_6, item: @item_2, order_quantity: 16)
+      order_item_12 = create(:order_item, order: order_6, item: @item_3, order_quantity: 15)
+      order_item_13 = create(:order_item, order: order_7, item: @item_4, order_quantity: 15)
+      order_item_14 = create(:order_item, order: order_7, item: @item_5, order_quantity: 15)
+      order_item_15 = create(:order_item, order: order_8, item: @item_1, order_quantity: 15)
+      order_item_16 = create(:order_item, order: order_8, item: @item_2, order_quantity: 15)
+      order_item_17 = create(:order_item, order: order_8, item: @item_3, order_quantity: 15)
+      order_item_18 = create(:order_item, order: order_8, item: @item_4, order_quantity: 15)
+      order_item_19 = create(:order_item, order: order_8, item: @item_5, order_quantity: 15)
 
       visit merchant_dashboard_path(@merchant_1)
 
-      # expect(page).to have_content("Top 5 Items:\n#{@item_1.name}, total quantity sold: #{@item_1.quantity_sold}")
-      #
-      # within ".total-sold" do
-      # expect(page).to have_content(243)
-      # expect(page).to have_content("Sold 243 items, which is 45% of your total inventory")
-      # end
+      expect(page).to have_content("Top 5 Items:\n#{@item_2.name}, total quantity sold: #{@item_2.quantity_sold}")
+      # item 2 = 81; item 3 = 76; item 5 = 75
+
+      within ".total-sold" do
+      expect(page).to have_content(380)
+      expect(page).to have_content("Sold  items, which is  of your total inventory")
+      end
+      #3000 is the total inventory, 380 sold
+
 
       within ".top-states" do
       expect(page).to have_content(@user_1.state)
       expect(page).to_not have_content(@user_3.state)
       end
+      # who was the user that bought more items? user_1, user_4, user_3
+      #user_1 (CO, bought 184 items); user_4(new york, bought 75 items); user_3(minnesota, bought 61 items)
 
-      # within ".top-cities" do
-      # expect(page).to have_content("Top 3 Cities: #{@user_1.city}, #{@user_1.state}\n #{@user_2.city}, #{@user_2.state}")
-      # expect(page).to_not have_content(@user_4.city)
-      # end
+
+      within ".top-cities" do
+      expect(page).to have_content("Top 3 Cities: #{@user_1.city}, #{@user_1.state}\n #{@user_2.city}, #{@user_2.state}")
+      expect(page).to_not have_content(@user_4.city)
+      end
+      #user_1 (testville, bought 184 items); user_4(new york, bought 75 items); user_3(saint paul, bought 61 items)
+
+
+      within ".top-users" do
+        #user_1 bought 184 items
+      end
+
+      within ".top-spenders" do
+        #price is 4 for every item, so it would be the same results as in line 110
+        #user 1 spent 736, user 4 spent 300, user 3 spent 244
+      end
+
     end
 
     it 'has a link to view my items' do
@@ -113,7 +129,7 @@ RSpec.describe "As a merchant" do
 
       click_link "My Items"
 
-      expect(current_path).to eq(merchant_items_path)
+      expect(current_path).to eq(merchant_dashboard_items_path)
 
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content("Stock: #{@item_2.stock}")
