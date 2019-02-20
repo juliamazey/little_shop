@@ -2,6 +2,12 @@ class UsersController < ApplicationController
 
   def index
     @merchants = User.merchants
+    @top_revenue = User.top_revenue
+    @top_states = User.top_states
+    @top_cities = User.top_cities
+    @big_orders = OrderItem.biggest_orders
+    @fast_merch = OrderItem.fast_merch
+    @slow_merch = OrderItem.slow_merch
   end
 
   def new
@@ -36,7 +42,7 @@ class UsersController < ApplicationController
   def show
   @orders = Order.find_by_user(current_user.id)
     if current_user
-      # binding.pry
+
       unless current_merchant? || current_admin?
         @user = User.find(current_user.id)
       else
@@ -72,7 +78,6 @@ class UsersController < ApplicationController
   end
 
   def enable
-    binding.pry
   end
 
   def disable

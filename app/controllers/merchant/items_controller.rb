@@ -6,12 +6,11 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def show
-    @item = Item.find(params[:format])
+    @item = Item.find(params[:id])
   end
 
   def new
     @item = Item.new
-    # binding.pry
   end
 
 
@@ -23,6 +22,7 @@ class Merchant::ItemsController < Merchant::BaseController
     elsif params[:format] != nil
       @item = Item.find(params[:format])
     end
+
   end
 
 

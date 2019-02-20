@@ -27,3 +27,8 @@
    background-color: #819D96;
    height: 35px;
  }
+
+ #notice {
+   background-color: #red;
+   color: white
+ }
