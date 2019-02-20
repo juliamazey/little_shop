@@ -29,7 +29,16 @@ class Item < ApplicationRecord
   end
 
   def deducts_stock(quantity)
-    stock - quantity
+    qty = stock - quantity
+    self.update(stock: qty)
+  end
+
+  def self.restock
+    all.each do |item|
+      qty = item.order_items.first.order_quantity
+      restock = item.stock + qty
+      item.update(stock: restock)
+    end
   end
 
   def self.merchant_items(merchant)
