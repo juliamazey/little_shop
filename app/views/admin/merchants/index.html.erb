@@ -38,3 +38,17 @@
 </section>
 <% end %>
 </section>
+
+<h1>List of Merchants</h1>
+<% @merchants.each do |merchant| %>
+<section id="merchant-<%= merchant.id %>">
+  <%= link_to "#{merchant.username}", admin_merchant_path(merchant) %>
+  <%= merchant.city %>
+  <%= merchant.state %>
+  <% if merchant.active == true %>
+    <%= link_to 'Disable', admin_user_disable_path(merchant) %>
+  <% else %>
+    <%= link_to 'Enable', admin_user_enable_path(merchant) %>
+  <% end %>
+</section>
+<% end %>
