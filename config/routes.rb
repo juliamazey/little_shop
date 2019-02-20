@@ -44,10 +44,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
     get '/user/orders', to: 'orders#show'
-    get 'admin/user/enable', to: 'users#enable', as: :user_enable
-    get 'admin/user/disable', to: 'users#disable', as: :user_disable
-    get 'admin/merchants/dashboard', to: 'merchants#show', as: :merchant_dashboard
-    get 'admin/merchant/downgrade', to: 'merchants#downgrade', as: :merchant_downgrade
-
+    get '/user/enable', to: 'users#enable', as: :user_enable
+    get '/user/disable', to: 'users#disable', as: :user_disable
+    get '/merchants/dashboard', to: 'merchants#show', as: :merchant_dashboard
+    get '/merchant/downgrade', to: 'merchants#downgrade', as: :merchant_downgrade
+    get '/user/upgrade', to: 'users#upgrade', as: :user_upgrade
   end
 end
