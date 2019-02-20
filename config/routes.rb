@@ -41,11 +41,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
-    get '/user/orders', to: 'orders#show'
+    get '/user/orders', to: 'orders#index'
     get '/user/enable', to: 'users#enable', as: :user_enable
     get '/user/disable', to: 'users#disable', as: :user_disable
     get '/merchants/dashboard', to: 'merchants#show', as: :merchant_dashboard
     get '/merchant/downgrade', to: 'merchants#downgrade', as: :merchant_downgrade
+    resources :orders, only: [:show]
     resources :merchants, only: [:show, :index]
   end
 
