@@ -7,10 +7,24 @@ class Item < ApplicationRecord
     where(active:true)
   end
 
-  def average_fulfillment
+  def average_fulfillment(incoming_orders)
+    binding.pry
+    orders = incoming_orders.all.where(status: "shipped")
+    time_array = []
+    orders.each do |order|
+      time_array << order.updated_at - order.created_at
+    end
+    count = time_array.count
+    if count > 0
+      average_float = time_array.sum / count
+      average_float = average_float / 86400
+      average = average_float.to_i
+    else
+      average = 0
+    end
   end
 
-  def self.top_items(limit = 5)
+  def self.top_five(limit = 5)
      Item.select("items.*, sum(order_items.order_quantity) as items_qty")
      .joins(:order_items)
      .group(:id)
@@ -30,6 +44,14 @@ class Item < ApplicationRecord
     # .limit(1)
   end
 
+  def self.bottom_five(limit = 5)
+     Item.select("items.*, sum(order_items.order_quantity) as items_qty")
+     .joins(:order_items)
+     .group(:id)
+     .order('items_qty')
+     .limit(limit)
+  end
+
 
   def quantity_sold
     order_items.sum do |order_item|
@@ -42,7 +64,16 @@ class Item < ApplicationRecord
   end
 
   def deducts_stock(quantity)
-    stock - quantity
+    qty = stock - quantity
+    self.update(stock: qty)
+  end
+
+  def self.restock
+    all.each do |item|
+      qty = item.order_items.first.order_quantity
+      restock = item.stock + qty
+      item.update(stock: restock)
+    end
   end
 
   def self.merchant_items(merchant)

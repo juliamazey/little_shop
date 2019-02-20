@@ -18,6 +18,7 @@
 
   <p class="total-sold">Sold <%= @items_sold %> items, which is <%= @percent_sold %>% of your total inventory.</p>
 
+
   <section class="top-states"><p>Top 3 States: <% @top_states.each do |user| %></p>
     <p><%= user.state %></p>
   <% end %>
