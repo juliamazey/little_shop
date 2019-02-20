@@ -80,13 +80,14 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("That email address is already in use.")
     end
 
-    it "can access the order's show page for a user" do
+    it "can access the order's index page for a user" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_user_path(@user_1)
 
       click_on "#{@user_1.username}'s Orders"
+      save_and_open_page
 
       expect(current_path).to eq(admin_user_orders_path(@user_1))
 
@@ -96,6 +97,34 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("Date Order placed: #{@order_1.created_at}")
       expect(page).to have_content("Order Status: #{@order_1.status}")
       expect(page).to have_content("Last Updated: #{@order_1.updated_at}")
+    end
+
+    it "can access a specific order show page for a user" do
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+
+      visit admin_user_orders_path(@user_1)
+      click_on "Order # #{@order_1.id}"
+
+      expect(current_path).to eq(admin_order_path(@order_1))
+
+      within ".order-info" do
+      expect(page).to have_content("Order made on the #{@order_1.created_at}")
+      expect(page).to have_content("Order last updated on the #{@order_1.updated_at}")
+      expect(page).to have_content("Status: #{@order_1.status}")
+      end
+
+      within "#order-items-#{@order_1.id}" do
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_1.description)
+      expect(page).to have_xpath('//img[@src="http://theepicentre.com/wp-content/uploads/2012/07/cinnamon.jpg"]')
+      expect(page).to have_content("Item Price: $#{@item_2.price}")
+      expect(page).to have_content("Quantity bought: #{@order_items_2.order_quantity}")
+      expect(page).to have_content("Subtotal: $#{@order_items_1.order_price}")
+      end
+
+      expect(page).to have_content("Total items in order: #{@order_1.total_items}")
+      expect(page).to have_content("Grand total: $#{@order_1.grand_total}")
     end
   end
 end
