@@ -9,15 +9,15 @@ RSpec.describe 'As a registered user' do
       item_1 = create(:item, active: true)
       item_2 = create(:item, active: true, stock: 20)
 
-      order_1 = create(:order, users_id: user.id)
-      order_2 = create(:order, users_id: user.id, quantity: 6, created_at: "2018-02-16 20:10:48 UTC", updated_at: "2018-02-16 20:10:48 UTC", status: 2)
+      order_1 = create(:order, user_id: user.id)
+      order_2 = create(:order, user_id: user.id, created_at: "2018-02-16 20:10:48 UTC", updated_at: "2018-02-16 20:10:48 UTC", status: 2)
 
       order_items_1 = create(:order_item, item: item_1, order: order_1)
       order_items_2 = create(:order_item, item: item_2, order: order_1)
 
-      order_items_3 = create(:order_item, item: item_2, order: order_2)
+      order_items_3 = create(:order_item, item: item_2, order: order_2, order_quantity: 6)
 
-      visit profile_orders_path(user)
+      visit user_order_path(user)
 
       within "#order-#{order_1.id}" do
 
