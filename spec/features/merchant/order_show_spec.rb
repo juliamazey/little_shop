@@ -49,10 +49,10 @@ RSpec.describe 'As a merchant' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
 
     visit merchant_dashboard_order_path(@order_1)
-
     within "#item-#{@item_1.id}" do
       click_on("Fulfill")
     end
+  
     expect(page).to have_content("You have fulfilled the item")
     expect(page).to have_content("Already fulfilled")
 
