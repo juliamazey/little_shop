@@ -7,5 +7,4 @@ class Merchant::UsersController < Merchant::BaseController
     @users = User.top_consumers(current_user)
   end
 
-
 end

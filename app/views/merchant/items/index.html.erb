@@ -15,9 +15,11 @@
 <p>Price: <%= number_to_currency(item.price) %></p>
 <%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
 <p>Stock: <%= item.stock %></p>
-<%= link_to 'Edit Item', edit_item_path(item.id) %>
+<%= link_to 'Edit Item', merchant_edit_item_path(item) %>
+<%= link_to 'Delete this item', merchant_destroy_item_path(item) %>
 <% if item.active %>
     <%= link_to "Disable", edit_merchant_item_path(item) %>
+    <%= "This item is now available for sale." %>
   <% else %>
 
     <%= link_to "Enable", edit_merchant_item_path(item) %>

@@ -30,8 +30,11 @@ RSpec.describe Order, type: :model do
           order_items_2 = create(:order_item, item: item_1, order: order_2)
           # order_items_3 = create(:order_item, item: item_1, order: order_2)
 
-      expect(@spice_1.average_fulfillment).to eq(4)
+          expect(@spice_1.average_fulfillment).to eq(4)
+        end
       end
+    end
+
 
    end
       

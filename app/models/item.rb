@@ -32,10 +32,20 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
+
+
   def quantity_sold
     order_items.sum do |order_item|
       order_item.order_quantity
     end
+  end
+
+  def enough?(item)
+    item.stock > item.quantity_sold
+  end
+
+  def deducts_stock(quantity)
+    stock - quantity
   end
 
   def self.merchant_items(merchant)

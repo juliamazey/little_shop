@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   def index
     @merchants = User.merchants
+    @top_revenue = User.top_revenue
+    @top_states = User.top_states
+    @top_cities = User.top_cities
+    @big_orders = OrderItem.biggest_orders
   end
 
   def new
@@ -48,7 +52,6 @@ class UsersController < ApplicationController
   end
 
   def update
-
     @user = User.find(params[:id])
     @user.username = params[:user][:username]
     @user.address = params[:user][:address]
@@ -58,7 +61,6 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
-
     if @user.save
       flash[:success] = "User profile updated."
       if @user.admin?
