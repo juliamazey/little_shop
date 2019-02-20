@@ -43,7 +43,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit]
+
+    get '/dashboard/items/delete', to: "items#destroy", as: :destroy_item
+    get 'merchants/dashboard/items/edit', to: "items#edit", as: :edit_item
+    get 'merchants/dashboard/items', to: "items#index", as: :dashboard_items
+    get 'merchants/dashboard/items/new', to: "items#new", as: :item_new
+    get '/user/orders', to: 'orders#show'
+
     get '/user/orders', to: 'orders#index'
+
     get '/user/enable', to: 'users#enable', as: :user_enable
     get '/user/disable', to: 'users#disable', as: :user_disable
     get '/merchants/dashboard', to: 'merchants#show', as: :merchant_dashboard

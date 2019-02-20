@@ -15,10 +15,11 @@ class Admin::MerchantsController < Admin::BaseController
 
   def downgrade
     @merchant = User.find(params[:format])
-    @merchant.role = 0
     @merchant.items.each do |item|
       item.active = false
     end
+    @merchant.update(role: 0)
+    # binding.pry
     flash[:success] = "This user has been downgraded."
     redirect_to admin_user_path(@merchant)
   end
