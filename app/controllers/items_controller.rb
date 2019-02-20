@@ -5,7 +5,12 @@ class ItemsController < ApplicationController
   end
 
   def show
+
     @item = Item.find(params[:id])
+    @orders = @item.orders
+    @fulfill_time_avg = @item.average_fulfillment(@orders).to_s
+    # @item_fulfillment = average_fulfillment(@orders)
+        # binding.pry
   end
 
   def update
