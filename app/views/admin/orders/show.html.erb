@@ -13,18 +13,31 @@
   <% end %>
 </section>
 
-<section id="order-items-<%= @order.id %>">
-  <% @order.items.each do |item| %>
+  <% @order_items.each do |order_item| %>
+  <section id="order-items-<%= order_item.id %>">
   <ul>
-    <li><%= item.name %></li>
-    <li><%= item.description %></li>
-    <li><img src="<%= item.image %>" alt="spice image"></li>
-    <li>Item Price: <%= number_to_currency(item.price) %></li>
-    <li>Quantity bought: <%= item.order_items.first.order_quantity %></li>
-    <li>Subtotal: <%= number_to_currency(item.order_items.first.order_price) %></li>
+    <li><%= order_item.item.name %></li>
+    <li><%= order_item.item.description %></li>
+    <li><img src="<%= order_item.item.image %>" alt="spice image"></li>
+    <li>Item Price: <%= number_to_currency(order_item.item.price) %></li>
+    <li>Quantity bought: <%= order_item.order_quantity %></li>
+    <li>Subtotal: <%= number_to_currency(order_item.order_price) %></li>
   </ul>
+  <% unless order_item.fulfilled? %>
+    <% if order_item.item.enough?(order_item.item) %>
+      <%= form_for order_item, url: order_item_path(order_item), method: :patch do |f| %>
+      <%= f.hidden_field :order_id, value: order_item.order_id %>
+      <%= f.hidden_field :fulfilled, value: true %>
+      <%= f.submit "Fulfill"%>
+      <% end %>
+     <% else %>
+     <h4 id="notice"><%= "There are not enough items in inventory" %></h4>
+     <% end %>
+  <% else %>
+  <%= "Already fulfilled" %>
   <% end %>
 </section>
+  <% end %>
 
 <h3>Total items in order: <%= @order.total_items %></h3>
 <h3>Grand total: <%= number_to_currency(@order.grand_total) %></h3>

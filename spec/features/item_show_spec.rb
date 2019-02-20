@@ -43,7 +43,7 @@ RSpec.describe "item show page", type: :feature do
     end
 
     context "the viewer is a merchant or and admin" do
-      it "does not shows a link to add item to the cart" do
+      it "does not shows a link to add item to the cart" do 
         @user2 = create(:user, role: 1)
         @spice_1 = create(:item, active: true)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user2)
