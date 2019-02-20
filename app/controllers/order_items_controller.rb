@@ -12,8 +12,11 @@ class OrderItemsController < ApplicationController
     if order.fulfilled_items?
       order.update(status: "shipped")
     end
-
-    redirect_to merchant_dashboard_order_path(order_items_params[:order_id])
+    if current_merchant?
+      redirect_to merchant_dashboard_order_path(order.id)
+    else
+      redirect_to admin_order_path(order.id)
+    end
   end
 
   private
