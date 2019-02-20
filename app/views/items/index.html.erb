@@ -2,13 +2,19 @@
 <%= content_tag :div, message, class: type %>
 <% end %>
 
-<section class="statistics_block">
 <h2>Statistics</h2>
+<section class="top_statistics_block">
 <h3>Five Most Popular Items: </h3>
-<% @items.top_five.each do |item| %>
+<% @top.each do |item| %>
     <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
 <% end %>
-<h3>Five Least Popular Items</h3>
+</section>
+
+<section class="bottom_statistics_block">
+<h3>Five Least Popular Items: </h3>
+<% @bottom.each do |item| %>
+    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+<% end %>
 </section>
 
 <section class="items-wrapper">

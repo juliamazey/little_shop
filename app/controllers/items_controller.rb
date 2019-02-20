@@ -2,10 +2,15 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.select_active
+        # binding.pry
+    @top = Item.top_five
+    @bottom = Item.bottom_five
   end
 
   def show
+
     @item = Item.find(params[:id])
+
   end
 
   # def new

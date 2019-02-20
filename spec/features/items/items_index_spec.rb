@@ -56,25 +56,6 @@ RSpec.describe 'when I visit /spices'  do
       end
 
       it 'shows top 5 most popular items' do
-        # user = create(:user)
-        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-        # order_1 = create(:order, user_id: user.id, status: 2)
-        # order_2 = create(:order, user_id: user.id, status: 2)
-        # order_3 = create(:order, user_id: user.id, status: 2)
-        # order_4 = create(:order, user_id: user.id, status: 2)
-        # order_5 = create(:order, user_id: user.id, status: 2)
-        # order_6 = create(:order, user_id: user.id, status: 2)
-        # order_7 = create(:order, user_id: user.id, status: 2)
-        # order_8 = create(:order, user_id: user.id, status: 2)
-        #
-        # order_items_1 = create(:order_item, item: @item_1, order: order_1, order_quantity: 8)
-        # order_items_2 = create(:order_item, item: @item_2, order: order_2, order_quantity: 21)
-        # order_items_3 = create(:order_item, item: @item_3, order: order_3, order_quantity: 33)
-        # order_items_4 = create(:order_item, item: @item_4, order: order_4, order_quantity: 5)
-        # order_items_5 = create(:order_item, item: @item_5, order: order_5, order_quantity: 16)
-        # order_items_6 = create(:order_item, item: @item_6, order: order_6, order_quantity: 12)
-        # order_items_7 = create(:order_item, item: @item_7, order: order_7, order_quantity: 4)
-        # order_items_8 = create(:order_item, item: @item_8, order: order_8, order_quantity: 7)
         merchant_1 = create(:user, role: 1)
         merchant_2 = create(:user, role: 1)
 
@@ -98,10 +79,22 @@ RSpec.describe 'when I visit /spices'  do
 
         visit items_path
 
-        within ".statistics_block" do
-          expect(page).to have_content("Statistics")
-          expect(page).to have_content("Five Most Popular Items: #{[item_5, item_3, item_2, item_4, item_1]}")
-          # expect(page).to have_content("Five Least Popular Items")
+        within ".top_statistics_block" do
+          expect(page).to have_content("Five Most Popular Items:")
+          expect(page).to have_content("#{item_5.name}, total quantity sold: #{item_5.quantity_sold}")
+          expect(page).to have_content("#{item_3.name}, total quantity sold: #{item_3.quantity_sold}")
+          expect(page).to have_content("#{item_2.name}, total quantity sold: #{item_2.quantity_sold}")
+          expect(page).to have_content("#{item_4.name}, total quantity sold: #{item_4.quantity_sold}")
+          expect(page).to have_content("#{item_1.name}, total quantity sold: #{item_1.quantity_sold}")
+        end
+
+        within ".bottom_statistics_block" do
+          expect(page).to have_content("Five Least Popular Items:")
+          expect(page).to have_content("#{item_7.name}, total quantity sold: #{item_7.quantity_sold}")
+          expect(page).to have_content("#{item_6.name}, total quantity sold: #{item_6.quantity_sold}")
+          expect(page).to have_content("#{item_1.name}, total quantity sold: #{item_1.quantity_sold}")
+          expect(page).to have_content("#{item_4.name}, total quantity sold: #{item_4.quantity_sold}")
+          expect(page).to have_content("#{item_2.name}, total quantity sold: #{item_2.quantity_sold}")
         end
       end
   end
