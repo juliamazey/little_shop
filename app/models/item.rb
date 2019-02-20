@@ -18,8 +18,6 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
-
-
   def quantity_sold
     order_items.sum do |order_item|
       order_item.order_quantity

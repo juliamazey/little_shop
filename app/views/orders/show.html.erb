@@ -1,0 +1,23 @@
+<h1>Order # <%= @order.id %> </h1>
+
+<section class="order-info">
+  <p>Order made on the <%= @order.created_at %></p>
+  <p>Order last updated on the <%= @order.updated_at %></p>
+  <p>Status: <%= @order.status %></p>
+</section>
+
+<section id="order-items-<%= @order.id %>">
+  <% @order.items.each do |item| %>
+  <ul>
+    <li><%= item.name %></li>
+    <li><%= item.description %></li>
+    <li><img src="<%= item.image %>" alt="spice image"></li>
+    <li>Item Price: <%= number_to_currency(item.price) %></li>
+    <li>Quantity bought: <%= item.order_items.first.order_quantity %></li>
+    <li>Subtotal: <%= number_to_currency(item.order_items.first.order_price) %></li>
+  </ul>
+  <% end %>
+</section>
+
+<h3>Total items in order: <%= @order.total_items %></h3>
+<h3>Grand total: <%= number_to_currency(@order.grand_total) %></h3>
