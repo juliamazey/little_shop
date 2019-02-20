@@ -2,7 +2,9 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-
+  #
+  #the following section is for the merchant index page
+  #
   def self.biggest_orders
     select('order_id, sum(order_quantity)as total_quantity')
     .group(:order_id)
@@ -26,19 +28,4 @@ class OrderItem < ApplicationRecord
     .limit(3)
   end
 
-  def self.items_sold
-    OrderItem.joins(item: :user)
-    .sum(:order_quantity)
-  end
-
-
-
-  def top_user_by(type)
-    items.joins(order_items: [{order: :user}])
-    .select("users.username, count(distinct orders.id) as quantity")
-    .where(order_items: {fulfilled: 1}, enabled: :enabled)
-    .order("quantity desc")
-    .group(:username)
-    .limit(1)
-  end
 end
