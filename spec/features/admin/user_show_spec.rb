@@ -9,7 +9,7 @@ RSpec.describe 'As and admin' do
       @admin = create(:user, role: 2)
       @item_1 = create(:item, active: true)
       @item_2 = create(:item, active: true, stock: 20)
-      @order_1 = create(:order, user_id: @user_1.id, status: 1)
+      @order_1 = create(:order, user_id: @user_1.id)
       @order_items_1 = create(:order_item, item: @item_1, order: @order_1)
       @order_items_2 = create(:order_item, item: @item_2, order: @order_1)
     end
@@ -117,7 +117,6 @@ RSpec.describe 'As and admin' do
       visit admin_user_path(@user_1)
 
       click_on "#{@user_1.username}'s Orders"
-      save_and_open_page
 
       expect(current_path).to eq(admin_user_orders_path(@user_1))
 
@@ -155,6 +154,35 @@ RSpec.describe 'As and admin' do
 
       expect(page).to have_content("Total items in order: #{@order_1.total_items}")
       expect(page).to have_content("Grand total: $#{@order_1.grand_total}")
+    end
+
+    it "can cancel a user's order" do
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+
+      visit admin_order_path(@order_1)
+
+      @item_1.deducts_stock(@order_items_1.order_quantity)
+      @item_2.deducts_stock(@order_items_2.order_quantity)
+
+      within ".order-info" do
+        click_on "Cancel order"
+      end
+
+      expect(Order.all.first.status).to eq("cancelled")
+
+      order_items = OrderItem.all
+      status_unfulfilled = order_items.all? {|order_item| order_item.fulfilled == false}
+
+      expect(status_unfulfilled).to eq(true)
+
+      items = Item.all
+      restocked = items.all? {|item| item.stock == 7 || 20}
+
+      expect(restocked).to eq(true)
+      expect(current_path).to eq(admin_order_path(@order_1))
+      expect(page).to have_content("Order has been cancelled")
+
     end
   end
 end
