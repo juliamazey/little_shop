@@ -16,6 +16,19 @@ RSpec.describe 'As a merchant' do
   end
 
   describe 'When I visit my /dashboard/items page' do
+
+    it 'can enable an item' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit merchant_dashboard_items_path
+      within "#item-#{@item_4.id}" do
+        click_on "Enable"
+      end
+
+      expect(page).to have_content("This item is now available for sale.")
+      expect(page).to have_content("Disable")
+    end
+
     it 'can disable an item' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
 
@@ -37,7 +50,7 @@ RSpec.describe 'As a merchant' do
 
       click_on "Add Item"
 
-      expect(current_path).to eq(merchant_dashboard_item_new_path)
+      expect(current_path).to eq(merchant_dashboard_item_new_path)  
     end
 
     it "can fill out a form to add a new item" do

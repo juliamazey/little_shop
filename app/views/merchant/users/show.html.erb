@@ -11,9 +11,16 @@
 <%= "Zip: #{@merchant.zip_code}" %>
 
 <h2>Statistics</h2>
-  <p>Top 5 Items: </p><% Item.top_five.each do |item| %>
+  <p>Top 5 Items: <% @items.top_items.each do |item| %></p>
     <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
   <% end %>
+
+  <p class="total-sold">Sold <%= @items.total_sold %> items, which is <%=  %>% of your total inventory.</p>
+
+  <section class="top-states"><p>Top 3 States: <% @users.each do |user| %></p>
+    <p><%= user.state %></p>
+  <% end %>
+  </section>
 
 <h2>Pending Orders</h2>
 <% @orders.each do |order| %>

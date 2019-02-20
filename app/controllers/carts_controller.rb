@@ -20,7 +20,35 @@ class CartsController < ApplicationController
     else
       render file: "/public/cart_login"
     end
+  end
 
+  def edit
+    item = Item.find(params[:id])
+    session[:cart].delete(item.id.to_s)
+    redirect_to cart_path
+  end
+
+  def increase
+    item = Item.find(params[:format])
+    if session[:cart][item.id.to_s].to_i == item.stock
+      # binding.pry
+      redirect_to cart_path
+    else
+      increment = session[:cart][item.id.to_s].to_i + 1
+      session[:cart][item.id.to_s] = increment.to_s
+      redirect_to cart_path
+    end
+  end
+
+  def decrease
+    item = Item.find(params[:format])
+    decrement = session[:cart][item.id.to_s].to_i - 1
+    if decrement == 0
+      session[:cart].delete(item.id.to_s)
+    else
+      session[:cart][item.id.to_s] = decrement.to_s
+    end
+    redirect_to cart_path
   end
 
   def destroy
