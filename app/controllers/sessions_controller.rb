@@ -17,7 +17,6 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-
       flash[:success] = "You are logged in"
       if user.merchant?
         redirect_to merchant_dashboard_path(user)

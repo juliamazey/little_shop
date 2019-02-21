@@ -1,6 +1,5 @@
 require 'rails_helper'
-
-RSpec.describe Item, type: :model do
+RSpec.describe OrderItem, type: :model do
   before :each do
     @merchant_1 = create(:user, role: 1)
     @merchant_2 = create(:user, role: 1, created_at: "Sun, 16 Feb 2019 23:09:01 UTC +00:00")
@@ -51,27 +50,23 @@ RSpec.describe Item, type: :model do
     @order_item_6 = create(:order_item, order: @order_3, item: @item_7, order_quantity: 20, created_at: "Sun, 10 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 80
     # merchant 3 - total revenue = 80
   end
-
-  describe "validations"do
+  describe 'relationships' do
+    it { should belong_to :order }
+    it { should belong_to :item }
   end
 
-  describe "relationships" do
-  end
-
-  describe "class methods" do
-    describe "item index page statistics" do
-      it "shows top 5 most popular items" do
-
-      end
-
-      it "retrieves appropriate amount" do
-        order_items = Item.items_in_stock.length
-        expect(order_items).to eq(5)
-      end
+  describe 'class methods' do
+    it "can return 3 of the biggest_orders" do
+      order_items = OrderItem.biggest_orders.length
+      expect(order_items).to eq(3)
+    end
+    it "can return 3 of the fast_merch" do
+      order_items = OrderItem.fast_merch.length
+      expect(order_items).to eq(3)
+    end
+    it "can return 3 of the slow_merch" do
+      order_items = OrderItem.slow_merch.length
+      expect(order_items).to eq(3)
     end
   end
-
-  describe "instance methods" do
-  end
-
 end

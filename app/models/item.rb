@@ -32,7 +32,7 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
-  def self.items_in_stock(merchant)
+  def self.items_in_stock(limit = 5)
     Item
     .joins(:order_items)
     .select("sum(order_items.order_quantity) as items_qty")
@@ -66,6 +66,7 @@ class Item < ApplicationRecord
   def deducts_stock(quantity)
     qty = stock - quantity
     self.update(stock: qty)
+    qty
   end
 
   def self.restock

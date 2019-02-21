@@ -14,6 +14,7 @@ class CartsController < ApplicationController
     if current_user
       unless current_merchant? || current_admin?
         @items = @cart.get_items
+        # @subtotal = Cart.subtotal(item)
       else
         render file: "/public/404"
       end

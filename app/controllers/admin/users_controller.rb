@@ -12,6 +12,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
+
     @user = User.find(params[:id])
   end
 
@@ -30,6 +31,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def upgrade
+
     @user = User.find(params[:format])
     @user.update(role: 1)
     flash[:success] = "User Upgraded to Merchant"

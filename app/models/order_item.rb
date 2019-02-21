@@ -28,4 +28,12 @@ class OrderItem < ApplicationRecord
     .limit(3)
   end
 
+  def self.subtotal(item_id, order)
+    OrderItem.select("sum(order_price * order_quantity) as subtotal").where("order_items.item_id = #{item_id} and order_items.order_id = #{order}")[0].subtotal
+  end
+
+  def self.order_quantity(item_id, order)
+    OrderItem.select("sum(order_quantity) as quantity").where("order_items.item_id = #{item_id} and order_items.order_id = #{order}")[0].quantity
+  end
+
 end
