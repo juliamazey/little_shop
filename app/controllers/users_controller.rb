@@ -40,17 +40,16 @@ class UsersController < ApplicationController
   end
 
   def show
-  @orders = Order.find_by_user(current_user.id)
-    if current_user
+      if current_user
 
-      unless current_merchant? || current_admin?
-        @user = User.find(current_user.id)
+        unless current_merchant? || current_admin?
+          @user = User.find(current_user.id)
+        else
+          render file: "/public/404"
+        end
       else
         render file: "/public/404"
       end
-    else
-      render file: "/public/404"
-    end
   end
 
   def update
