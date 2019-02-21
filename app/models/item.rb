@@ -65,6 +65,7 @@ class Item < ApplicationRecord
   def deducts_stock(quantity)
     qty = stock - quantity
     self.update(stock: qty)
+    qty
   end
 
   def self.restock
