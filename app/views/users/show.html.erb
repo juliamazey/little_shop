@@ -6,11 +6,11 @@
 <%= render './show' %>
 <%= link_to "Edit My Profile", '/profile/edit' %>
 
-<% if @orders.empty? %>
+<% unless @orders.nil? %>
   <%= link_to "My Orders", '/profile/orders' %>
 <% end %>
-
-<% if @orders.cancelled? %>
+<% unless @orders.nil? %>
+<% if @orders.cancelled?  %>
 <section class="cancelled-orders">
   <h3 >Cancelled Orders</h3>
     <% @orders.each do |order| %>
@@ -20,14 +20,17 @@
       <% end %>
     <% end %>
 <% end %>
+<% end %>
 </section>
 
 <section class="pending-orders">
 <h3>Pending Orders</h3>
+<% unless @orders.nil? %>
 <% @orders.each do |order| %>
 <p>Order # <%= order.id %></p>
   <% order.items.each do |item|%>
     <p><%= item.name %></p>
   <% end %>
+<% end %>
 <% end %>
 </section>

@@ -5,11 +5,20 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def show
-    current_user = User.find(params[:format])
-    if current_user.role == "default"
-      redirect_to admin_user_path(current_user)
-    else
-      @merchant = current_user
+    if params[:format].nil?
+      current_user = User.find(params[:id])
+      if current_user.role == "default"
+        redirect_to admin_user_path(current_user)
+      else
+        @merchant = current_user
+      end
+    elsif params[:id].nil?
+      current_user = User.find(params[:format])
+      if current_user.role == "default"
+        redirect_to admin_user_path(current_user)
+      else
+        @merchant = current_user
+      end
     end
   end
 

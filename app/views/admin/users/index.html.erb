@@ -8,7 +8,7 @@
 <section id="user-<%= user.id %>">
   <%= link_to "#{user.username}", admin_user_path(user) %>
   <p>Registration Date: <%= user.created_at %></p>
-  <% if user.active == true %>
+  <% if user.active? %>
     <%= link_to 'Disable', admin_user_disable_path(user) %>
   <% else %>
     <%= link_to 'Enable', admin_user_enable_path(user) %>

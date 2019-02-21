@@ -1,6 +1,7 @@
 class Admin::ItemsController < Admin::BaseController
 
   def index
+    @merchants = User.merchants
     @items = Item.where(user_id: params[:format])
     @merchant = User.where(id: params[:format])
     render file: "app/views/admin/merchants/index.html.erb"
