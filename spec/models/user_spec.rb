@@ -94,31 +94,31 @@ RSpec.describe User, type: :model do
     it ".merchants" do
       expect(User.merchants).to eq([@merchant_1, @merchant_2,@merchant_3, @merchant_4, @merchant_5])
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_revenue" do
       result = User.top_revenue.length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_cities" do
       result = User.top_cities.length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_states" do
       result = User.top_states.length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_consumer_states" do
       result = User.top_consumer_states(@merchant_1).length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_consumer_cities" do
       result = User.top_consumer_cities(@merchant_1).length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_consumer" do
       result = User.top_consumer(@merchant_1).length
       expect(result).to eq(3)
     end
-    it "retrieves appropriate amount" do
+    it "retrieves appropriate amount top_spenders" do
       result = User.top_spenders(@merchant_1).length
       expect(result).to eq(3)
     end
