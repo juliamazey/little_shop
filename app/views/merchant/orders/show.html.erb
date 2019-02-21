@@ -2,7 +2,7 @@
 <h1 class="new_spice_form">Order # <%= @order.id %> </h1>
 
 <% flash.each do |type, message|  %>
-<% content_tag :div, message, class: type %>
+<%= content_tag :div, message, class: type %>
 <% end %>
 
 <h3>User: </h3><p><%= @order.user.username %>, from <%= @order.user.address %></p>

@@ -1,5 +1,5 @@
 <% flash.each do |type, message|  %>
-<% content_tag :div, message, class: type %>
+<%= content_tag :div, message, class: type %>
 <% end %>
 <p><%= link_to "My Items", merchant_dashboard_items_path %></p>
 

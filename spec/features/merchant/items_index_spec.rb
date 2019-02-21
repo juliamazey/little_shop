@@ -50,7 +50,7 @@ RSpec.describe 'As a merchant' do
 
       click_on "Add Item"
 
-      expect(current_path).to eq(merchant_dashboard_item_new_path)  
+      expect(current_path).to eq(merchant_dashboard_item_new_path)
     end
 
     it "can fill out a form to add a new item" do
