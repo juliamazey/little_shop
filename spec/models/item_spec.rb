@@ -81,7 +81,7 @@ end
 
     it '.deducts_stock' do
       quantity = @order_item_1.order_quantity
-    
+
       expect(@item_1.deducts_stock(quantity)).to eq(40)
     end
 
@@ -100,5 +100,10 @@ end
 
       expect(item_1.average_fulfillment(orders)).to eq(4)
     end
+
+      it ".orders_count" do
+        expect(@item_1.orders_count).to eq(2)
+      end
+
   end
 end
