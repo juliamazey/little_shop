@@ -82,10 +82,10 @@ class Item < ApplicationRecord
   end
 
   def change_active_status
-    if active
-      active = false
+    if active?
+      update(active: false)
     else
-      active = true
+      update(active: true)
     end
   end
 
@@ -104,7 +104,9 @@ class Item < ApplicationRecord
   end
 
   def self.percentage_sold(merchant)
-    (self.total_sold(merchant) / (total_sold(merchant) + total_stock(merchant)) * 100).round(0)
+    unless Item.all.count == 0
+      (self.total_sold(merchant) / (total_sold(merchant) + total_stock(merchant)) * 100).round(0)
+    end
   end
 
   def self.total_stock(merchant)

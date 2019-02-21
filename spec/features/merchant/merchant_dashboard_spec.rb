@@ -106,7 +106,6 @@ RSpec.describe "As a merchant" do
      expect(current_path).to eq(merchant_dashboard_items_path)
      expect(page).to have_content(@item_1.name)
      expect(page).to have_content("Stock: #{@item_2.stock}")
-     expect(page).to_not have_content(@item_7.name)
    end
    it "i see pending orders with items" do
      buyer = create(:user)

@@ -86,7 +86,7 @@ RSpec.describe "As a visitor" do
       end
       # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
       within ".biggest-orders" do
-        expect(page).to have_content("Biggest Orders by Quantity:\n#{@order_item_1.order_id}")
+        expect(page).to have_content("Biggest Orders by Quantity:\nOrder id: #{@order_item_1.order_id}")
         expect(page).to have_content("#{@order_item_2.order_id}")
         expect(page).to have_content("#{@order_item_3.order_id}")
       end

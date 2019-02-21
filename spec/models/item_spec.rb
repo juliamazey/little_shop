@@ -60,6 +60,12 @@ RSpec.describe Item, type: :model do
 
     expect(Item.bottom_five).to eq([item_7, item_6, item_1, item_4, item_2])
   end
+
+    it ".items_in_stock" do
+      order_items = Item.items_in_stock.length
+      expect(order_items).to eq(0)
+    end
+
 end
 
   describe 'instance methods' do
@@ -81,7 +87,7 @@ end
 
     it '.deducts_stock' do
       quantity = @order_item_1.order_quantity
-    
+
       expect(@item_1.deducts_stock(quantity)).to eq(40)
     end
 
@@ -100,5 +106,27 @@ end
 
       expect(item_1.average_fulfillment(orders)).to eq(4)
     end
+
+    it ".enough?" do
+      merchant = create(:user, role: 1)
+      user_1 = create(:user, role: 0)
+      item_1 = create(:item, active: true, user: merchant)
+      order_1 = create(:order, user: user_1, created_at: 5.days.ago, updated_at: 1.day.ago, status: 2)
+      order_item_2 = create(:order_item, item: item_1, order: order_1)
+
+      expect(item_1.enough?(item_1)).to eq(true)
+    end
+
+    it ".change_active_status" do
+      merchant = create(:user, role: 1)
+      item = create(:item, active: true, user: merchant)
+
+      item.change_active_status
+      expect(item.active).to eq(false)
+
+      item.change_active_status
+      expect(item.active).to eq(true)
+    end
   end
+
 end

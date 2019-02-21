@@ -25,6 +25,7 @@
 
 <section class="pending-orders">
 <h3>Pending Orders</h3>
+
 <% unless @orders.nil? %>
 <% @orders.each do |order| %>
 <p>Order # <%= order.id %></p>
