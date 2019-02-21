@@ -2,8 +2,8 @@
 <%= content_tag :div, message, class: type %>
 <% end %>
 
+<% unless @order.nil? %>
 <h1>Order # <%= @order.id %> from User <%= @order.user.username %> </h1>
-
 <section class="order-info">
   <p>Order made on the <%= @order.created_at %></p>
   <p>Order last updated on the <%= @order.updated_at %></p>
@@ -41,3 +41,6 @@
 
 <h3>Total items in order: <%= @order.total_items %></h3>
 <h3>Grand total: <%= number_to_currency(@order.grand_total) %></h3>
+
+
+<% end %>

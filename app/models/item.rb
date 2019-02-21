@@ -103,7 +103,9 @@ class Item < ApplicationRecord
   end
 
   def self.percentage_sold(merchant)
-    (self.total_sold(merchant) / (total_sold(merchant) + total_stock(merchant)) * 100).round(0)
+    unless Item.all.count == 0
+      (self.total_sold(merchant) / (total_sold(merchant) + total_stock(merchant)) * 100).round(0)
+    end
   end
 
   def self.total_stock(merchant)

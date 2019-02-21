@@ -74,10 +74,6 @@ RSpec.describe "as a registered user" do
       expect(current_path).to eq(profile_path)
 
       expect(page).to have_content("Order has been cancelled")
-
-      within ".cancelled-orders" do
-        expect(page).to have_content(@order.id)
-      end
     end
   end
 end

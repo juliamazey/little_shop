@@ -16,6 +16,10 @@
 <p>Price: <%= number_to_currency(item.price) %></p>
 <%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
 <p>Stock: <%= item.stock %></p>
+</section>
+<% end %>
+</section>
+
 
 <% if current_merchant? %>
   <%= link_to 'Edit Item', merchant_edit_item_path(item) %>
