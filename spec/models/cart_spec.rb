@@ -51,6 +51,6 @@ RSpec.describe Cart do
       })
       cart.add_item(item1.id.to_s)
       cart.add_item(item2.id.to_s)
-      expect(cart.grand_total).to eq(40)
+      expect(cart.grand_total_cart).to eq(40)
   end
 end

@@ -28,7 +28,7 @@ class Admin::MerchantsController < Admin::BaseController
       item.active = false
     end
     @merchant.update(role: 0)
-    # binding.pry
+    #
     flash[:success] = "This user has been downgraded."
     redirect_to admin_user_path(@merchant)
   end

@@ -8,7 +8,7 @@
 <h3>Five Most Popular Items: </h3>
 
 <% @top.each do |item| %>
-    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+    <p><%= item.name %>, total quantity sold: <%= number_to_currency(item.quantity_sold) %></p>
 <% end %>
 </section>
 
@@ -16,7 +16,7 @@
 <section class="bottom_statistics_block">
 <h3>Five Least Popular Items: </h3>
 <% @bottom.each do |item| %>
-    <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
+    <p><%= item.name %>, total quantity sold: <%= number_to_currency(item.quantity_sold) %></p>
 <% end %>
 </section>
 

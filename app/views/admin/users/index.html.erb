@@ -2,9 +2,11 @@
 <%= content_tag :div, message, class: type %>
 <% end %>
 <h1>List of Users</h1>
+
 <% @users.each do |user| %>
+<% unless user.admin? %>
 <section id="user-<%= user.id %>">
-  <%= link_to "#{user.username}" %>
+  <%= link_to "#{user.username}", admin_user_path(user) %>
   <p>Registration Date: <%= user.created_at %></p>
   <% if user.active? %>
     <%= link_to 'Disable', admin_user_disable_path(user) %>
@@ -13,4 +15,5 @@
   <% end %>
   <p>=============================================</p>
 </section>
+<% end %>
 <% end %>
