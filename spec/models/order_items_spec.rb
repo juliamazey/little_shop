@@ -57,8 +57,16 @@ RSpec.describe OrderItem, type: :model do
 
   describe 'class methods' do
     it "can return 3 of the biggest_orders" do
-      order_items = OrderItem.biggest_orders
-      # expect(order_items.count).to eq(3)
+      order_items = OrderItem.biggest_orders.length
+      expect(order_items).to eq(3)
+    end
+    it "can return 3 of the fast_merch" do
+      order_items = OrderItem.fast_merch.length
+      expect(order_items).to eq(3)
+    end
+    it "can return 3 of the slow_merch" do
+      order_items = OrderItem.slow_merch.length
+      expect(order_items).to eq(3)
     end
   end
 end
