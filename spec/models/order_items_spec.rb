@@ -68,5 +68,15 @@ RSpec.describe OrderItem, type: :model do
       order_items = OrderItem.slow_merch.length
       expect(order_items).to eq(3)
     end
+
+    it "can get the subtotal for an order" do
+      subtotal = OrderItem.subtotal(@item_1.id, @order_1.id)
+      expect(subtotal).to eq(6400.0)
+    end
+
+    it "can get the order quantity" do
+      quantity = OrderItem.order_quantity(@item_1.id, @order_1.id)
+      expect(quantity).to eq(40)
+    end
   end
 end

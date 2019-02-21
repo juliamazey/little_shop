@@ -82,10 +82,10 @@ class Item < ApplicationRecord
   end
 
   def change_active_status
-    if active
-      active = false
+    if active?
+      update(active: false)
     else
-      active = true
+      update(active: true)
     end
   end
 
