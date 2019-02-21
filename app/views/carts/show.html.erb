@@ -1,25 +1,27 @@
 
 <% @items.each do |item| %>
 <section class="items-index" id="item-<%= item.id %>">
-  <%= item.name %>
-  <%= item.image %>
-  <%= item.user.username %>
-  <%= number_to_currency(item.price) %>
+  <p><%= item.name %></p>
+
+  <img src="<%= item.image %>" class="small_pix" alt="spice image">
+
+  <p><%= item.user.username %></p>
+  <p><%= number_to_currency(item.price) %></p>
   <p>Stock: <%= item.stock %></p>
 
   <p>Quantity: <%= @cart.contents[item.id.to_s] %>
 
   <p>Subtotal: <%= number_to_currency(@cart.subtotal(item)) %> </p>
-  <%= link_to "Remove Item #{item.name}", edit_cart_path(item), data: {confirm: "Are you sure?"} %>
-  <%= link_to "Increase Amount", increase_cart_item_path(item) %>
-  <%= link_to "Decrease Amount", decrease_cart_item_path(item) %>
+  <p><%= link_to "Remove Item #{item.name}", edit_cart_path(item), data: {confirm: "Are you sure?"} %></p>
+  <p><%= link_to "Increase Amount", increase_cart_item_path(item) %></p>
+  <p><%= link_to "Decrease Amount", decrease_cart_item_path(item) %></p>
   <% end %>
 
-<h3>Grand Total: <%= number_to_currency(@cart.grand_total) %> </h3>
+<h3>Grand Total: <%= number_to_currency(@cart.grand_total_cart) %> </h3>
   </section>
 <% if @cart.get_items == [] %>
   <h2><%= "Your cart is empty." %></h2>
 <% else %>
   <%= link_to "Empty Cart", empty_cart_path %>
 <% end %>
-<%= link_to "Checkout", checkout_path %>
+<p><%= link_to "Checkout", checkout_path %></p>

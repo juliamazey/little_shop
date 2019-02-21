@@ -1,16 +1,17 @@
 <%= form_for @item do |f| %>
+<h1 class="new_spice_form">Edit a Spice</h1>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <p><%= f.label :name %></p></p>
+  <p><%= f.text_field :name %></p>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %>
+  <p><%= f.label :description %></p>
+  <p><%= f.text_field :description %></p>
 
-  <%= f.label :price %>
-  <%= f.number_field :price, min: 0.00, step: :any %>
+  <p><%= f.label :price %></p>
+  <p><%= f.number_field :price, min: 0.00, step: :any %></p>
 
-  <%= f.label :stock %>
-  <%= f.number_field :stock, min: 0 %>
+  <p><%= f.label :stock %></p>
+  <p><%= f.number_field :stock, min: 0 %></p>
 
-  <%= f.submit %>
+  <p><%= f.submit %></p>
 <% end %>

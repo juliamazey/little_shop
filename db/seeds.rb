@@ -7,6 +7,8 @@ Order.destroy_all
 Item.destroy_all
 User.destroy_all
 
+User.new(username: "Posh Spice", email: "spicy@spicegirls.com", password_digest: "spicy", address: "123 Main St", city: "Denver", state: "CO", role: 2)
+
 admin = create(:user, role: 2)
 user = create(:user)
 merchant_1 = create(:user, role: 1)

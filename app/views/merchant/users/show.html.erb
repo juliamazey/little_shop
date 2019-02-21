@@ -1,23 +1,22 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
-<%= link_to "My Items", merchant_dashboard_items_path %>
+<p><%= link_to "My Items", merchant_dashboard_items_path %></p>
 
-<%= "Username: #{@merchant.username}" %>
-<%= "Email: #{@merchant.email}" %>
-<%= "Address: #{@merchant.address}" %>
-<%= "City: #{@merchant.city}" %>
-<%= "State: #{@merchant.state}" %>
-<%= "Zip: #{@merchant.zip_code}" %>
+<p><%= "Username: #{@merchant.username}" %></p>
+<p><%= "Email: #{@merchant.email}" %></p>
+<p><%= "Address: #{@merchant.address}" %></p>
+<p><%= "City: #{@merchant.city}" %></p>
+<p><%= "State: #{@merchant.state}" %></p>
+<p><%= "Zip: #{@merchant.zip_code}" %></p>
 
 <h2>Statistics</h2>
 
-  <p>Top 5 Items: <% @items.top_items.each do |item| %></p>
+  <p>Top 5 Items: <% @items.top_five.each do |item| %></p>
     <p><%= item.name %>, total quantity sold: <%= item.quantity_sold %></p>
   <% end %>
 
   <p class="total-sold">Sold <%= @items_sold %> items, which is <%= @percent_sold %>% of your total inventory.</p>
-
 
   <section class="top-states"><p>Top 3 States: <% @top_states.each do |user| %></p>
     <p><%= user.state %></p>
@@ -37,7 +36,7 @@
   </section>  <h2>Pending Orders</h2>
 <% @orders.each do |order| %>
 <%= link_to "Order # #{order.id}", merchant_dashboard_order_path(order) %>
-<%= "Order placed at: #{order.created_at}" %>
-<%= "Total Quantity: #{order.total_items}" %>
-<%= "Total Value: #{order.grand_total}" %>
+<p><%= "Order placed at: #{order.created_at}" %></p>
+<p><%= "Total Quantity: #{order.total_items}" %></p>
+<p><%= "Total Value: #{order.grand_total}" %></p>
 <% end %>

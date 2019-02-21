@@ -8,7 +8,6 @@ class Item < ApplicationRecord
   end
 
   def average_fulfillment(incoming_orders)
-    binding.pry
     orders = incoming_orders.all.where(status: "shipped")
     time_array = []
     orders.each do |order|

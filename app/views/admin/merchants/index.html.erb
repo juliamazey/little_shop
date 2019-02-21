@@ -1,5 +1,5 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
 
 <% if current_merchant? %>

@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.select_active
-        # binding.pry
     @top = Item.top_five
     @bottom = Item.bottom_five
   end

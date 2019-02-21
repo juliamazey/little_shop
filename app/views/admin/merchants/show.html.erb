@@ -1,5 +1,5 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
 
 <%= link_to "#{@merchant.username}'s Items", admin_dashboard_items_path(@merchant) %>

@@ -1,17 +1,18 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+
+<h1 class="new_spice_form">Order # <%= @order.id %> </h1>
+
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
 
-<h1>Order # <%= @order.id %> </h1>
-
-<h3>User: <%= @order.user.username %>, from <%= @order.user.address %></h3>
-<h4>Order's items:</h4>
+<h3>User: </h3><p><%= @order.user.username %>, from <%= @order.user.address %></p>
+<h3>Order's items:</h3>
   <% @order_items.each do |order_item| %>
   <section id="item-<%= order_item.item.id %>">
     <% if current_user.id == order_item.item.user_id %>
       <ul>
-        <li><%= link_to "#{order_item.item.name}", merchant_item_path(order_item.item) %> </li>
         <img src="<%= order_item.item.image %>" alt="spice image">
+        <li><%= link_to "#{order_item.item.name}", merchant_item_path(order_item.item) %> </li>
         <li>Price: <%= number_to_currency(order_item.item.price) %></li>
         <li>Quantity purchased: <%= order_item.item.quantity_sold %></li>
       </ul>

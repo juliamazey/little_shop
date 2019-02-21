@@ -14,7 +14,7 @@
  *= require_self
  */
 
- .body{
+ html body{
    background-color: #CAD2C5;
  }
  .splash_image{
@@ -25,10 +25,31 @@
  }
  .navbar {
    background-color: #819D96;
-   height: 35px;
+   height: 65px;
+ }
+ .navlink{
+   padding-top: 45px;
  }
 
+ .small_pix{
+   height: 15%;
+   width: 10%;
+ }
+#cart{
+  float: right;
+}
+.register_image{
+  height: 100px;
+  width: 100px;
+}
+.register_title{
+  text-align: center;
+  font-size: 28px;
+}
+.new_spice_form{
+  text-align: center;
+}
  #notice {
-   background-color: #red;
+   background-color: red;
    color: white
  }

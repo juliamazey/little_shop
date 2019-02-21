@@ -1,5 +1,9 @@
 class OrderItemsController < ApplicationController
 
+  def create
+  
+  end
+
   def update
     order_item = OrderItem.find(params[:id])
     item = Item.find(order_item.item_id)
@@ -17,6 +21,9 @@ class OrderItemsController < ApplicationController
     else
       redirect_to admin_order_path(order.id)
     end
+
+    redirect_to merchant_dashboard_order_path(order_items_params[:order_id])
+
   end
 
   private
