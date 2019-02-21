@@ -14,7 +14,7 @@ RSpec.describe 'As and admin' do
       @order_items_2 = create(:order_item, item: @item_2, order: @order_1)
     end
 
-    xit "should see all the user info that a user would see" do
+    it "should see all the user info that a user would see" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_user_path(@user_1)
@@ -32,11 +32,10 @@ RSpec.describe 'As and admin' do
       expect(page).to have_link ("Edit This Profile")
     end
 
-    xit "should let the admin update the user info" do
+    it "should let the admin update the user info" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
-      visit admin_user_path(@user_1)
-      visit  profile_edit_path
+      visit edit_admin_user_path(@user_1)
 
       fill_in "user[username]", with: "Mickey Mouse"
       fill_in "user[email]", with: "mouse@disney.com"
@@ -49,7 +48,7 @@ RSpec.describe 'As and admin' do
 
       click_button "Update User"
 
-      expect(current_path).to eq(admin_user_path(User.last))
+      expect(current_path).to eq(admin_user_path(@user_1))
 
       expect(page).to have_content("Username: Mickey Mouse")
       expect(page).to have_content("Email: mouse@disney.com")
@@ -60,7 +59,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("User profile updated.")
     end
 
-    xit "shows me an error message if the email address is in use" do
+    it "shows me an error message if the email address is in use" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
       visit admin_user_path(@user_1)
@@ -78,7 +77,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("That email address is already in use.")
     end
 
-    xit "sees a link to turn a user to a merchant" do
+    it "sees a link to turn a user to a merchant" do
       user_1 = create(:user)
       admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -88,7 +87,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_link("Change this user to a merchant")
     end
 
-    xit "can turn a user to a merchant" do
+    it "can turn a user to a merchant" do
       user_1 = create(:user)
       admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -101,7 +100,7 @@ RSpec.describe 'As and admin' do
       expect(current_path).to eq(admin_merchant_dashboard_path(user_1))
     end
 
-    xit "is redirected to a merchants page if visiting a user's page who is a merchant" do
+    it "is redirected to a merchants page if visiting a user's page who is a merchant" do
       merchant = create(:user, role: 1)
       admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -112,7 +111,7 @@ RSpec.describe 'As and admin' do
 
     end
 
-    xit "can access the order's index page for a user" do
+    it "can access the order's index page for a user" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
@@ -130,11 +129,11 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("Last Updated: #{@order_1.updated_at}")
     end
 
-    xit "can access a specific order show page for a user" do
+    it "can access a specific order show page for a user" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
-      visit admin_user_orders_path(@user_1)
+      visit admin_user_orders_path(@order_1)
       click_on "Order # #{@order_1.id}"
 
       expect(current_path).to eq(admin_order_path(@order_1))
@@ -158,7 +157,7 @@ RSpec.describe 'As and admin' do
       expect(page).to have_content("Grand total: $#{@order_1.grand_total}")
     end
 
-    xit "can cancel a user's order" do
+    it "can cancel a user's order" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 

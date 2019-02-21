@@ -16,8 +16,8 @@ RSpec.describe 'user index page' do
 
       expect(page).to have_link("#{@user.username}")
       expect(page).to have_link("#{@user2.username}")
-      expect(page).to have_button("Disable")
-      expect(page).to have_button("Enable")
+      expect(page).to have_link("Disable")
+      expect(page).to have_link("Enable")
       expect(page).to have_content("Registration Date: #{@user2.created_at}")
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe 'user index page' do
       expect(page).to have_content("That page was too spicy")
     end
   end
- 
+
   context 'as an admin' do
     it 'allows admin to enable a user account' do
       user = create(:user, role: 2)
@@ -68,7 +68,7 @@ RSpec.describe 'user index page' do
 
       visit admin_users_path
       within "#user-#{@user.id}" do
-        click_on "Disable"
+        click_link "Disable"
       end
       expect(page).to have_content("This user is now inactive.")
       expect(current_path).to eq(admin_users_path)

@@ -6,8 +6,14 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def show
-    @order = Order.find(params[:id])
-    @order_items = OrderItem.where(order_id: @order.id)
+    if params[:id].nil?
+      # binding.pry
+      @order = Order.find(params[:format])
+      @order_items = OrderItem.where(order_id: @order.id)
+    elsif params[:format].nil?
+      @order = Order.find(params[:id])
+      @order_items = OrderItem.where(order_id: @order.id)
+    end
   end
 
 end
