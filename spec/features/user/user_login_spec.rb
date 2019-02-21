@@ -11,12 +11,12 @@ RSpec.describe 'user login spec' do
       fill_in 'Password', with: user.password
       click_on "Log in"
 
-      expect(current_path).to eq(profile_path(user))
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content("You are logged in")
 
       visit login_path
 
-      expect(current_path).to eq(profile_path(user))
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content("You are already logged in")
     end
   end

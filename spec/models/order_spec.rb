@@ -15,7 +15,6 @@ RSpec.describe Order, type: :model do
 end
 
 
-
   describe "instance methods" do
 
     describe "average amount of time it takes merchant to fulfill an item" do
@@ -36,7 +35,6 @@ end
         end
       end
     end
-
 
    end
 
@@ -66,16 +64,34 @@ end
       order_items_1 = create(:order_item, item: item_1, order: order_1)
       order_items_2 = create(:order_item, item: item_2, order: order_1)
 
-      expect(order_1.grand_total).to eq(32)
+      expect(order_1.grand_total).to eq(132.0)
     end
+
     it "retrieves appropriate amount" do
       order_items = @order_1.grand_total
-      expect(order_items).to eq(22.0)
+      expect(order_items).to eq(132.0)
     end
     it "retrieves appropriate amount" do
       order_items = @order_1.total_items
       expect(order_items).to eq(6)
     end
- 
+
+  it "retrieves appropriate fulfillment amount" do
+      order_items = @order_1.fulfilled_items?
+      expect(order_items).to eq(true)
+    end
+    it "retrieves cancelled status" do
+      order_items = @order_1.cancelled?
+      expect(order_items).to eq(false)
+      expect(@order_1.status).to eq("shipped")
+    end
+    it "retrieves merchant_orders(merchant)" do
+      order_items = Order.merchant_orders(@merchant_1).length
+      expect(order_items).to eq(0)
+    end
+    it "retrieves merchant_orders(merchant)" do
+      order_items = Order.merchant_orders(@merchant_1).length
+      expect(order_items).to eq(0)
+    end
+
   end
-# end
