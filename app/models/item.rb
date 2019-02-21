@@ -31,6 +31,17 @@ class Item < ApplicationRecord
      .limit(limit)
   end
 
+  def self.items_in_stock(merchant)
+    Item
+    .joins(:order_items)
+    .select("sum(order_items.order_quantity) as items_qty")
+    .group(:id)
+    .order('items_qty desc')
+    .limit(limit)
+    # Item.select('sum(items.stock) as total_stock')
+    # .where(user_id: merchant.id)
+    # .limit(1)
+  end
 
   def self.bottom_five(limit = 5)
      Item.select("items.*, sum(order_items.order_quantity) as items_qty")
@@ -52,7 +63,16 @@ class Item < ApplicationRecord
   end
 
   def deducts_stock(quantity)
-    stock - quantity
+    qty = stock - quantity
+    self.update(stock: qty)
+  end
+
+  def self.restock
+    all.each do |item|
+      qty = item.order_items.first.order_quantity
+      restock = item.stock + qty
+      item.update(stock: restock)
+    end
   end
 
   def self.merchant_items(merchant)
@@ -71,16 +91,20 @@ class Item < ApplicationRecord
     self.order_items.all.count
   end
 
-  def self.total_sold
-    joins(:order_items).pluck('sum(order_items.order_quantity)').first
+  def self.total_sold(merchant)
+    joins(:order_items)
+    .select('items.user_id, sum(order_items.order_quantity) as total_qty, count(items.id)')
+    .group('items.user_id')
+    .where("items.user_id = #{merchant.id}")[0].total_qty
   end
 
-  def self.percentage_sold
-    (total_sold.to_f / (total_sold + total_stock) * 100).round(0)
+  def self.percentage_sold(merchant)
+    (self.total_sold(merchant) / (total_sold(merchant) + total_stock(merchant)) * 100).round(0)
   end
 
-  def self.total_stock
-    self.sum(:stock)
+  def self.total_stock(merchant)
+    self.where("items.user_id = #{merchant.id}")
+    .sum(:stock).to_f
   end
 
 end

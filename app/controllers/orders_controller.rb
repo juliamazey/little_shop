@@ -21,7 +21,20 @@ class OrdersController < ApplicationController
     redirect_to profile_path
   end
 
-private
+  def update
+    order = Order.find(params[:id])
+    order.update(status: "cancelled")
+    order.items.restock
+    OrderItem.where(order: order).update_all(fulfilled: false)
+    flash[:success] = "Order has been cancelled"
+    if current_admin?
+      redirect_to admin_order_path(order)
+    else
+      redirect_to profile_path
+    end
+  end
+
+  private
   def order_params
     params.require(:order).permit(:quantity, :created_at, :updated_at, :status)
   end

@@ -10,9 +10,24 @@
   <%= link_to "My Orders", '/profile/orders' %>
 <% end %>
 
+<% if @orders.cancelled? %>
+<section class="cancelled-orders">
+  <h3 >Cancelled Orders</h3>
+    <% @orders.each do |order| %>
+      <p>Order # <%= order.id %></p>
+      <% order.items.each do |item|%>
+        <p><%= item.name %></p>
+      <% end %>
+    <% end %>
+<% end %>
+</section>
+
+<section class="pending-orders">
 <h3>Pending Orders</h3>
 <% @orders.each do |order| %>
+<p>Order # <%= order.id %></p>
   <% order.items.each do |item|%>
-    <%= item.name %>
+    <p><%= item.name %></p>
   <% end %>
 <% end %>
+</section>
