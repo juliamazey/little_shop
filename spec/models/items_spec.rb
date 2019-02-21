@@ -1,6 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
+  before :each do
+    @merchant_1 = create(:user, role: 1)
+    @merchant_2 = create(:user, role: 1, created_at: "Sun, 16 Feb 2019 23:09:01 UTC +00:00")
+    @merchant_3 = create(:user, role: 1)
+    @merchant_4 = create(:user, role: 1)
+    @merchant_5 = create(:user, role: 1, active: false)
+    @item_1 = create(:item, active: true, user: @merchant_1, stock: 50)
+    @item_2 = create(:item, active: true, user: @merchant_1, stock: 50)
+    @item_3 = create(:item, active: true, user: @merchant_2, stock: 50)
+    @item_4 = create(:item, active: true, user: @merchant_2, stock: 50)
+    @item_5 = create(:item, active: true, user: @merchant_4, stock: 50)
+    @item_6 = create(:item, active: true, user: @merchant_4, stock: 50)
+    @item_7 = create(:item, active: true, user: @merchant_3, stock: 50)
+    @user_1 = create(:user, city: "Atlanta", state: "georgia")
+    @user_2 = create(:user, city: "denver", state: "colorado")
+    @user_3 = create(:user, city: "saint paul", state: "minnesota")
+    @user_4 = create(:user, city: "new york", state: "new york")
+    @order_1 = create(:order, user_id: @user_1.id)
+    @order_2 = create(:order, user_id: @user_1.id)
+    @order_3 = create(:order, user_id: @user_1.id)# Atlanta, 4 orders
+    @order_4 = create(:order, user_id: @user_2.id)
+    @order_5 = create(:order, user_id: @user_2.id)# denver, 2 orders
+    @order_6 = create(:order, user_id: @user_3.id)
+    @order_7 = create(:order, user_id: @user_3.id)# st paul, 2 orders
+    @order_8 = create(:order, user_id: @user_4.id)# new york, 1 order
+    @order_item_1 = create(:order_item, order: @order_1, item: @item_1, order_quantity: 40)# 160
+    @order_item_7 = create(:order_item, order: @order_4, item: @item_1)# 16
+    @order_item_15 = create(:order_item, order: @order_8, item: @item_1)# 16
+    @order_item_2 = create(:order_item, order: @order_1, item: @item_2, order_quantity: 35)# 140
+    @order_item_8 = create(:order_item, order: @order_4, item: @item_2, created_at: "Sun, 13 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
+    @order_item_11 = create(:order_item, order: @order_6, item: @item_2)# 16
+    @order_item_16 = create(:order_item, order: @order_8, item: @item_2)# 16
+    #merchant 1 - total revenue = 380
+    @order_item_3 = create(:order_item, order: @order_2, item: @item_3, order_quantity: 32)# 128
+    @order_item_9 = create(:order_item, order: @order_5, item: @item_3)# 16
+    @order_item_12 = create(:order_item, order: @order_6, item: @item_3)# 16
+    @order_item_17 = create(:order_item, order: @order_8, item: @item_3)# 16
+    @order_item_4 = create(:order_item, order: @order_2, item: @item_4, order_quantity: 30)# 120
+    @order_item_10 = create(:order_item, order: @order_5, item: @item_4, order_quantity: 10)# 40
+    @order_item_18 = create(:order_item, order: @order_8, item: @item_4)# 16
+    @order_item_13 = create(:order_item, order: @order_7, item: @item_4)# 16
+    #merchant 2 - total revenue = 368
+    @order_item_5 = create(:order_item, order: @order_3, item: @item_5, order_quantity: 28)# 112
+    @order_item_14 = create(:order_item, order: @order_7, item: @item_5, created_at: "Sun, 16 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 16
+    @order_item_19 = create(:order_item, order: @order_8, item: @item_5)# 162
+    @order_item_6 = create(:order_item, order: @order_3, item: @item_6, order_quantity: 20)# 80
+    # merchant 4 - total revenue = 224
+    @order_item_6 = create(:order_item, order: @order_3, item: @item_7, order_quantity: 20, created_at: "Sun, 10 Feb 2019 23:09:01 UTC +00:00", updated_at: "Sun, 19 Feb 2019 23:09:01 UTC +00:00")# 80
+    # merchant 3 - total revenue = 80
+  end
+
   describe "validations"do
   end
 
@@ -10,15 +61,12 @@ RSpec.describe Item, type: :model do
   describe "class methods" do
     describe "item index page statistics" do
       it "shows top 5 most popular items" do
-        merchant_1 = User.create(username: "Scary Spice", email: "scary@spicegirls.com", password: "dontbescared", address: "123 Thames Street", city: "London", state: "NY", zip_code: 12345, role: "merchant", active: 1)
-        spice_1 = merchant_1.items.create(price: 20, name: "cinnamon", stock: 123, description: "3 inch sticks", active: 1, image: "https://www.herbazest.com/imgs/4/2/b/81361/cinnamon.jpg")
-        spice_2 = merchant_1.items.create(price: 30, name: "nutmeg", stock: 84, description: "1 oz jar", active: 1, image: "https://target.scene7.com/is/image/Target/GUEST_437478c8-93de-4ad8-a267-2b651575526d?wid=488&hei=488&fmt=pjpeg")
-        spice_3 = merchant_1.items.create(price: 10, name: "paprika", stock: 69, description: "1.5 oz jar", active: 1, image: "https://www.coopathome.ch/img/produkte/300_300/RGB/3023072_001.jpg?_=1522737592705")
-        spice_4 = merchant_1.items.create(price: 4, name: "tumeric", stock: 12, description: "0.5 oz jar", active: 1, image: "https://shop.coles.com.au/wcsstore/Coles-CAS/images/3/1/6/316354.jpg")
-        spice_5 = merchant_1.items.create(price: 15, name: "allspice", stock: 78, description: "3 oz jar", active: 1, image: "https://shop.coles.com.au/wcsstore/Coles-CAS/images/3/1/6/316310.jpg")
-        spice_6 = merchant_1.items.create(price: 21, name: "cloves", stock: 34, description: "1 oz jar", active: 1, image: "https://shop.coles.com.au/wcsstore/Coles-CAS/images/3/1/6/316321.jpg")
-        spice_7 = merchant_1.items.create(price: 8, name: "fenugreek", stock: 56, description: "1.5 oz jar", active: 1, image: "https://cdn.shopify.com/s/files/1/0196/5448/products/COM_FenugreekGroundORG_1080x.jpeg?v=1547485207")
 
+      end
+
+      it "retrieves appropriate amount" do
+        order_items = Item.items_in_stock.length
+        expect(order_items).to eq(5)
       end
     end
   end

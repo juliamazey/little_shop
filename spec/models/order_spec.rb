@@ -68,5 +68,14 @@ end
 
       expect(order_1.grand_total).to eq(32)
     end
+    it "retrieves appropriate amount" do
+      order_items = @order_1.grand_total
+      expect(order_items).to eq(22.0)
+    end
+    it "retrieves appropriate amount" do
+      order_items = @order_1.total_items
+      expect(order_items).to eq(6)
+    end
+ 
   end
 # end
