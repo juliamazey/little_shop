@@ -16,11 +16,11 @@ class Order < ApplicationRecord
   end
 
   def grand_total
-    #might move this to Order Item model
-    # self.joins(order_items: :items)
-    # .select("items.price * order_items.order_quantity")
-    order_items.sum {|order_item| order_item.order_price}
+    Order.joins(order_items: :item)
+    .select("order_items.order_price * order_items.order_quantity as total")[0].total
+    # order_items.sum {|order_item| order_item.order_price}
   end
+
 
   def fulfilled_items?
     order_items.all? do |order_item|
