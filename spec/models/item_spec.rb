@@ -107,6 +107,10 @@ end
       expect(item_1.average_fulfillment(orders)).to eq(4)
     end
 
+    it ".orders_count" do
+      expect(@item_1.orders_count).to eq(2)
+    end
+
     it ".enough?" do
       merchant = create(:user, role: 1)
       user_1 = create(:user, role: 0)
