@@ -17,8 +17,8 @@
     <li><%= item.description %></li>
     <li><img src="<%= item.image %>" alt="spice image"></li>
     <li>Item Price: <%= number_to_currency(item.price) %></li>
-    <li>Quantity bought: <%= item.order_items.first.order_quantity %></li>
-    <li>Subtotal: <%= number_to_currency(item.order_items.first.order_price) %></li>
+    <li>Quantity bought: <%= item.order_items.order_quantity(item.id, @order.id) %></li>
+    <li>Subtotal: <%= number_to_currency(item.order_items.subtotal(item.id, @order.id)) %></li>
   </ul>
   <% end %>
 </section>
