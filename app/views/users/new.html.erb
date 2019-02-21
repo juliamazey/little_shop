@@ -1,5 +1,7 @@
-<%= flash.each do |type, message| %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message| %>
+<% content_tag :div, message, class: type %>
 <%  end %>
-
+<img class="register_image" src="https://secure.img1-fg.wfcdn.com/im/43152120/resize-h600-w600%5Ecompr-r85/4486/44869893/12+Jar+Spice+Jars+%26+Rack+Set.jpg" alt="spice rack">
+<h3 class="register_title">Come join our spice community!!</h3>
+<h3 class="register_title">Register as a user</h3>
 <%= render "form" %>

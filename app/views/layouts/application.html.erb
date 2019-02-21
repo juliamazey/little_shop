@@ -8,15 +8,15 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
-
-    <%= flash.each do |type, message|  %>
-    <%= content_tag :div, message, class: type %>
+    <% flash.each do |type, message|  %>
+    <% content_tag :div, message, class: type %>
     <% end %>
 
     <section class="body">
       <section class="navbar">
       <% if current_user %>
       <h1> Logged in as <%= current_user.username %></h1>
+
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchants_path %>
@@ -24,9 +24,10 @@
 
           <% unless current_admin? || current_merchant? %>
             <%= link_to 'My Profile', profile_path(current_user) %>
-            <%= link_to 'My Orders', user_orders_path(current_user) %>
+            <%= link_to 'My Orders', user_profile_orders_path(current_user) %>
+            <section id="cart">
             <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
-
+            </section>
           <% end %>
       <% else %>
         <%= link_to 'Register as a User', new_user_path %>
@@ -34,7 +35,9 @@
         <%= link_to 'Home', root_path %>
         <%= link_to 'Spices', items_path %>
         <%= link_to 'Merchants', merchants_path %>
+        <section id="cart">
         <%= link_to "Cart: #{@cart.total_count}", cart_path(@cart) %>
+        </section>
       <% end %>
       <% if current_merchant? %>
       <%= link_to 'Dashboard', merchant_dashboard_path(current_user) %>
@@ -46,5 +49,6 @@
       </section>
     <%= yield %>
     </section>
+
   </body>
 </html>

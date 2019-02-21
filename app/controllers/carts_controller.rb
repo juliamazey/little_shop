@@ -31,7 +31,6 @@ class CartsController < ApplicationController
   def increase
     item = Item.find(params[:format])
     if session[:cart][item.id.to_s].to_i == item.stock
-      # binding.pry
       redirect_to cart_path
     else
       increment = session[:cart][item.id.to_s].to_i + 1

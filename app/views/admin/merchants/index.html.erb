@@ -1,6 +1,44 @@
-<%= flash.each do |type, message|  %>
-<%= content_tag :div, message, class: type %>
+<% flash.each do |type, message|  %>
+<% content_tag :div, message, class: type %>
 <% end %>
+
+<% if current_merchant? %>
+<%= link_to "Add Item", admin_item_new_path(params[:format]) %>
+<% elsif current_admin? %>
+<%= link_to "Add Item", admin_item_new_path(params[:format]) %>
+<% end %>
+<section class="items-wrapper">
+<% @items.each do |item| %>
+<section id="item-<%= item.id %>">
+<h3><%= link_to(item.name, item_path(item)) %></h3>
+<p> <%= item.id %> </p>
+<p><%= item.user.username %></p>
+<p>Price: <%= number_to_currency(item.price) %></p>
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
+<p>Stock: <%= item.stock %></p>
+
+<% if current_merchant? %>
+  <%= link_to 'Edit Item', merchant_edit_item_path(item) %>
+  <%= link_to 'Delete this item', merchant_destroy_item_path(item) %>
+<% elsif current_admin? %>
+  <%= link_to 'Edit Item', admin_edit_item_path(item) %>
+  <%= link_to 'Delete this item', admin_destroy_item_path(item) %>
+<% end %>
+<% if item.active %>
+    <%= link_to "Disable", edit_merchant_item_path(item) %>
+  <% else %>
+
+    <%= link_to "Enable", edit_merchant_item_path(item) %>
+    <%= "This item is no longer for sale." %>
+  <% end %>
+  <h5>Orders: <%= item.orders_count %></h5>
+  <% if item.orders_count < 1 %>
+    <%= link_to "Delete" %>
+  <% end %>
+</section>
+<% end %>
+</section>
+
 <h1>List of Merchants</h1>
 <% @merchants.each do |merchant| %>
 <section id="merchant-<%= merchant.id %>">

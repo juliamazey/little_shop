@@ -2,6 +2,14 @@
 <h4> <%= merchant.username %> </h4>
 <% end %><br/>
 </section>
+<section class="fast-merch"><h3>Fastest Merchant Fulfillment Times: <% @fast_merch.each do |merchant| %> </h3>
+<h4> <%= merchant.username %>: <%= merchant.fulfillment_time %> </h4>
+<% end %><br/>
+</section>
+<section class="slow-merch"><h3>Slowest Merchant Fulfillment Times: <% @slow_merch.each do |merchant| %> </h3>
+<h4><%= merchant.username %>: <%= merchant.fulfillment_time %> </h4>
+<% end %><br/>
+</section>
 <section class="top-states"><h3>Top States by Orders: <% @top_states.each do |user| %> </h3>
 <h4> <%= user.state %>: <%= user.count_of_orders %> </h4>
 <% end %><br/>
@@ -11,14 +19,17 @@
 <% end %><br/>
 </section>
 <section class="biggest-orders"><h3>Biggest Orders by Quantity: <% @big_orders.each do |order| %> </h3>
-<h4> <%= order.order_id %>: <%= order.total_quantity %> </h4>
+<h4>Order id: <%= order.order_id %> - Order quantity: <%= order.total_quantity %> </h4>
 <% end %><br/>
 </section>
 <% @merchants.each do |merchant| %>
   <% if merchant.active? %>
-    <%= merchant.username %>
-    <%= merchant.created_at %>
-    <%= merchant.city %>
-    <%= merchant.state %>
+  <h4>Merchant Info</h4>
+  <ul>
+    <li>Merchant name: <%= merchant.username %></li>
+    <li>Merchant creation date: <%= merchant.created_at %></li>
+    <li>Merchant city: <%= merchant.city %></li>
+    <li>Merchant state: <%= merchant.state %></li>
+  </ul>
   <% end %><br/>
 <% end %>

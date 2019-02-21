@@ -1,0 +1,26 @@
+<%= flash.each do |type, message|  %>
+<%= content_tag :div, message, class: type %>
+<% end %>
+
+<% if current_merchant? %>
+<%= link_to 'Add Item', merchant_dashboard_item_new_path %>
+<% elsif current_admin? %>
+<%= link_to "Add Item", admin_item_new_path(params[:format]) %>
+<% end %>
+<section class="items-wrapper">
+<% @items.each do |item| %>
+<section id="item-<%= item.id %>">
+<h3><%= link_to(item.name, item_path(item)) %></h3>
+<p> <%= item.id %> </p>
+<p><%= item.user.username %></p>
+<p>Price: <%= number_to_currency(item.price) %></p>
+<%= link_to image_tag(item.image), item_path(item), id: "image-#{item.id}", alt: item.name %>
+<p>Stock: <%= item.stock %></p>
+
+<% if current_merchant? %>
+  <%= link_to 'Edit Item', merchant_edit_item_path(item) %>
+  <%= link_to 'Delete this item', merchant_destroy_item_path(item) %>
+<% elsif current_admin? %>
+  <%= link_to 'Edit Item', admin_edit_item_path(item) %>
+  <%= link_to 'Delete this item', admin_destroy_item_path(item) %>
+<% end %>

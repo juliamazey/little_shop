@@ -6,6 +6,8 @@ class UsersController < ApplicationController
     @top_states = User.top_states
     @top_cities = User.top_cities
     @big_orders = OrderItem.biggest_orders
+    @fast_merch = OrderItem.fast_merch
+    @slow_merch = OrderItem.slow_merch
   end
 
   def new
@@ -34,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-      @user = current_user
+    @user = current_user
   end
 
   def show

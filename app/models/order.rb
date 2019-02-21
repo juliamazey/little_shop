@@ -17,12 +17,27 @@ class Order < ApplicationRecord
 
   def grand_total
     #might move this to Order Item model
+    # self.joins(order_items: :items)
+    # .select("items.price * order_items.order_quantity")
     order_items.sum {|order_item| order_item.order_price}
   end
 
+  def fulfilled_items?
+    order_items.all? do |order_item|
+      order_item.fulfilled?
+    end
+  end
 
   def self.merchant_orders(merchant)
     joins(:items).where(status: 0, items: {user: merchant}).group(:id)
   end
+
+
+  def self.cancelled?
+    all.any? do |order|
+      order.status == "cancelled"
+    end
+  end
+
 
 end
