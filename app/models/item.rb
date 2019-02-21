@@ -93,10 +93,13 @@ class Item < ApplicationRecord
   end
 
   def self.total_sold(merchant)
-    joins(:order_items)
+  result =  joins(:order_items)
     .select('items.user_id, sum(order_items.order_quantity) as total_qty, count(items.id)')
     .group('items.user_id')
-    .where("items.user_id = #{merchant.id}")[0].total_qty
+    .where("items.user_id = #{merchant.id}")[0]
+
+    return result.total_qty unless result.nil?
+    return 0
   end
 
   def self.percentage_sold(merchant)

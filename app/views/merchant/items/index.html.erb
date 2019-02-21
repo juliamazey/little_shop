@@ -3,7 +3,7 @@
 <%= link_to 'Add Item', merchant_dashboard_item_new_path %>
 
 <% flash.each do |type, message|  %>
-<% content_tag :div, message, class: type %>
+<%= content_tag :div, message, class: type %>
 <% end %>
 
 <section class="items-wrapper">
