@@ -13,6 +13,7 @@ class Admin::ItemsController < Admin::BaseController
   end
 
   def edit
+    # binding.pry
     @item = Item.find(params[:format])
   end
 

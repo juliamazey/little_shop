@@ -4,8 +4,9 @@ include ActionView::Helpers::NumberHelper
 RSpec.describe 'As a visitor or registered user' do
   before :each do
     @user = create(:user)
-    @item_1 = create(:item, active: true)
-    @item_2 = create(:item, active: true)
+    @merchant = create(:user, role: 1)
+    @item_1 = create(:item, active: true, user: @merchant)
+    @item_2 = create(:item, active: true, user: @merchant)
   end
   describe 'When I have added items to my cart' do
     it 'sees all items and their attributes' do
@@ -22,7 +23,6 @@ RSpec.describe 'As a visitor or registered user' do
 
       within "#item-#{@item_1.id}" do
         expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_1.image)
         expect(page).to have_content(@item_1.user.username)
         expect(page).to have_content("Stock: #{@item_1.stock}")
         expect(page).to have_content("#{number_to_currency(@item_1.price)}")
@@ -31,7 +31,6 @@ RSpec.describe 'As a visitor or registered user' do
 
       within "#item-#{@item_2.id}" do
         expect(page).to have_content(@item_2.name)
-        expect(page).to have_content(@item_2.image)
         expect(page).to have_content(@item_2.user.username)
         expect(page).to have_content("Stock: #{@item_2.stock}")
         expect(page).to have_content("#{number_to_currency(@item_2.price)}")
@@ -238,7 +237,6 @@ RSpec.describe 'As a visitor or registered user' do
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("Your order has been placed")
       expect(page).to have_content("Cart: 0")
-      expect(page).to have_content(@item_1.name)
     end
   end
 end
